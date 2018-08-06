@@ -8,6 +8,9 @@ const topicService =    require('./services/topic');
 const userService =     require('./services/user');
 const configService =   require('./services/config');
 
+// Service Label
+router.get('/', (req, res) => res.send("API Gateway"));
+
 router.get('/video',    videoService.getVideo);
 router.get('/live',     channelService.getChannel);
 router.get('/anchor',   anchorService.getAnchor);
