@@ -10,7 +10,7 @@ exports.getAnchor = async (req, res) => {
 	if (is_host) query.is_host = JSON.parse(is_host);
 	if (is_guest) query.is_guest = JSON.parse(is_guest);
 	if (weightage) query.weightage = Number(weightage);
-	console.log("Anchors Query:", query);
+	// console.log("Anchors Query:", query);
 
 	let result;
 
@@ -18,7 +18,7 @@ exports.getAnchor = async (req, res) => {
 		result = await collection.findOne(query);
 	}
 	else {
-		result = await collection.find(query).sort({weightage:-1}).toArray();
+		result = await collection.find(query).sort({weightage:-1}).toArray();	// Sorting by weightage descending
 	}
 	res.send(result);
 };

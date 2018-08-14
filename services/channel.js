@@ -10,7 +10,7 @@ exports.getChannel = async (req, res) => {
 	if (category) query.category = category;
 	if (name) query.name = name.replace(/-/g, ' ');	// Replacing the '-' in the channel name written in url for name searching.
 	query.active = true;	// Only returning the active channels
-	console.log("Channel Query:", query);
+	// console.log("Channel Query:", query);
 
 	let result;
 

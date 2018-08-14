@@ -15,9 +15,9 @@ router.get('/video',    videoService.getVideo);
 router.get('/live',     channelService.getChannel);
 router.get('/anchor',   anchorService.getAnchor);
 router.get('/topic',    topicService.getTopic);
-router.get('/config',   configService.settings);
+router.get('/config',   configService.settings);    // TODO: Move to Firebase
 
-router.route('/user')
+router.route('/user')   // TODO: Remove after confirmation from TP
     .get(userService.getUser)
     .post(userService.postUser);
 

@@ -19,13 +19,6 @@ exports.settings = async (req, res) => {
         admob_small_banner_id: 'ca-app-pub-8457136444921879~8502239343',
         admob_medium_banner_id: 'ca-app-pub-8457136444921879/9586214166',
         ads_priority: ['admob', 'smaato', 'inmobi'],
-        // tabs = [{
-        //     name: "name",
-        //     icon: "icon"},
-        //     {
-        //     name: "name2",
-        //     icon: "icon"}
-        // ],
         bitrates: ['Auto', '144', '240', '360', '480', '720'],
         banner: 'newupdate.jpg',
         force_update: true,

@@ -17,13 +17,12 @@ exports.getVideo = async (req, res) => {
 	if (source) query.source = source;
 	if (pinned) query.pinned = JSON.parse(pinned);		// Conversion of string to Boolean
 	
-	console.log("Video Query:", query);
-	query.active = true;	// Getting only active videos
+	// console.log("Video Query:", query);
+	query.active = true;	// Get only active videos
 	let result;
 
 	if (_id) {		// If _id then findOne
 		result = await collection.findOne(query);
-		console.log(result);
 		if (result == null) result= [];		// If no result is found then return empty array
 	}
 	else {

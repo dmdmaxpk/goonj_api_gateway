@@ -8,7 +8,7 @@ exports.getTopic = async (req, res) => {
 
 	if (_id || name) query._id = _id;
 	if (weightage) query.weightage = Number(weightage);
-	console.log("Topic Query:", query);
+	// console.log("Topic Query:", query);
 
 	let result;
 
