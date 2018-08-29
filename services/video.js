@@ -3,21 +3,22 @@ exports.getVideo = async (req, res) => {
     const db = req.app.locals.db;
     const collection = db.collection('videos');
 
-	const { _id, title, category, sub_category, added_dtm, feed, anchor, topics, pinned, skip, limit, source } = req.query;
+	const { _id, title, category, sub_category, added_dtm, feed, anchor, guests, topics, pinned, skip, limit, source } = req.query;
 	const query = {};
 
 	if (_id) query._id = _id;
 	if (title) query.title = title;
 	if (category) query.category = category;
 	if (sub_category) query.sub_category = sub_category;
-	if (anchor) query.anchor = { $in: anchor.split(',') };
+	if (anchor) query.anchor = anchor;
+	if (guests) query.guests = { $in: guests.split(',') };
 	if (topics) query.topics = { $in: topics.split(',') };
 	if (added_dtm) query.added_dtm = added_dtm;
 	if (feed) query.feed = feed;
 	if (source) query.source = source;
 	if (pinned) query.pinned = JSON.parse(pinned);		// Conversion of string to Boolean
 	
-	// console.log("Video Query:", query);
+	console.log("Video Query:", query);
 	query.active = true;	// Get only active videos
 	let result;
 
