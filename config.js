@@ -13,7 +13,7 @@ let config = {
     },
     production: {
         port: '3000',
-        mongoDbUrl: 'mongodb://RootAdmin:password@mongo:27017/mongoose?authSource=admin&replicaSet=prdreplica1',  // @mongo is the name of the serview i.e mongo // TODO: Setting it to Env Variable
+        mongoDbUrl: 'mongodb://RootAdmin:password@mongo:27017/mongoose?authSource=admin&readPreference=secondaryPreferred',  // @mongo is the name of the serview i.e mongo // TODO: Setting it to Env Variable
         dbName: 'mongoose'
     }
 };
