@@ -11,11 +11,13 @@ exports.getVideo = async (req, res) => {
 	if (category) query.category = category;
 	if (sub_category) query.sub_category = sub_category;
 	if (anchor) query.anchor = anchor;
+	// TODO: query for Anchor pushing into Array.
+	// if (anchor) query.$or = anchor.split(',').map( el => ({anchor: el}) );
 	if (guests) query.guests = { $in: guests.split(',') };
 	if (topics) query.topics = { $in: topics.split(',') };
 	if (added_dtm) query.added_dtm = added_dtm;
 	if (feed) query.feed = feed;
-	if (source) query.source = source;
+	if (source) query.$or = source.split(',').map( el => ({source: el}) );	// OR query for  Source
 	if (pinned) query.pinned = JSON.parse(pinned);		// Conversion of string to Boolean
 	
 	console.log("Video Query:", query);
