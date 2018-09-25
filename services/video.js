@@ -29,6 +29,13 @@ exports.getVideo = async (req, res) => {
 	}
 	else {
 		result = await collection.find(query).sort({ added_dtm:-1 }).skip( Number(skip) || 0 ).limit( Number(limit) || 16 ).toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
+		// OR
+		// let options = {
+		// 	limit: Number(limit) || 16,
+		// 	skip: Number(skip) || 0,
+		// 	sort: added_dtm
+		// }
+		// result = await collection.find({}, options).toArray();
 	}
 	res.send(result);
 	// TODO: Pinned video
