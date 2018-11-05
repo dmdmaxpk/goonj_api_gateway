@@ -4,7 +4,6 @@ exports.getTopic = async (req, res) => {
 
 	if (version) {
 
-		console.log('object');
 		const db = req.app.locals.db;
 		const collection = db.collection('videos');		// Getting direct results from Videos Collection based on total count of each topic
 
