@@ -18,12 +18,12 @@ exports.getAnchor = async (req, res) => {
 		let defaultDays = new Date( today.valueOf() - ( 30 * oneDay ) );					// If not provided then default
 		
 		result = await collection.aggregate([
-			{ "$match": {
-				"added_dtm": { "$gte": customDays || defaultDays },		// Days by Query OR Default 30 days
-				anchor: { "$exists": true, "$ne": "" }					// Neglect empty anchors
+			{ $match: {
+				added_dtm: { $gte: customDays || defaultDays },		// Days by Query OR Default 30 days
+				anchor: { $exists: true, $ne: "" }					// Neglect empty anchors
 				}
 			},
-			{ "$group" : { 
+			{ $group : { 
 				_id: "$anchor", 
 				count: { $sum: 1 }		// Grouping by SUM count
 				}
@@ -31,7 +31,7 @@ exports.getAnchor = async (req, res) => {
 			{ $sort: { "count": -1 } },			// Sort by descending order of total counts
 			{ $limit: Number(limit) || 50 },	// Limit by query or default 50
 			{ $project: {
-				"name": "$_id",		// Show _id by name field
+				name: "$_id",		// Show _id by name field
 				// "count": 1,		// Show count field
 				_id: 0,				// Remove _id field
 				}

@@ -4,6 +4,7 @@ exports.getTopic = async (req, res) => {
 
 	if (version) {
 
+		console.log('object');
 		const db = req.app.locals.db;
 		const collection = db.collection('videos');		// Getting direct results from Videos Collection based on total count of each topic
 
@@ -18,12 +19,13 @@ exports.getTopic = async (req, res) => {
 		let defaultDays = new Date( today.valueOf() - ( 7 * oneDay ) );					// If not provided then default 7
 		
 		result = await collection.aggregate([
-			{ "$match": {
-				"added_dtm": { "$gte": customDays || defaultDays }		// Days by Query OR Default
+			{ $match: {
+				added_dtm: { $gte: customDays || defaultDays },		// Days by Query OR Default
+				topics: { $exists: true, $ne: "" }		
 				}
 			},
 			{ $unwind: "$topics" },		// Deconstructs an array field from the input documents to output a document for each element. 
-			{ "$group" : { 
+			{ $group : { 
 				_id: "$topics", 
 				count: { $sum: 1 }		// Grouping by SUM count
 				}
@@ -31,7 +33,7 @@ exports.getTopic = async (req, res) => {
 			{ $sort: { "count": -1 } },			// Sort by descending order of total counts
 			{ $limit: Number(limit) || 50 },	// Limit by query or default 50
 			{ $project: {
-				"name": "$_id",		// Show _id by name field
+				name: "$_id",		// Show _id by name field
 				// "count": 1,		// Show count field
 				_id: 0,				// Remove _id field
 				}
