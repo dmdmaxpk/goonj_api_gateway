@@ -24,11 +24,11 @@ exports.getVideo = async (req, res) => {
 	let result;
 
 	if (_id) {		// If _id then findOne
-		result = await collection.findOne(query);
+		result = await collection.findOne(query, '-active -transcoding_status');
 		if (result == null) result= [];		// If no result is found then return empty array
 	}
 	else {
-		result = await collection.find(query).sort({ added_dtm:-1 }).skip( Number(skip) || 0 ).limit( Number(limit) || 16 ).toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
+		result = await collection.find(query, '-active -transcoding_status').sort({ added_dtm:-1 }).skip( Number(skip) || 0 ).limit( Number(limit) || 16 ).toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
 		// OR
 		// let options = {
 		// 	limit: Number(limit) || 16,
