@@ -19,9 +19,11 @@ router.get('/topic',    topicService.getTopic);
 router.get('/config',   configService.settings);    // TODO: Move to Firebase
 router.get('/search',   searchService.getSearch);
 
-router.route('/user')   // TODO: Remove after confirmation from TP
-    .get(userService.getUser)
-    .post(userService.postUser);
+router.post('/user/sendOtp',            userService.sendOtp);
+router.get('/user/validateOtp',         userService.validateOtp);
+
+router.post('/user/subscribe',          userService.subscribe);
+router.get('/user/subscriptionStatus',  userService.subscriptionStatus);
 
 // TODO
 router.get('/recommendation');
