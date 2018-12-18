@@ -1,8 +1,7 @@
 exports.settings = async (req, res) => {
     let data = {
         blabla: 'test2',
-        live_url: 'http://live.pockettv.com.pk:1936/live',
-        vod_url: 'http://live.pockettv.com.pk:555/curation',
+        live_url: 'http://streampk.goonj.pk/aplus.m3u8',
         api_url: 'http://192.168.10.121:3002',
         cdn_static: 'http://cloudfront.com',
         terms_url: 'https://api.goonj.pk/',
