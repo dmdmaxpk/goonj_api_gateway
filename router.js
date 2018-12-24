@@ -16,12 +16,12 @@ router.get('/video',    videoService.getVideo);
 router.get('/live',     channelService.getChannel);
 router.get('/anchor',   anchorService.getAnchor);
 router.get('/topic',    topicService.getTopic);
-router.get('/config',   configService.settings);    // TODO: Move to Firebase
+router.get('/config',   configService.settings);    // All configs are shifted to Firebase
 router.get('/search',   searchService.getSearch);
 
+// Paywall billing
 router.post('/user/sendOtp',            userService.sendOtp);
 router.get('/user/validateOtp',         userService.validateOtp);
-
 router.post('/user/subscribe',          userService.subscribe);
 router.get('/user/subscriptionStatus',  userService.subscriptionStatus);
 
