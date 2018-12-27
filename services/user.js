@@ -35,8 +35,8 @@ exports.subscribe = async (req, res) => {
 exports.subscriptionStatus = async (req, res) => {
 
 	const { msisdn } = req.query;
-	console.log('Req-----------:\n\n', req);
-	console.log('Headers-----------:\n\n', req.headers);
+	// console.log('Req-----------:\n\n', req);
+	// console.log('Headers-----------:\n\n', req.headers);
 
 
 	let { data } = await axios.get(`${config.billingService}/subscription/checkStatus?msisdn=${msisdn}`);	// Replace it with user service
