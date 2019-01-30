@@ -4,6 +4,7 @@ const router = express.Router();
 const videoService =    require('./services/video');
 const channelService =  require('./services/channel');
 const anchorService =   require('./services/anchor');
+const programService =   require('./services/program');
 const topicService =    require('./services/topic');
 const userService =     require('./services/user');
 const configService =   require('./services/config');
@@ -15,6 +16,7 @@ router.get('/', (req, res) => res.send("API Gateway"));
 router.get('/video',    videoService.getVideo);
 router.get('/live',     channelService.getChannel);
 router.get('/anchor',   anchorService.getAnchor);
+router.get('/program',  programService.getProgram);
 router.get('/topic',    topicService.getTopic);
 router.get('/config',   configService.settings);    // All configs are shifted to Firebase
 router.get('/search',   searchService.getSearch);
