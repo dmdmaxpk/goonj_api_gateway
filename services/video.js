@@ -10,13 +10,9 @@ exports.getVideo = async (req, res) => {
 	if (category) query.category = category;
 	if (source)   query.source = source;
 	if (pinned)   query.pinned = JSON.parse(pinned);		// Conversion of string to Boolean
-	
-	// Params for customized feed
-	if (feed) 	 query.feed = feed;
-	if (anchor)  feedParams.anchor = anchor.split(',').map( el => ({anchor: el}) );	// OR query for  Anchor
-	if (program) feedParams.program = program.split(',').map( el => ({program: el}) );	// OR query for Program
-	if (topics)  feedParams.topics = { $in: topics.split(',') };
-	if (guests)  feedParams.guests = { $in: guests.split(',') };
+	if (feed) 	  query.feed = feed;
+	if (anchor)   query.$or = anchor.split(',').map( el => ({anchor: el}) );	// OR query for  Anchor
+	if (topics)   query.topics = { $in: topics.split(',') };
 	
 	query.active = true;	// Get only active videos
 	// console.log("Video Query:", query);
@@ -27,16 +23,16 @@ exports.getVideo = async (req, res) => {
 		result = await collection.findOne(query);
 		if (result == null) result= [];		// If no result is found then return empty array
 	}
-	else if (feed=='myfeed') {
+	else if (feed=='myfeed' && (program || anchor || topics || guests)) {
 
 		let feedQuery = [];
-		if (program) feedQuery.push({ '$or': feedParams.program });
-		if (anchor)  feedQuery.push({ '$or': feedParams.anchor });
-		if (topics)  feedQuery.push({ '$or': [{ topics: feedParams.topics }] });
-		if (guests)  feedQuery.push({ '$or': [{ guests: feedParams.guests }] });
+		if (program) feedQuery.push({ '$or': program.split(',').map( el => ({program: el}) ) });
+		if (anchor)  feedQuery.push({ '$or': anchor.split(',').map( el => ({anchor: el}) ) });
+		if (topics)  feedQuery.push({ '$or': [{ topics: { $in: topics.split(',') } }] });
+		if (guests)  feedQuery.push({ '$or': [{ guests: { $in: guests.split(',') } }] });
 		
 		// feedQuery sample output:
-		// console.dir(feedQuery, {depth: null});
+		console.dir(feedQuery, {depth: null});
 		// [ { '$or': [ { program: 'Behind The Wicket' } ] },
 		// { '$or': [ { anchor: 'Arifa Noor' }, { anchor: 'Abdul Moiz Jaferi' } ] },
 		// { '$or': [ { topics: { '$in': [ 'PTI', 'Asif Zardari' ] } } ] } ]
