@@ -23,7 +23,7 @@ exports.getVideo = async (req, res) => {
 		result = await collection.findOne(query);
 		if (result == null) result= [];		// If no result is found then return empty array
 	}
-	else if (feed=='myfeed' && (program || anchor || topics || guests)) {
+	else if ( feed=='myfeed' && (program || anchor || topics || guests) ) {
 
 		let feedQuery = [];
 		if (program) feedQuery.push({ '$or': program.split(',').map( el => ({program: el}) ) });
@@ -62,6 +62,15 @@ exports.getVideo = async (req, res) => {
 		   .toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
 		
 		
+	}
+	else if ( category == 'pakistan' ){
+		console.log('Pakistan');
+		result = await collection.find({ '$or': [ { category: 'politics' }, { category: 'entertainment' }, { category: 'technology' }, { category: 'culture' }, { category: 'crime' }, { category: 'economy' }, { category: 'environment' } ] })
+								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
+								 .sort({ added_dtm: -1 })
+								 .skip( Number(skip) || 0 )
+								 .limit( Number(limit) || 16 )
+								 .toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
 	}
 	else {
 		result = await collection.find(query)
