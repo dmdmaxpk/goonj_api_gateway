@@ -53,7 +53,7 @@ exports.getProgram = async (req, res) => {
 		if (_id) query._id = _id;
 		if (weightage) query.weightage = Number(weightage);
 
-		let result = await collection.find(query).project({ 'description' : 0, 'added_dtm' : 0, '__v': 0 }).toArray();	// Sorting by weightage descending
+		let result = await collection.find({ weightage: {$gt: 0} }).sort({weightage:-1}).project({ 'description' : 0, 'added_dtm' : 0, '__v': 0 }).toArray();	// Sorting by weightage descending
 		res.send(result);
 	}
 };

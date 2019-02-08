@@ -58,7 +58,8 @@ exports.getAnchor = async (req, res) => {
 			result = await collection.findOne(query);
 		}
 		else {
-			result = await collection.find(query).sort({weightage:-1}).toArray();	// Sorting by weightage descending
+			// TODO: Add projection after some time when the old user migrates cos old APP versions are storing avatar, added_dtm etc. (duhh! IKR!)
+			result = await collection.find({ weightage: {$gt: 0} }).sort({weightage:-1}).project({ '__v': 0 }).toArray();	// Sorting by weightage descending
 		}
 		res.send(result);
 	}
