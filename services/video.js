@@ -11,6 +11,7 @@ exports.getVideo = async (req, res) => {
 	if (source)   query.source = source;
 	if (pinned)   query.pinned = JSON.parse(pinned);		// Conversion of string to Boolean
 	if (feed) 	  query.feed = feed;
+	if (program)  query.program = program;
 	if (anchor)   query.$or = anchor.split(',').map( el => ({anchor: el}) );	// OR query for  Anchor
 	if (topics)   query.topics = { $in: topics.split(',') };
 	
@@ -23,21 +24,19 @@ exports.getVideo = async (req, res) => {
 		result = await collection.findOne(query);
 		if (result == null) result= [];		// If no result is found then return empty array
 	}
+	// For APP: Customized feed
 	else if ( feed=='myfeed' && (program || anchor || topics || guests) ) {
 
+		// console.log('myfeed---------');
 		let feedQuery = [];
 		if (program) feedQuery.push({ '$or': program.split(',').map( el => ({program: el}) ) });
 		if (anchor)  feedQuery.push({ '$or': anchor.split(',').map( el => ({anchor: el}) ) });
 		if (topics)  feedQuery.push({ '$or': [{ topics: { $in: topics.split(',') } }] });
 		if (guests)  feedQuery.push({ '$or': [{ guests: { $in: guests.split(',') } }] });
 		
-		// feedQuery sample output:
-		console.dir(feedQuery, {depth: null});
-		// [ { '$or': [ { program: 'Behind The Wicket' } ] },
-		// { '$or': [ { anchor: 'Arifa Noor' }, { anchor: 'Abdul Moiz Jaferi' } ] },
-		// { '$or': [ { topics: { '$in': [ 'PTI', 'Asif Zardari' ] } } ] } ]
+		// console.dir(feedQuery, {depth: null});
 		
-		result = await collection.find( { 
+		result = await collection.find( {
 			$and: [
 				// {$or: [ 
 				// 	{ '$or': query.program }, 	// Full form: { '$or': [ { program: 'NewsEye' }, { program: 'To The Point' } ] }
@@ -56,13 +55,13 @@ exports.getVideo = async (req, res) => {
 				{ active: true }
 			]
 		} ).project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
-		   .sort({ added_dtm:-1 })
+		   .sort({ added_dtm: -1 })
 		   .skip( Number(skip) || 0 )
 		   .limit( Number(limit) || 16 )
 		   .toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
 		
-		
 	}
+	// For App category Pakistan, replicating functionality like on web
 	else if ( category == 'pakistan' ){
 		console.log('Pakistan');
 		result = await collection.find({ '$or': [ { category: 'politics' }, { category: 'entertainment' }, { category: 'technology' }, { category: 'culture' }, { category: 'crime' }, { category: 'economy' }, { category: 'environment' } ] })
@@ -72,7 +71,9 @@ exports.getVideo = async (req, res) => {
 								 .limit( Number(limit) || 16 )
 								 .toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
 	}
+	// For all the other calls
 	else {
+		// console.log('else===========');
 		result = await collection.find(query)
 								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
 								 .sort({ added_dtm: -1 })
