@@ -18,7 +18,9 @@ exports.getChannel = async (req, res) => {
 		if (result == null) result= [];		// If no result is found then return empty array
 	}
 	else {
-		result = await collection.find(query).sort({seq:1}).toArray();
+		result = await collection.find(query)
+								 .project({ 'active' : 0, 'added_dtm' : 0, 'description' : 0, '__v': 0, 'country': 0, 'seq': 0, 'logo': 0, 'category': 0 })
+								 .sort({seq:1}).toArray();
 	}
 	res.send(result);
 };
