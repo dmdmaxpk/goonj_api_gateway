@@ -63,7 +63,7 @@ exports.getVideo = async (req, res) => {
 	}
 	// For App category Pakistan, replicating functionality like on web
 	else if ( category == 'pakistan' ){
-		console.log('Pakistan');
+		// console.log('Pakistan');
 		// result = await collection.find({ '$or': [ { category: 'politics' }, { category: 'entertainment' }, { category: 'technology' }, { category: 'culture' }, { category: 'crime' }, { category: 'economy' }, { category: 'environment' } ] })
 		result = await collection.find({ active: true, '$or': [ { category: 'politics' }, { category: 'entertainment' }, { category: 'technology' }, { category: 'culture' }, { category: 'crime' }, { category: 'economy' }, { category: 'environment' } ] })
 								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
