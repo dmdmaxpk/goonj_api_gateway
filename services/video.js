@@ -3,7 +3,7 @@ exports.getVideo = async (req, res) => {
     const db = req.app.locals.db;
     const collection = db.collection('videos');
 
-	const { _id, category, feed, anchor, guests, topics, pinned, skip, limit, source, program } = req.query;
+	const { _id, category, feed, anchor, guests, topics, pinned, skip, limit, source, program, file_name } = req.query;
 	let query = {}, feedParams = {};
 
 	if (_id) 	  query._id = _id;
@@ -14,6 +14,7 @@ exports.getVideo = async (req, res) => {
 	if (program)  query.program = program;
 	if (anchor)   query.$or = anchor.split(',').map( el => ({anchor: el}) );	// OR query for  Anchor
 	if (topics)   query.topics = { $in: topics.split(',') };
+	if (file_name)  query.file_name = file_name;
 	
 	query.active = true;	// Get only active videos
 	// console.log("Video Query:", query);
