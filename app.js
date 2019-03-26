@@ -12,7 +12,7 @@ app.use('/', router);
 let db;
 
 // Initialize connection once
-MongoClient.connect(config.mongoDbUrl, { useNewUrlParser: true, poolSize: 10 }, function(err, client) {    // TODO: Check if increasing/decreasing poolSize has any effect
+MongoClient.connect(config.mongoDbUrl, { useNewUrlParser: true, poolSize: 10 }, function(err, client) {    // TODO: Check if increasing/decreasing poolSize has any effect, default connection pool is 5
     if(err) throw err;
 
     db = client.db(config.dbName);
