@@ -6,6 +6,7 @@ let config = {
         // mongoDbUrl: 'mongodb://RootAdmin:password@10.0.1.90:27017/telenor?authSource=admin&readPreference=secondaryPreferred', 
         mongoDbUrl: 'mongodb://RootAdmin:password@10.3.7.101:27017/telenor?authSource=admin&readPreference=secondaryPreferred',
         // mongoDbUrl: 'mongodb://localhost:27017/telenor',
+        // mongoDbUrl: 'mongodb://RootAdmin:password@10.3.7.101:27017/telenor?authSource=admin&replicaSet=prdreplica1',
         dbName: 'telenor',
         billingService: 'http://10.0.1.76:3005'
     },
