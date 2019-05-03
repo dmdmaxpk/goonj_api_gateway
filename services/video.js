@@ -77,7 +77,7 @@ exports.getVideo = async (req, res) => {
 
 	// For App category Editor's Pick, replicating functionality same as web
 	else if ( category == 'editorspick' ) {
-		console.log('Editors pick');
+		// console.log('Editors pick');
 		result = await collection.find({ active: true, topics: 'Editors Pick' })
 								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
 								 .sort({ added_dtm: -1 })
