@@ -25,6 +25,7 @@ router.get('/search',   searchService.getSearch);
 router.post('/user/sendOtp',            userService.sendOtp);
 router.get('/user/validateOtp',         userService.validateOtp);
 router.post('/user/subscribe',          userService.subscribe);
+router.get('/user/unsubscribe',         userService.unSubscribe);
 router.get('/user/subscriptionStatus',  userService.subscriptionStatus);
 
 // TODO

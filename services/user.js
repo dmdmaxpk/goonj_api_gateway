@@ -32,6 +32,15 @@ exports.subscribe = async (req, res) => {
 	res.send(data);
 };
 
+exports.unSubscribe = async (req, res) => {
+
+	const { msisdn } = req.query;
+
+	let { data } = await axios.get(`${config.billingService}/subscription/unsubscribe?msisdn=${msisdn}`);
+	console.log('UnSubscribe: ', data);
+	res.send(data);
+};
+
 exports.subscriptionStatus = async (req, res) => {
 
 	const { msisdn } = req.query;
