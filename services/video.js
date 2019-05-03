@@ -25,8 +25,9 @@ exports.getVideo = async (req, res) => {
 		result = await collection.findOne(query);
 		if (result == null) result= [];		// If no result is found then return empty array
 	}
+
 	// For APP: Customized feed
-	else if ( feed=='myfeed' && (program || anchor || topics || guests) ) {
+	else if ( feed == 'myfeed' && (program || anchor || topics || guests) ) {
 
 		// console.log('myfeed---------');
 		let feedQuery = [];
@@ -62,8 +63,9 @@ exports.getVideo = async (req, res) => {
 		   .toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
 		
 	}
-	// For App category Pakistan, replicating functionality like on web
-	else if ( category == 'pakistan' ){
+
+	// For App category Pakistan, replicating functionality same as web
+	else if ( category == 'pakistan' ) {
 		// console.log('Pakistan');
 		result = await collection.find({ active: true, '$or': [ { category: 'politics' }, { category: 'entertainment' }, { category: 'technology' }, { category: 'culture' }, { category: 'crime' }, { category: 'economy' }, { category: 'environment' } ] })
 								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
@@ -72,6 +74,18 @@ exports.getVideo = async (req, res) => {
 								 .limit( Number(limit) || 16 )
 								 .toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
 	}
+
+	// For App category Editor's Pick, replicating functionality same as web
+	else if ( category == 'editorspick' ) {
+		console.log('Editors pick');
+		result = await collection.find({ active: true, topics: 'Editors Pick' })
+								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
+								 .sort({ added_dtm: -1 })
+								 .skip( Number(skip) || 0 )
+								 .limit( Number(limit) || 16 )
+								 .toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
+	}
+
 	// For all the other calls
 	else {
 		// console.log('else===========');
