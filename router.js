@@ -27,6 +27,7 @@ router.get('/user/validateOtp',         userService.validateOtp);
 router.post('/user/subscribe',          userService.subscribe);
 router.get('/user/unsubscribe',         userService.unSubscribe);
 router.get('/user/subscriptionStatus',  userService.subscriptionStatus);
+router.get('/user/packages',  			userService.packages);
 
 // TODO
 router.get('/recommendation');

@@ -54,3 +54,10 @@ exports.subscriptionStatus = async (req, res) => {
 	res.send(data);
 };
 
+exports.packages = async (req, res) => {
+
+	let { data } = await axios.get(`${config.billingService}/user/packages`);	// Replace it with user service
+
+	res.send(data);
+};
+
