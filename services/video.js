@@ -56,7 +56,7 @@ exports.getVideo = async (req, res) => {
 				{ $or: feedQuery },
 				{ active: true }
 			]
-		} ).project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
+		} ).project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0, 'pinned': 0 })
 		   .sort({ added_dtm: -1 })
 		   .skip( Number(skip) || 0 )
 		   .limit( Number(limit) || 16 )
@@ -68,7 +68,7 @@ exports.getVideo = async (req, res) => {
 	else if ( category == 'pakistan' ) {
 		// console.log('Pakistan');
 		result = await collection.find({ active: true, '$or': [ { category: 'politics' }, { category: 'entertainment' }, { category: 'technology' }, { category: 'culture' }, { category: 'crime' }, { category: 'economy' }, { category: 'environment' } ] })
-								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
+								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0, 'pinned': 0 })
 								 .sort({ added_dtm: -1 })
 								 .skip( Number(skip) || 0 )
 								 .limit( Number(limit) || 16 )
@@ -79,18 +79,24 @@ exports.getVideo = async (req, res) => {
 	else if ( category == 'topstories' ) {
 		// console.log('Editors pick');
 		result = await collection.find({ active: true, topics: 'Top Story' })
-								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
+								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0, 'pinned': 0 })
 								 .sort({ added_dtm: -1 })
 								 .skip( Number(skip) || 0 )
 								 .limit( Number(limit) || 16 )
 								 .toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
+	
+		let [ pinned ] = await collection.find({ pinned: true })
+										 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0, 'pinned': 0 })
+										 .toArray();
+
+		result.unshift(pinned);
 	}
 
 	// For all the other calls
 	else {
 		// console.log('else===========');
 		result = await collection.find(query)
-								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
+								 .project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0, 'pinned': 0 })
 								 .sort({ added_dtm: -1 })
 								 .skip( Number(skip) || 0 )
 								 .limit( Number(limit) || 16 )
