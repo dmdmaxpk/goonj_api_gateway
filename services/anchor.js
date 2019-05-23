@@ -61,7 +61,7 @@ exports.getAnchor = async (req, res) => {
 		else {
 			result = await collection
 				.find({ weightage: {$gt: 0} })
-				.sort({ weightage:-1 })		// Sort by weightage descending
+				.sort({ weightage: -1 })		// Sort by weightage descending
 				.project({ '__v': 0, 'added_dtm': 0, 'avatar': 0, 'weightage': 0 })
 				.toArray();	
 		}
