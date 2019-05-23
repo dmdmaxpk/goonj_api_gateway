@@ -2,11 +2,11 @@ exports.getProgram = async (req, res) => {
 
 	const { version } = req.query;
 	
-	// For popularity in recent videos
+	// For popularity in recent videos (OLD APP)
 	if (version) {
 
 		const db = req.app.locals.db;
-		let collection = db.collection('videos');	// Getting direct results from Videos Collection based on total count of each anchor
+		let collection = db.collection('videos');
 
 		const { limit, days } = req.query;
 
@@ -53,7 +53,12 @@ exports.getProgram = async (req, res) => {
 		if (_id) query._id = _id;
 		if (weightage) query.weightage = Number(weightage);
 
-		let result = await collection.find({ weightage: {$gt: 0} }).sort({weightage:-1}).project({ 'description' : 0, 'added_dtm' : 0, '__v': 0 }).toArray();	// Sorting by weightage descending
+		let result = await collection
+			.find({ weightage: {$gt: 0} })
+			.sort({ weightage: -1 })	// Sorting by weightage descending
+			.project({ 'description': 0, 'added_dtm': 0, '__v': 0 })
+			.toArray();
+
 		res.send(result);
 	}
 };
