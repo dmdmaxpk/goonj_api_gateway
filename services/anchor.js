@@ -2,10 +2,11 @@ exports.getAnchor = async (req, res) => {
 
 	const { version } = req.query;
 	
+	// For popularity in recent videos (OLD APP)
 	if (version) {
 
 		const db = req.app.locals.db;
-		let collection = db.collection('videos');	// Getting direct results from Videos Collection based on total count of each anchor
+		let collection = db.collection('videos');
 
 		const { limit, days } = req.query;
 
@@ -41,6 +42,7 @@ exports.getAnchor = async (req, res) => {
 		res.send(result);
 	}
 
+	// After App Redesign
 	else {
 		const db = req.app.locals.db;
 		const collection = db.collection('anchors');
@@ -50,7 +52,6 @@ exports.getAnchor = async (req, res) => {
 
 		if (_id) query._id = _id;
 		if (weightage) query.weightage = Number(weightage);
-		// console.log("Anchors Query:", query);
 
 		let result;
 
@@ -58,8 +59,11 @@ exports.getAnchor = async (req, res) => {
 			result = await collection.findOne(query);
 		}
 		else {
-			// TODO: Add projection after some time when the old user migrates cos old APP versions are storing avatar, added_dtm etc. (duhh! IKR!)
-			result = await collection.find({ weightage: {$gt: 0} }).sort({weightage:-1}).project({ '__v': 0 }).toArray();	// Sorting by weightage descending
+			result = await collection
+				.find({ weightage: {$gt: 0} })
+				.sort({ weightage:-1 })		// Sort by weightage descending
+				.project({ '__v': 0, 'added_dtm': 0, 'avatar': 0, 'weightage': 0 })
+				.toArray();	
 		}
 		res.send(result);
 	}
