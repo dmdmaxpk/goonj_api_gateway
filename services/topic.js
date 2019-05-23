@@ -2,6 +2,7 @@ exports.getTopic = async (req, res) => {
 
 	const { version } = req.query;
 
+	// For popularity in recent videos (OLD APP)
 	if (version) {
 
 		const db = req.app.locals.db;
@@ -58,8 +59,11 @@ exports.getTopic = async (req, res) => {
 			result = await collection.findOne(query);
 		}
 		else {
-			// result = await collection.find({ weightage: {$gt: 0} }).sort({weightage:-1}).project({ '__v': 0 }).skip( Number(skip) || 0 ).limit( Number(limit) || 16 ).toArray();
-			result = await collection.find({ weightage: {$gt: 0} }).sort({weightage:-1}).project({ '__v': 0 }).toArray();
+			result = await collection
+				.find({ weightage: {$gt: 0} })
+				.sort({ weightage: -1 })
+				.project({ '__v': 0, 'added_dtm': 0, 'weightage': 0 })
+				.toArray();
 		}
 		res.send(result);
 	}
