@@ -87,6 +87,17 @@ exports.getVideo = async (req, res) => {
 		result.unshift(pinned);
 	}
 
+	// For App category: Premium
+	else if ( category == 'premium' ) {
+		result = await collection
+			.find({ active: true, category: 'premium' })
+			.project({ 'active': 0, 'transcoding_status': 0, 'last_modified': 0, '__v': 0, 'pinned': 0 })
+			.sort({ added_dtm: -1 })
+			.skip( Number(skip) || 0 )
+			.limit( Number(limit) || 16 )
+			.toArray();		// Sorting by added_dtm, default for skip and limit is 0 and 16 respectively
+	}
+
 	// For all the other calls
 	else {
 		query.category = { $ne: 'premium' };	// Exclude premium category videos
