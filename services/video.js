@@ -89,6 +89,7 @@ exports.getVideo = async (req, res) => {
 
 	// For all the other calls
 	else {
+		query.category = { $ne: 'premium' };	// Exclude premium category videos
 		result = await collection
 			.find(query)
 			.project({ 'active': 0, 'transcoding_status': 0, 'last_modified': 0, '__v': 0, 'pinned': 0 })
