@@ -7,7 +7,6 @@ exports.getVideo = async (req, res) => {
 	let query = {};
 
 	if (_id) 	  	query._id = _id;
-	if (category) 	query.category = category;
 	if (source)   	query.source = source;
 	if (pinned)   	query.pinned = JSON.parse(pinned);		// Conversion of string to Boolean
 	if (feed) 	  	query.feed = feed;
@@ -16,6 +15,8 @@ exports.getVideo = async (req, res) => {
 	if (topics)   	query.topics = { $in: topics.split(',') };
 	if (file_name)  query.file_name = file_name;
 	
+	query.category = category ? category : { $ne: 'premium' };		// Exclude premium category videos
+
 	query.active = true;	// Get only active videos
 	let result;
 
@@ -100,7 +101,6 @@ exports.getVideo = async (req, res) => {
 
 	// For all the other calls
 	else {
-		query.category = { $ne: 'premium' };	// Exclude premium category videos
 		result = await collection
 			.find(query)
 			.project({ 'active': 0, 'transcoding_status': 0, 'last_modified': 0, '__v': 0, 'pinned': 0 })
