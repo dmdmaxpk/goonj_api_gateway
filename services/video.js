@@ -85,7 +85,7 @@ exports.getVideo = async (req, res) => {
 			.project({ 'active': 0, 'transcoding_status': 0, 'last_modified': 0, '__v': 0, 'pinned': 0 })
 			.toArray();
 
-		result.unshift(pinned);
+		if (pinned) result.unshift(pinned);
 	}
 
 	// For App category: Premium
