@@ -1,6 +1,6 @@
 exports.getChannel = async (req, res) => {
 
-    const db = req.app.locals.db;
+    const { db } = req.app.locals;
     const collection = db.collection('channels');
 
 	const { _id, slug } = req.query;
@@ -12,14 +12,14 @@ exports.getChannel = async (req, res) => {
 
 	let result;
 
-	if (_id || slug) {		// If _id then findOne
+	if (_id || slug) {		// If _id || slug then findOne
 		result = await collection.findOne(query);
 		if (result == null) result= [];		// If no result is found then return empty array
 	}
 	else {
 		result = await collection
 			.find(query)
-			.project({ 'active': 0, 'added_dtm': 0, 'description': 0, '__v': 0, 'country': 0, 'seq': 0, 'logo': 0, 'category': 0 })
+			.project({ 'active': 0, 'added_dtm': 0, 'description': 0, '__v': 0, 'country': 0, 'seq': 0, 'logo': 0, 'category': 0, 'last_modified': 0 })
 			.sort({ seq:1 })
 			.toArray();
 	}

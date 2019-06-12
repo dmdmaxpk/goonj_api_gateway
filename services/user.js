@@ -1,60 +1,57 @@
+// MIDDLEWARE TO PAYWALL SERVICE: Billing users on APP
+
 const axios = require('axios');
 const config = require('../config');
 
 
+// Send OTP
 exports.sendOtp = async (req, res) => {
 
 	const post = req.body;
-	console.log(post);
 
 	let { data } = await axios.post(`${config.billingService}/user/sendOtp`, post);
-	console.log('Send OTP: ', data);
 	res.send(data);
 };
 
+// Validate OTP
 exports.validateOtp = async (req, res) => {
 
 	const { msisdn, otp, source  } = req.query;
 
-	let { data } = await axios.get(`${config.billingService}/user/validateOtp?msisdn=${msisdn}&otp=${otp}&source=${source}`);	// Replace it with user service
-
-	console.log('Validate OTP: ', data);
+	let { data } = await axios.get(`${config.billingService}/user/validateOtp?msisdn=${msisdn}&otp=${otp}&source=${source}`);
 	res.send(data);
 };
 
+// Subscription
 exports.subscribe = async (req, res) => {
 
 	const post = req.body;
-	console.log(post);
 
 	let { data } = await axios.post(`${config.billingService}/subscription/subscribeUser`, post);
-	console.log('Subscribe: ', data);
 	res.send(data);
 };
 
+// Unsubscription
 exports.unSubscribe = async (req, res) => {
 
 	const { key } = req.query;
 
 	let { data } = await axios.get(`${config.billingService}/subscription/unsubscribe?key=${key}`);
-	console.log('UnSubscribe: ', data);
 	res.send(data);
 };
 
+// Subscription Status
 exports.subscriptionStatus = async (req, res) => {
 
 	const { msisdn } = req.query;
 
-	let { data } = await axios.get(`${config.billingService}/subscription/checkStatus?msisdn=${msisdn}`);	// Replace it with user service
-
-	console.log('Subscription status: ', data);
+	let { data } = await axios.get(`${config.billingService}/subscription/checkStatus?msisdn=${msisdn}`);
 	res.send(data);
 };
 
+// Packages details
 exports.packages = async (req, res) => {
 
-	let { data } = await axios.get(`${config.billingService}/user/packages`);	// Replace it with user service
-
+	let { data } = await axios.get(`${config.billingService}/user/packages`);
 	res.send(data);
 };
-

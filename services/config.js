@@ -1,6 +1,5 @@
 exports.settings = async (req, res) => {
     let data = {
-        blabla: 'test2',
         live_url: 'http://streampk.goonj.pk/test.m3u8',
         api_url: 'http://192.168.10.121:3002',
         cdn_static: 'http://cloudfront.com',

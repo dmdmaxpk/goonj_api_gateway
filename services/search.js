@@ -1,6 +1,6 @@
 exports.getSearch = async (req, res) => {
 
-    const db = req.app.locals.db;
+    const { db } = req.app.locals;
     const collection = db.collection('videos');
 
 	const { term, skip, limit } = req.query;
@@ -10,12 +10,18 @@ exports.getSearch = async (req, res) => {
 
 	let result;
 		
-	result = await collection.find( { $and: [ { active: true }, { $text: { $search: `\"${query.term}\"` } } ] } )	// Exact Phrase text search
-							.project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
-							.sort({ added_dtm: -1 })
-							.skip( Number(skip) || 0 )
-							.limit( Number(limit) || 16 )
-							.toArray();
+	result = await collection
+		.find({ 
+			$and: [												// AND condition
+				{ active: true }, 								// Videos should be active
+				{ $text: { $search: `\"${query.term}\"` } } 	// Text search on Phrase. More info: https://docs.mongodb.com/manual/reference/operator/query/text/
+			] 
+		})
+		.project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
+		.sort({ added_dtm: -1 })			// Sort by desc added_dtm
+		.skip( Number(skip) || 0 )			// Skip by query or default 0
+		.limit( Number(limit) || 16 )		// Limit by query or default 16
+		.toArray();
 
 	res.send(result);
 };
