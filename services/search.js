@@ -18,7 +18,7 @@ exports.getSearch = async (req, res) => {
 			] 
 		})
 		.project({ 'active' : 0, 'transcoding_status' : 0, 'last_modified' : 0, '__v': 0 })
-		.sort({ added_dtm: -1 })			// Sort by desc added_dtm
+		.sort({ publish_dtm: -1 })			// Sort by desc publish_dtm
 		.skip( Number(skip) || 0 )			// Skip by query or default 0
 		.limit( Number(limit) || 16 )		// Limit by query or default 16
 		.toArray();
