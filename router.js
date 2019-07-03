@@ -33,7 +33,6 @@ router.get('/user/packages',  			userService.packages);
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);
 router.post('/liveAd',           adImpression.postLiveAds);
-router.get('/getLiveAd', (req, res) => res.send("Ad Impressions"));
 // router.get('/', (req, res) => res.send("API Gateway"));
 
 module.exports = router;
