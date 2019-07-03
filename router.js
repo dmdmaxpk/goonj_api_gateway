@@ -9,6 +9,7 @@ const topicService =    require('./services/topic');
 const userService =     require('./services/user');
 const configService =   require('./services/config');
 const searchService =   require('./services/search');
+const adImpression =    require('./services/adImpression');
 
 // Service Label
 router.get('/', (req, res) => res.send("API Gateway"));
@@ -29,5 +30,9 @@ router.get('/user/unsubscribe',         userService.unSubscribe);
 router.get('/user/subscriptionStatus',  userService.subscriptionStatus);
 router.get('/user/packages',  			userService.packages);
 
+// AdImpressions
+router.post('/vodAd',            adImpression.postVodAds);
+router.post('/liveAd',           adImpression.postLiveAds);
+// router.get('/', (req, res) => res.send("API Gateway"));
 
 module.exports = router;
