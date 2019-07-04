@@ -19,7 +19,7 @@ exports.getChannel = async (req, res) => {
 	else {
 		result = await collection
 			.find(query)
-			.project({ 'active': 0, 'added_dtm': 0, 'description': 0, '__v': 0, 'country': 0, 'seq': 0, 'logo': 0, 'category': 0, 'last_modified': 0 })
+			.project({ 'ad_tag': 1, 'active': 0, 'added_dtm': 0, 'description': 0, '__v': 0, 'country': 0, 'seq': 0, 'logo': 0, 'category': 0, 'last_modified': 0 })
 			.sort({ seq:1 })
 			.toArray();
 	}
