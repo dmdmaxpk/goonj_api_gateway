@@ -1,0 +1,28 @@
+stages:
+  - build
+  - cleanup_build
+  - test
+  - deploy
+  - cleanup
+
+deployStaging:
+  stage: deploy
+  script:
+    - cd /opt/deployable/ansible/
+    - ansible-playbook -i inv_staging goonj_api_gateway.yml --vault-password-file=vault.crypt -e 'branchName=staging'
+  environment:
+    name: staging
+  except:
+    - master
+  when: manual
+
+deployProduction:
+  stage: deploy
+  script:
+    - cd /opt/deployable/ansible/
+    - ansible-playbook -i inv_production_mw goonj_api_gateway.yml --vault-password-file=vault.crypt -e 'branchName=master'
+  environment:
+    name: production
+  only:
+    - master
+  when: manual
