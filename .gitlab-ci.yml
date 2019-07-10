@@ -12,8 +12,6 @@ deployStaging:
     - ansible-playbook -i inv_staging goonj_api_gateway.yml --vault-password-file=vault.crypt -e 'branchName=staging'
   environment:
     name: staging
-  except:
-    - master
   when: manual
 
 deployProduction:
