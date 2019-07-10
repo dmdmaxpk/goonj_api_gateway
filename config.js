@@ -11,7 +11,7 @@ let config = {
     },
     staging: {
         port: '3000',
-        mongoDbUrl: 'mongodb://localhost:27017/telenor',
+        mongoDbUrl: 'mongodb://172.17.0.1:27017/telenor',
         dbName: 'telenor'
     },
     production: {
