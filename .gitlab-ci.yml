@@ -1,9 +1,7 @@
 stages:
   - build
-  - cleanup_build
   - test
   - deploy
-  - cleanup
 
 deployStaging:
   stage: deploy
