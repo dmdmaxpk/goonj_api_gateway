@@ -3,6 +3,7 @@ stages:
   - test
   - deploy
 
+# Deploy Staging on Commit
 deployStaging:
   stage: deploy
   script:
@@ -10,7 +11,8 @@ deployStaging:
     - ansible-playbook -i inv_staging goonj_api_gateway.yml --vault-password-file=vault.crypt -e 'branchName=staging'
   environment:
     name: staging
-  when: manual
+  only:
+    - pushes
 
 deployProduction:
   stage: deploy
