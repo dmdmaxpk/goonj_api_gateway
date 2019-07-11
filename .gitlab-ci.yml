@@ -3,6 +3,7 @@ stages:
   - test
   - deploy
 
+# Deploy Staging on Commit
 deployStaging:
   stage: deploy
   script:
