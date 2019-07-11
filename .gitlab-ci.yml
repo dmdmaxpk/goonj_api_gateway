@@ -3,7 +3,7 @@ stages:
   - test
   - deploy
 
-# Deploy Staging on Commit
+# Deploy Staging on push to staging branch
 deployStaging:
   stage: deploy
   script:
@@ -12,7 +12,13 @@ deployStaging:
   environment:
     name: staging
   only:
-    - pushes
+    refs:
+      - branches
+    variables:
+      - $CI_COMMIT_REF_NAME == "staging"
+  except:
+    changes:
+      - .gitlab-ci.yml
 
 deployProduction:
   stage: deploy
