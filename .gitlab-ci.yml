@@ -1,0 +1,32 @@
+stages:
+  - build
+  - test
+  - deploy
+
+# Deploy Staging on push to staging branch
+deployStaging:
+  stage: deploy
+  script:
+    - cd /opt/deployable/ansible/
+    - ansible-playbook -i inv_staging goonj_api_gateway.yml --vault-password-file=vault.crypt -e 'branchName=staging'
+  environment:
+    name: staging
+  only:
+    refs:
+      - branches
+    variables:
+      - $CI_COMMIT_REF_NAME == "staging"
+  except:
+    changes:
+      - .gitlab-ci.yml
+
+deployProduction:
+  stage: deploy
+  script:
+    - cd /opt/deployable/ansible/
+    - ansible-playbook -i inv_production_mw goonj_api_gateway.yml --vault-password-file=vault.crypt -e 'branchName=master'
+  environment:
+    name: production
+  only:
+    - master
+  when: manual
