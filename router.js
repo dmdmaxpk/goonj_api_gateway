@@ -33,6 +33,8 @@ router.get('/user/packages',  			userService.packages);
 
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);
+router.get('/vodAd',           adImpression.getVodAds);
 router.post('/liveAd',           adImpression.postLiveAds);
+router.get('/liveAd',           adImpression.getLiveAds);
 
 module.exports = router;
