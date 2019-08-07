@@ -40,6 +40,15 @@ exports.unSubscribe = async (req, res) => {
 	res.send(data);
 };
 
+// Unsubscription without encryption
+exports.unSub = async (req, res) => {
+
+    const { key } = req.query;
+
+    let { data } = await axios.get(`${config.billingService}/subscription/unsub?key=${key}`);
+    res.send(data);
+};
+
 // Subscription Status
 exports.subscriptionStatus = async (req, res) => {
 

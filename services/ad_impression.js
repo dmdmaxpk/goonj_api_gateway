@@ -7,6 +7,14 @@ exports.postVodAds = (req, res) => {
         res.json({status: "Record Inserted Successfully"});
         console.log("VOD Ad Impression Recorded")})
 }
+exports.getVodAds = (req, res) => {
+    const { source, ad_tag_source, startDate, endDate } = req.query;
+
+    Axios.get(`http://10.0.1.70:3007/vodAd?ad_tag_source=${ad_tag_source}&source=${source}&startDate=${startDate}&endDate=${endDate}`)
+    .then(data => {
+        res.send(data.data);
+    })
+}
 
 exports.postLiveAds = (req, res) => {
     let {ad_tag_source, source, source_id} = req.body;
@@ -15,4 +23,12 @@ exports.postLiveAds = (req, res) => {
     .then(data => {
         res.json({status: "Record Inserted Successfully"});
         console.log("Live Ad Impression Recorded")})
+}
+exports.getLiveAds = (req, res) => {
+    const { source, ad_tag_source, startDate, endDate } = req.query;
+
+    Axios.get(`http://10.0.1.70:3007/liveAd?ad_tag_source=${ad_tag_source}&source=${source}&startDate=${startDate}&endDate=${endDate}`)
+    .then(data => {
+        res.send(data.data);
+    })
 }
