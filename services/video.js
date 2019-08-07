@@ -1,3 +1,6 @@
+const axios = require('axios');
+const config = require('../config');
+
 exports.getVideo = async (req, res) => {
 
     const { db } = req.app.locals;
