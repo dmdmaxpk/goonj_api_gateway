@@ -15,7 +15,11 @@ const adImpression =    require('./services/ad_impression');
 router.get('/', (req, res) => res.send("API Gateway"));
 
 router.get('/video',    videoService.getVideo);
+router.post('/video/views',    videoService.postVideoViews);
+
 router.get('/live',     channelService.getChannel);
+router.post('/live/views',     channelService.postChannelViews);
+
 router.get('/anchor',   anchorService.getAnchor);
 router.get('/program',  programService.getProgram);
 router.get('/topic',    topicService.getTopic);

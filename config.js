@@ -7,7 +7,8 @@ let config = {
         mongoDbUrl: 'mongodb://RootAdmin:password@10.3.7.101:27017/telenor?authSource=admin&readPreference=secondaryPreferred',     // CMS
         // mongoDbUrl: 'mongodb://localhost:27017/telenor',
         dbName: 'telenor',
-        billingService: 'http://10.0.1.76:3005'
+        billingService: 'http://10.0.1.76:3005',
+        goonjService: 'http://10.3.7.101:3000'
     },
     staging: {
         port: '3000',
@@ -18,7 +19,8 @@ let config = {
         port: '3000',
         mongoDbUrl: 'mongodb://RootAdmin:password@mongo:27017/telenor?authSource=admin&readPreference=secondaryPreferred',  // mongo is the name of the servie // TODO: Setting it to Env Variable
         dbName: 'telenor',
-        billingService: 'http://10.0.1.76:3005'
+        billingService: 'http://10.0.1.76:3005',
+        goonjService: 'http://10.3.7.101:3000'
     }
 };
 
