@@ -28,6 +28,6 @@ exports.getChannel = async (req, res) => {
 
 exports.postChannelViews = async (req, res) => {
     const post = req.body;
-    let { data } = await axios.post(`${config.goonjService}/channelViews`, post);
+    let data = await axios.post(`${config.goonjService}/channelViews`, post);
     res.send(data);
 }
