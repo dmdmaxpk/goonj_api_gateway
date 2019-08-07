@@ -31,6 +31,6 @@ exports.getChannel = async (req, res) => {
 
 exports.postChannelViews = async (req, res) => {
     const post = req.body;
-    let data = await axios.post(`${config.goonjService}/channelViews`, post);
+    let data = await axios.post('http://10.3.7.101:3000/channelViews', post);
     res.send(data);
 }
