@@ -9,10 +9,12 @@ exports.getChannel = async (req, res) => {
 	const { _id, slug } = req.query;
 	const query = {};
 
-	const headers = JSON.stringify(req.headers);
-
-	if(headers)
-		console.log("Request From: "+headers.http_country_code);
+	const country = req.headers['http_country_code'];
+	if(country){
+        console.log("Request From: "+country);
+	}else{
+		console.log("No country available!")
+	}
 
 	if (_id) query._id = _id;
 	if (slug) query.slug = slug;
