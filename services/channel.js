@@ -12,7 +12,7 @@ exports.getChannel = async (req, res) => {
 	const headers = JSON.stringify(req.headers);
 
 	if(headers)
-		console.log(headers.HTTP_Country_Code);
+		console.log(" *** "+headers.HTTP_Country_Code);
 
 	if (_id) query._id = _id;
 	if (slug) query.slug = slug;
