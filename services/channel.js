@@ -9,6 +9,11 @@ exports.getChannel = async (req, res) => {
 	const { _id, slug } = req.query;
 	const query = {};
 
+	const headers = JSON.stringify(req.headers);
+
+	if(headers)
+		console.log(headers.HTTP_Country_Code);
+
 	if (_id) query._id = _id;
 	if (slug) query.slug = slug;
 	query.active = true;	// Only returning the active channels
