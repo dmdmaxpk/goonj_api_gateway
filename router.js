@@ -10,6 +10,7 @@ const userService =     require('./services/user');
 const configService =   require('./services/config');
 const searchService =   require('./services/search');
 const adImpression =    require('./services/ad_impression');
+const paywall =    require('./services/paywall');
 
 // Service Label
 router.get('/', (req, res) => res.send("API Gateway"));
@@ -34,6 +35,14 @@ router.get('/user/unsubscribe',         userService.unSubscribe);
 router.get('/user/unsub',         userService.unSub);
 router.get('/user/subscriptionStatus',  userService.subscriptionStatus);
 router.get('/user/packages',  			userService.packages);
+
+
+// Paywall version 2
+router.post('/payment/otp/send',            paywall.sendOtp);
+router.post('/payment/otp/verify',            paywall.verifyOtp);
+router.post('/payment/otp/subscribe',            paywall.subcribe);
+router.post('/payment/otp/status',            paywall.status);
+router.post('/payment/otp/unsubscribe',            paywall.unsubscribe);
 
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);
