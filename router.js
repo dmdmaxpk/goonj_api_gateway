@@ -44,6 +44,9 @@ router.post('/payment/otp/subscribe',            paywall.subcribe);
 router.post('/payment/otp/status',            paywall.status);
 router.post('/payment/otp/unsubscribe',            paywall.unsubscribe);
 
+router.get('/package',            paywall.getPackages);
+router.get('/package/:id',            paywall.unsubscribe);
+
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);
 router.get('/vodAd',           adImpression.getVodAds);

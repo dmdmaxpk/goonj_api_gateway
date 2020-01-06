@@ -41,3 +41,17 @@ exports.unsubscribe = async (req,res) => {
 	let { data } = await axios.post(`${config.paymentService}/payment/unsubscribe`, post);
 	res.send(data);
 }
+
+exports.getPackages = async (req,res) => {
+
+	let { data } = await axios.get(`${config.paymentService}/package`);
+	res.send(data);
+}
+
+exports.getPackage = async (req,res) => {
+
+	let id = req.query.id;
+
+	let { data } = await axios.get(`${config.paymentService}/package/${id}`);
+	res.send(data);
+}
