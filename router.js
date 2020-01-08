@@ -40,9 +40,9 @@ router.get('/user/packages',  			userService.packages);
 // Paywall version 2
 router.post('/payment/otp/send',            paywall.sendOtp);
 router.post('/payment/otp/verify',            paywall.verifyOtp);
-router.post('/payment/otp/subscribe',            paywall.subcribe);
-router.post('/payment/otp/status',            paywall.status);
-router.post('/payment/otp/unsubscribe',            paywall.unsubscribe);
+router.post('/payment/subscribe',            paywall.subcribe);
+router.post('/payment/status',            paywall.status);
+router.post('/payment/unsubscribe',            paywall.unsubscribe);
 
 router.get('/package',            paywall.getPackages);
 router.get('/package/:id',            paywall.unsubscribe);
