@@ -58,6 +58,6 @@ exports.getPackage = async (req,res) => {
 
 exports.isGrayListed = async (req,res) => {
 	let msisdn = req.params.msisdn;
-	let { data } = await axios.get(`${config.paymentService}/user/graylist//${msisdn}`);
+	let { data } = await axios.get(`${config.paymentService}/user/graylist/${msisdn}`);
 	res.send(data);
 }
