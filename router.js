@@ -46,6 +46,7 @@ router.post('/payment/unsubscribe',            paywall.unsubscribe);
 
 router.get('/package',            paywall.getPackages);
 router.get('/package/:id',            paywall.unsubscribe);
+router.get('/user/graylist/:msisdn',            paywall.isGrayListed);
 
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);
