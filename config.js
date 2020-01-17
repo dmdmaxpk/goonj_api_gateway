@@ -17,10 +17,10 @@ let config = {
     },
     production: {
         port: '3000',
-        mongoDbUrl: 'mongodb://RootAdmin:password@mongo:27017/telenor?authSource=admin&readPreference=secondaryPreferred',  // mongo is the name of the servie // TODO: Setting it to Env Variable
-        dbName: 'telenor',
+        mongoDbUrl: 'mongodb://RootAdmin:password@mongo:27017/telenor_v2?authSource=admin&readPreference=secondaryPreferred',  // mongo is the name of the servie // TODO: Setting it to Env Variable
+        dbName: 'telenor_v2',
         billingService: 'http://10.0.1.76:3005',
-        goonjService: 'http://10.3.7.101:3000'
+        goonjService: 'http://10.0.1.90:9090'
     }
 };
 
