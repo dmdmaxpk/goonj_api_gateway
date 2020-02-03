@@ -11,16 +11,18 @@ let config = {
         goonjService: 'http://10.3.7.101:3000'
     },
     staging: {
-        port: '3000',
-        mongoDbUrl: 'mongodb://172.17.0.1:27017/telenor',
-        dbName: 'telenor'
+        port: process.env.PORT,
+        mongoDbUrl: process.env.MONGODB_URL,  // mongo is the name of the servie //
+        dbName: process.env.MONGODB_URL,
+        billingService: process.env.BILLING_SERVICE,
+        goonjService: process.env.GOONJ_SERVICE
     },
     production: {
-        port: '3000',
-        mongoDbUrl: 'mongodb://RootAdmin:password@mongo:27017/telenor_v2?authSource=admin&readPreference=secondaryPreferred',  // mongo is the name of the servie // TODO: Setting it to Env Variable
-        dbName: 'telenor_v2',
-        billingService: 'http://10.0.1.76:3005',
-        goonjService: 'http://10.0.1.90:9090'
+        port: process.env.PORT,
+        mongoDbUrl: process.env.MONGODB_URL,  // mongo is the name of the servie //
+        dbName: process.env.MONGODB_URL,
+        billingService: process.env.BILLING_SERVICE,
+        goonjService: process.env.GOONJ_SERVICE
     }
 };
 
