@@ -13,14 +13,14 @@ let config = {
     staging: {
         port: process.env.PORT,
         mongoDbUrl: process.env.MONGODB_URL,  // mongo is the name of the servie //
-        dbName: process.env.MONGODB_URL,
+        dbName: process.env.MONGODB_NAME,
         billingService: process.env.BILLING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE
     },
     production: {
         port: process.env.PORT,
         mongoDbUrl: process.env.MONGODB_URL,  // mongo is the name of the servie //
-        dbName: process.env.MONGODB_URL,
+        dbName: process.env.MONGODB_NAME,
         billingService: process.env.BILLING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE
     }
