@@ -55,3 +55,12 @@ exports.getPackage = async (req,res) => {
 	let { data } = await axios.get(`${config.paymentService}/package/${id}`);
 	res.send(data);
 }
+
+
+exports.update_package = async (req,res) => {
+
+	const post = req.body;
+
+	let { data } = await axios.post(`${config.paymentService}/user/update_package`, post);
+	res.send(data);
+}
