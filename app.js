@@ -3,8 +3,10 @@ const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const router = require('./router');
 const config = require('./config');
+const swStats = require('swagger-stats');
 
 const app = express();
+app.use(swStats.getMiddleware({}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', router);

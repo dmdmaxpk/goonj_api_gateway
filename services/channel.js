@@ -6,7 +6,7 @@ exports.getChannel = async (req, res) => {
     const { db } = req.app.locals;
     const collection = db.collection('channels');
 
-	const { _id, slug } = req.query;
+	const { _id, slug, package_id } = req.query;
 	const query = {};
 
 	const country = req.headers['http_country_code'];
@@ -18,6 +18,7 @@ exports.getChannel = async (req, res) => {
 
 	if (_id) query._id = _id;
 	if (slug) query.slug = slug;
+	if (package_id) query.package_id = package_id;
 	query.active = true;	// Only returning the active channels
 
 	let result;

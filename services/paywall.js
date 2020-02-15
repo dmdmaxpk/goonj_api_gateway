@@ -60,7 +60,12 @@ exports.getPackage = async (req,res) => {
 exports.update_package = async (req,res) => {
 
 	const post = req.body;
-
 	let { data } = await axios.post(`${config.paymentService}/user/update_package`, post);
+	res.send(data);
+}
+
+exports.isGrayListed = async (req,res) => {
+	let msisdn = req.params.msisdn;
+	let { data } = await axios.get(`${config.paymentService}/user/graylist/${msisdn}`);
 	res.send(data);
 }
