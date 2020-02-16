@@ -6,7 +6,7 @@ exports.getChannel = async (req, res) => {
     const { db } = req.app.locals;
     const collection = db.collection('channels');
 
-	const { _id, slug, package_id } = req.query;
+	let { _id, slug, package_id } = req.query;
 	const query = {};
 
 	const country = req.headers['http_country_code'];
@@ -18,22 +18,34 @@ exports.getChannel = async (req, res) => {
 
 	if (_id) query._id = _id;
 	if (slug) query.slug = slug;
-	if (package_id) query.package_id = package_id;
+	if (!package_id) package_id = "QDfC";
+
 	query.active = true;	// Only returning the active channels
-
+	let aggregationPipeline =  [];
+	// we need to unwind the package_id array and perform matching then regroup its
+	let match = { $match : query};
+	let unwind = { $unwind : "$package_id" };
+	let group = { $group : 
+					{
+						_id : "$_id",
+						ad_tag: { $first : "$ad_tag" },
+						views_count : { $first : "$views_count" },
+						name : { $first : "$name" },
+						hls_link : { $first : "$hls_link" },
+						slug : { $first : "$slug" },
+						thumbnail : { $first : "$thumbnail" },
+						is_streamable : { $max : { $eq : [ "$package_id", package_id ] }}
+					}
+				}
+	let sort = { $sort: {seq: 1	}};
+	aggregationPipeline = [match,unwind,group,sort];
 	let result;
-
-	if (_id || slug) {		// If _id || slug then findOne
-		result = await collection.findOne(query);
-		if (result == null) result= [];		// If no result is found then return empty array
+	try {
+		result = await collection.aggregate(aggregationPipeline).toArray();
+	} catch  (err) {
+		console.log("Error",err)
 	}
-	else {
-		result = await collection
-			.find(query)
-			.project({ 'active': 0, 'added_dtm': 0, 'description': 0, '__v': 0, 'country': 0, 'seq': 0, 'logo': 0, 'category': 0, 'last_modified': 0 })
-			.sort({ seq:1 })
-			.toArray();
-	}
+		
 	res.send(result);
 }
 
