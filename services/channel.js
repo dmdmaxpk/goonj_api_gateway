@@ -34,7 +34,7 @@ exports.getChannel = async (req, res) => {
 						hls_link : { $first : "$hls_link" },
 						slug : { $first : "$slug" },
 						thumbnail : { $first : "$thumbnail" },
-						package_id : { $first : "$package_id" },
+						package_id : { $addToSet: "$package_id" },
 						seq: {$first : "$seq"},
 						is_streamable : { $max : { $eq : [ "$package_id", package_id ] }}
 					}
