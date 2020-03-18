@@ -18,7 +18,7 @@ exports.getChannel = async (req, res) => {
 
 	if (_id) query._id = _id;
 	if (slug) query.slug = slug;
-	if (!package_id) package_id = "QDfC";
+	if (!package_id) package_id = undefined;
 
 	query.active = true;	// Only returning the active channels
 	let aggregationPipeline =  [];
