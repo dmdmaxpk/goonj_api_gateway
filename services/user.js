@@ -83,11 +83,11 @@ exports.packages = async (req, res) => {
 sendReqBody = async(body, method) => {
 	const reqBody = body;
 	reqBody.method = method
-	await axios.post(`${config.paywallLoggingService}/logger/logreq`, reqBody);
+	await axios.post(`${config.loggingService}/logger/logreq`, reqBody);
 }
 
 sendResBody = async(body, method) => {
 	const resBody = body;
 	resBody.method = method
-	await axios.post(`${config.paywallLoggingService}/logger/logres`, resBody);
+	await axios.post(`${config.loggingService}/logger/logres`, resBody);
 }
