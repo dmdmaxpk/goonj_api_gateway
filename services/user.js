@@ -2,92 +2,158 @@
 
 const axios = require('axios');
 const config = require('../config');
+var uniqid = require('uniqid');
 
 
 // Send OTP
 exports.sendOtp = async (req, res) => {
+	const transaction_id = getTransactinId();
 	const post = req.body;
-	
-	await sendReqBody(post, 'sendOtp');
+
+	// Sending request to logging system
+	sendReqBody(req, req.body, 'sendOtp', transaction_id);
+
 	let { data } = await axios.post(`${config.billingService}/user/sendOtp`, post);
-	await sendResBody(data, 'sendOtp');
+	
+	// Sending response to logging system
+	sendResBody(data);
 	
 	res.send(data);
 };
 
 // Validate OTP
 exports.validateOtp = async (req, res) => {
+	const transaction_id = getTransactinId();
 	const { msisdn, otp, source  } = req.query;
 	
-	await sendReqBody({msisdn:msisdn, otp:otp, source:source}, 'validateOtp');
+	// Sending request to logging system
+	sendReqBody(req, req.query, 'validateOtp', transaction_id);
+	
 	let { data } = await axios.get(`${config.billingService}/user/validateOtp?msisdn=${msisdn}&otp=${otp}&source=${source}`);
-	await sendResBody(data, 'validateOtp');
+	
+	// Sending response to logging system
+	sendResBody(data);
 	
 	res.send(data);
 };
 
 // Subscription
 exports.subscribe = async (req, res) => {
+	const transaction_id = getTransactinId();
 	const post = req.body;
 
-	await sendReqBody(post, 'subscribe');
+	// Sending request to logging system
+	sendReqBody(req, req.body, 'subscribe', transaction_id);
+
 	let { data } = await axios.post(`${config.billingService}/subscription/subscribeUser`, post);
-	await sendResBody(data, 'subscribe');
+	
+	// Sending response to logging system
+	sendResBody(data);
 
 	res.send(data);
 };
 
 // Unsubscription
 exports.unSubscribe = async (req, res) => {
+	const transaction_id = getTransactinId();
 	const { key } = req.query;
 
-	await sendReqBody({key:key}, 'unSubscribe');
+	// Sending request to logging system
+	sendReqBody(req, req.query, 'unSubscribe', transaction_id);
+
 	let { data } = await axios.get(`${config.billingService}/subscription/unsubscribe?key=${key}`);
-	await sendResBody(data, 'unSubscribe');
+	
+	// Sending response to logging system
+	sendResBody(data);
 
 	res.send(data);
 };
 
 // Unsubscription without encryption
 exports.unSub = async (req, res) => {
+	const transaction_id = getTransactinId();
     const { key } = req.query;
 	
-	await sendReqBody({key:key}, 'unSub');
-    let { data } = await axios.get(`${config.billingService}/subscription/unsub?key=${key}`);
-	await sendResBody(data, 'unSub');
+	// Sending request to logging system
+	sendReqBody(req, req.query, 'unSub', transaction_id);
+
+	let { data } = await axios.get(`${config.billingService}/subscription/unsub?key=${key}`);
+	
+	// Sending response to logging system
+	sendResBody(data);
 
 	res.send(data);
 };
 
 // Subscription Status
 exports.subscriptionStatus = async (req, res) => {
+	const transaction_id = getTransactinId();
 	const { msisdn } = req.query;
 
-	await sendReqBody({msisdn:msisdn}, 'subscriptionStatus');
+	// Sending request to logging system
+	sendReqBody(req, req.query, 'subscriptionStatus', transaction_id);
+
+
 	let { data } = await axios.get(`${config.billingService}/subscription/checkStatus?msisdn=${msisdn}`);
-	await sendResBody(data, 'subscriptionStatus');
+	
+	// Sending response to logging system
+	sendResBody(data);
 
 	res.send(data);
 };
 
 // Packages details
 exports.packages = async (req, res) => {
+	const transaction_id = getTransactinId();
 
-	await sendReqBody({}, 'packages');
+	// Sending request to logging system
+	sendReqBody(req, req.query, 'packages', transaction_id);
+
 	let { data } = await axios.get(`${config.billingService}/user/packages`);
-	await sendResBody(data, 'packages');
+	
+	// Sending response to logging system
+	sendResBody(data);
+
 	res.send(data);
 };
 
 
-sendReqBody = async(body, method) => {
-	const reqBody = body;
-	reqBody.method = method
-	await axios.post(`${config.loggingService}/logger/logreq`, reqBody);
+function getTransactinId(){
+	let tId = uniqid('gw_logger-', getCurrentDate());
+	return tId;
 }
 
-sendResBody = async(body, method) => {
-	const resBody = body;
-	resBody.method = method
-	await axios.post(`${config.loggingService}/logger/logres`, resBody);
+sendReqBody = async(req, body, method, transaction_id) => {
+	const postObj = {};
+	postObj.req_body = body;
+	postObj.source = body.source ? body.source : 'app';
+	postObj.transaction_id = transaction_id;
+	postObj.service = 'paywall';
+	postObj.method = method;
+	postObj.complete_body = req;
+	await axios.post(`${config.loggingService}/logger/logreq`, postObj);
+}
+
+sendResBody = async(res) => {
+	const postObj = {};
+	postObj.transaction_id = res.gw_transaction_id;
+	postObj.res_body = res;
+	await axios.post(`${config.loggingService}/logger/logres`, postObj);
+}
+
+
+// Helper functions
+function getCurrentDate() {
+    var now = new Date();
+    var strDateTime = [
+        [now.getFullYear(),
+            AddZero(now.getMonth() + 1),
+            AddZero(now.getDate())].join("-"),
+        [AddZero(now.getHours()),
+            AddZero(now.getMinutes())].join(":")];
+    return strDateTime;
+}
+
+function AddZero(num) {
+    return (num >= 0 && num < 10) ? "0" + num : num + "";
 }
