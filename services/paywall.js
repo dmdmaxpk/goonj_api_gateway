@@ -5,6 +5,7 @@ var uniqid = require('uniqid');
 exports.sendOtp = async (req,res) => {
 	const transaction_id = getTransactinId();
 	const post = req.body;
+	post.transaction_id = transaction_id;
 
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'sendOtp', transaction_id);
@@ -20,7 +21,7 @@ exports.sendOtp = async (req,res) => {
 exports.verifyOtp = async (req,res) => {
 	const transaction_id = getTransactinId();
 	const post = req.body;
-
+	post.transaction_id = transaction_id;
 
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'verifyOtp', transaction_id);
@@ -38,6 +39,7 @@ exports.subcribe = async (req,res) => {
 	const transaction_id = getTransactinId();
 
 	const post = req.body;
+	post.transaction_id = transaction_id;
 
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'subscribe', transaction_id);
@@ -54,6 +56,7 @@ exports.status = async (req,res) => {
 	const transaction_id = getTransactinId();
 
 	const post = req.body;
+	post.transaction_id = transaction_id;
 
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'status', transaction_id);
@@ -69,7 +72,8 @@ exports.status = async (req,res) => {
 exports.unsubscribe = async (req,res) => {
 	const transaction_id = getTransactinId();
 	const post = req.body;
-	
+	post.transaction_id = transaction_id;
+
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
@@ -82,17 +86,14 @@ exports.unsubscribe = async (req,res) => {
 }
 
 exports.getPackages = async (req,res) => {
-	const transaction_id = getTransactinId();
-
-	console.log(transaction_id);
 
 	// Sending request to logging system
-	sendReqBody(req, req.query, 'packages', transaction_id);
+	//sendReqBody(req, req.query, 'packages', transaction_id);
 
 	let { data } = await axios.get(`${config.paymentService}/package`);
 
 	// Sending response to logging system
-	sendResBody(data);
+	//sendResBody(data);
 
 	res.send(data);
 }
@@ -103,12 +104,12 @@ exports.getPackage = async (req,res) => {
 	let id = req.query.id;
 
 	// Sending request to logging system
-	sendReqBody(req, req.query, 'package', transaction_id);
+	//sendReqBody(req, req.query, 'package', transaction_id);
 
 	let { data } = await axios.get(`${config.paymentService}/package/${id}`);
 
 	// Sending response to logging system
-	sendResBody(data);
+	//sendResBody(data);
 
 	res.send(data);
 }
@@ -120,12 +121,12 @@ exports.update_package = async (req,res) => {
 	const post = req.body;
 
 	// Sending request to logging system
-	sendReqBody(req, req.body, 'update_package', transaction_id);
+	//sendReqBody(req, req.body, 'update_package', transaction_id);
 
 	let { data } = await axios.post(`${config.paymentService}/user/update_package`, post);
 	
 	// Sending response to logging system
-	sendResBody(data);
+	//sendResBody(data);
 
 	res.send(data);
 }
@@ -133,6 +134,7 @@ exports.update_package = async (req,res) => {
 exports.isGrayListed = async (req,res) => {
 	const transaction_id = getTransactinId();
 	let msisdn = req.params.msisdn;
+	
 	let obj = {};
 	obj.source = req.query.source;
 	obj.msisdn = req.params.msisdn;
@@ -140,7 +142,7 @@ exports.isGrayListed = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, obj, 'update_package', transaction_id);
 
-	let { data } = await axios.get(`${config.paymentService}/user/graylist/${msisdn}`);
+	let { data } = await axios.get(`${config.paymentService}/user/graylist/${msisdn}?transaction_id=${transaction_id}`);
 	
 	// Sending response to logging system
 	sendResBody(data);
