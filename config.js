@@ -7,6 +7,7 @@ let config = {
         dbName: 'telenor',
         billingService: 'http://127.0.0.1:3005',
         paymentService: 'http://127.0.0.1:5000',
+        loggingService: 'http://127.0.0.1:8000',
         goonjService: 'http://127.0.0.1:3000'
     },
     staging: {
@@ -15,6 +16,7 @@ let config = {
         dbName: process.env.MONGODB_NAME,
         billingService: process.env.BILLING_SERVICE,
         paymentService: process.env.PAYMENT_SERVICE,
+        loggingService: process.env.PAYWALL_LOGGING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE
     },
     production: {
@@ -23,6 +25,7 @@ let config = {
         dbName: process.env.MONGODB_NAME,
         billingService: process.env.BILLING_SERVICE,
         paymentService: process.env.PAYMENT_SERVICE,
+        loggingService: process.env.PAYWALL_LOGGING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE
     }
 };
