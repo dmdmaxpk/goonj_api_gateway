@@ -3,9 +3,9 @@ const env = process.env.NODE_ENV || 'development';
 let config = {
     development: {
         port: '3000',
-        mongoDbUrl: 'mongodb://@127.0.0.1:27017/telenor',     // CMS
+        mongoDbUrl: 'mongodb://127.0.0.1:27017/telenor',     // CMS
         dbName: 'telenor',
-        billingService: 'http://127.0.0.1:3005',
+        billingService: 'http://127.0.0.1:5000',
         paymentService: 'http://127.0.0.1:5000',
         loggingService: 'http://127.0.0.1:8000',
         goonjService: 'http://127.0.0.1:3000'
