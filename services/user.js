@@ -131,14 +131,14 @@ function sendReqBody(req, body, method, transaction_id){
 	postObj.service = 'paywall';
 	postObj.method = method;
 	postObj.complete_body = req;
-	await axios.post(`${config.loggingService}/logger/logreq`, postObj);
+	axios.post(`${config.loggingService}/logger/logreq`, postObj);
 }
 
 function sendResBody(res){
 	const postObj = {};
 	postObj.transaction_id = res.gw_transaction_id;
 	postObj.res_body = res;
-	await axios.post(`${config.loggingService}/logger/logres`, postObj);
+	axios.post(`${config.loggingService}/logger/logres`, postObj);
 }
 
 
