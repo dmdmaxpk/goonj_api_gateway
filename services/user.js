@@ -123,7 +123,7 @@ function getTransactinId(){
 	return tId;
 }
 
-sendReqBody = async(req, body, method, transaction_id) => {
+function sendReqBody(req, body, method, transaction_id){
 	const postObj = {};
 	postObj.req_body = body;
 	postObj.source = body.source ? body.source : 'app';
@@ -134,7 +134,7 @@ sendReqBody = async(req, body, method, transaction_id) => {
 	await axios.post(`${config.loggingService}/logger/logreq`, postObj);
 }
 
-sendResBody = async(res) => {
+function sendResBody(res){
 	const postObj = {};
 	postObj.transaction_id = res.gw_transaction_id;
 	postObj.res_body = res;
