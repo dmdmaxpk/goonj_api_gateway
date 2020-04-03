@@ -191,5 +191,20 @@ function getCurrentDate() {
 }
 
 function AddZero(num) {
-    return (num >= 0 && num < 10) ? "0" + num : num + "";
+	return (num >= 0 && num < 10) ? "0" + num : num + "";
+}
+
+exports.update_user = async (req,res) => {
+
+	const post = req.body;
+	const query = req.query;
+	let { data } = await axios.put(`${config.paymentService}/user`, post,{params: query});
+	res.send(data);
+}
+
+exports.get_user = async (req,res) => {
+
+	const query = req.query;
+	let { data } = await axios.get(`${config.paymentService}/user`,{params: query});
+	res.send(data);
 }
