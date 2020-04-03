@@ -43,6 +43,8 @@ router.post('/payment/otp/verify',            paywall.verifyOtp);
 router.post('/payment/subscribe',            paywall.subcribe);
 router.post('/payment/status',            paywall.status);
 router.post('/payment/unsubscribe',            paywall.unsubscribe);
+router.put('/user',            paywall.update_user);
+router.get('/user',            paywall.get_user);
 
 router.get('/package',            paywall.getPackages);
 router.get('/package/:id',            paywall.unsubscribe);
