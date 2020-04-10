@@ -86,22 +86,24 @@ exports.unsubscribe = async (req,res) => {
 }
 
 exports.getPackages = async (req,res) => {
+	const transaction_id = getTransactinId();
+	let source = req.query.source;
 
 	// Sending request to logging system
-	//sendReqBody(req, req.query, 'packages', transaction_id);
+	sendReqBody(req, {source:source}, 'packages', transaction_id);
 
 	let { data } = await axios.get(`${config.paymentService}/package`);
 
 	// Sending response to logging system
-	//sendResBody(data);
+	sendResBody(data);
 
 	res.send(data);
 }
 
 exports.getPackage = async (req,res) => {
 	
-	const transaction_id = getTransactinId();
-	let id = req.query.id;
+	//const transaction_id = getTransactinId();
+	//let id = req.query.id;
 
 	// Sending request to logging system
 	//sendReqBody(req, req.query, 'package', transaction_id);
@@ -116,7 +118,7 @@ exports.getPackage = async (req,res) => {
 
 
 exports.update_package = async (req,res) => {
-	const transaction_id = getTransactinId();
+	//const transaction_id = getTransactinId();
 
 	const post = req.body;
 
@@ -140,7 +142,7 @@ exports.isGrayListed = async (req,res) => {
 	obj.msisdn = req.params.msisdn;
 
 	// Sending request to logging system
-	sendReqBody(req, obj, 'update_package', transaction_id);
+	sendReqBody(req, obj, 'graylist', transaction_id);
 
 	let { data } = await axios.get(`${config.paymentService}/user/graylist/${msisdn}?transaction_id=${transaction_id}`);
 	
@@ -148,6 +150,23 @@ exports.isGrayListed = async (req,res) => {
 	sendResBody(data);
 
 	res.send(data);
+}
+
+exports.pageView = async (req, res) => {
+	const transaction_id = getTransactinId();
+	let msisdn = req.query.msisdn;
+	let source = req.query.source;
+	
+	let obj = {};
+	if(msisdn){
+		obj.msisdn = msisdn;
+	}
+	obj.source = source;
+
+	// Sending request to logging system
+	sendReqBody(req, obj, 'pageview', transaction_id);
+
+	res.send({"message": "Done"});
 }
 
 
