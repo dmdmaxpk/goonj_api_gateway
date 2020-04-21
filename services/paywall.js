@@ -86,16 +86,16 @@ exports.unsubscribe = async (req,res) => {
 }
 
 exports.getPackages = async (req,res) => {
-	const transaction_id = getTransactinId();
-	let source = req.query.source;
+	//const transaction_id = getTransactinId();
+	//let source = req.query.source;
 
 	// Sending request to logging system
-	sendReqBody(req, {source:source}, 'packages', transaction_id);
+	//sendReqBody(req, {source:source}, 'packages', transaction_id);
 
 	let { data } = await axios.get(`${config.paymentService}/package`);
 
 	// Sending response to logging system
-	sendResBody(data);
+	//sendResBody(data);
 
 	res.send(data);
 }
