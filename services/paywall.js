@@ -173,10 +173,14 @@ exports.pageView = async (req, res) => {
 	const transaction_id = getTransactinId();
 	let msisdn = req.query.msisdn;
 	let source = req.query.source;
+	let mid = req.query.mid;
+	let tid = req.query.tid;
 	
 	let obj = {};
 	if(msisdn){
 		obj.msisdn = msisdn;
+		obj.mid = mid;
+		obj.tid = tid;
 	}
 	obj.source = source;
 
