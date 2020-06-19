@@ -113,14 +113,20 @@ exports.getPackages = async (req,res) => {
 
 	let route = "package";
 	let query = "";
-	if(req.query && req.query.slug){ 
-		query = "?slug="+req.query.slug;
-	};
+	// if(req.query && req.query.slug){ 
+	// 	query = "?slug="+req.query.slug;
+	// };
+
+	// if(req.query && req.query.is_default){ 
+	// 	query = "?is_default="+req.query.is_default;
+	// };
 
 	let final = `${config.paymentService}/${route}${query}`;
 	console.log(final);
 
-	let { data } = await axios.get(final);
+	let { data } = await axios.get(final,{
+		params: query
+	});
 
 	// Sending response to logging system
 	//sendResBody(data);
