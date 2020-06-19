@@ -53,6 +53,8 @@ router.post('/user/update_package',            paywall.update_package);
 router.get('/user/graylist/:msisdn',            paywall.isGrayListed);
 router.get('/pageview',            paywall.pageView);
 
+router.get('/paywall', paywall.paywall)
+
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);
 router.get('/vodAd',           adImpression.getVodAds);

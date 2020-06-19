@@ -1,6 +1,7 @@
 const axios = require('axios');
 const config = require('../config');
 var uniqid = require('uniqid');
+const router = require('../router');
 
 exports.sendOtp = async (req,res) => {
 	const transaction_id = getTransactinId();
@@ -109,7 +110,30 @@ exports.getPackages = async (req,res) => {
 	// Sending request to logging system
 	//sendReqBody(req, {source:source}, 'packages', transaction_id);
 
-	let { data } = await axios.get(`${config.paymentService}/package`);
+
+	let route = "/package";
+	let query = req.query && req.query.slug ? "?slug="+req.query.slug : "";
+
+	let { data } = await axios.get(`${config.paymentService}/${route}/${query}`);
+
+	// Sending response to logging system
+	//sendResBody(data);
+
+	res.send(data);
+}
+
+exports.paywall = async (req,res) => {
+	// const transaction_id = getTransactinId();
+	// let source = req.query.source;
+
+	// if(!source){
+	// 	source = 'na';
+	// }
+
+	//Sending request to logging system
+	//sendReqBody(req, {source:source}, 'paywall', transaction_id);
+
+	let { data } = await axios.get(`${config.paymentService}/paywall`);
 
 	// Sending response to logging system
 	//sendResBody(data);
