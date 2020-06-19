@@ -48,7 +48,7 @@ router.put('/user',            paywall.update_user);
 router.get('/user',            paywall.get_user);
 
 router.get('/package',            paywall.getPackages);
-router.get('/package/:id',            paywall.unsubscribe);
+//router.get('/package/:id',            paywall.unsubscribe);
 router.post('/user/update_package',            paywall.update_package);
 router.get('/user/graylist/:msisdn',            paywall.isGrayListed);
 router.get('/pageview',            paywall.pageView);
