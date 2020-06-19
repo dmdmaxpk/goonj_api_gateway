@@ -20,7 +20,6 @@ exports.getVideo = async (req, res) => {
 	
 	query.category = category ? category : { $ne: 'premium' };		// Exclude premium category videos
 	query.is_premium = is_premium;
-4
 
 	query.active = true;	// Get only active videos
 	let result;
