@@ -13,9 +13,8 @@ exports.getSearch = async (req, res) => {
 	andArr.push({ active: true }) // Videos should be active
 	andArr.push({ $text: { $search: `\"${query.term}\"` }}) // Text search on Phrase. More info: https://docs.mongodb.com/manual/reference/operator/query/text/
 	if (is_premium) {
-		andArr.push({ active: true })
 	} else {
-		andArr.push({ active:{ $ne: true} })
+		andArr.push({ is_premium:{ $ne: true} })
 	}
 	
 	result = await collection
