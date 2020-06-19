@@ -6,7 +6,7 @@ exports.getVideo = async (req, res) => {
     const { db } = req.app.locals;
     const collection = db.collection('videos');
 
-	const { _id, category, feed, anchor, topics, pinned, skip, limit, source, program, file_name } = req.query;
+	const { _id, category, feed, anchor, topics, pinned, skip, limit, source, program, file_name,is_premium } = req.query;
 	let query = {};
 
 	if (_id) 	  	query._id = _id;
