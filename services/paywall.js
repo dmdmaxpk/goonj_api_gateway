@@ -111,7 +111,7 @@ exports.getPackages = async (req,res) => {
 	//sendReqBody(req, {source:source}, 'packages', transaction_id);
 
 
-	let route = "/package";
+	let route = "package";
 	let query = "";
 	if(req.query && req.query.slug){ 
 		query = "?slug="+req.query.slug;
