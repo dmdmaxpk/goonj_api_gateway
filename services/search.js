@@ -3,9 +3,9 @@ exports.getSearch = async (req, res) => {
     const { db } = req.app.locals;
     const collection = db.collection('videos');
 
-	const { term, skip, limit } = req.query;
+	const { term, skip, limit,is_premium } = req.query;
 	const query = {};
-
+	query.is_premium = is_premium;
 	if (term) query.term = term;
 
 	let result;
