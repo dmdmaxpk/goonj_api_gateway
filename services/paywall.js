@@ -35,7 +35,6 @@ exports.verifyOtp = async (req,res) => {
 	res.send(data);
 }
 
-
 exports.subcribe = async (req,res) => {
 	const transaction_id = getTransactinId();
 
@@ -156,6 +155,83 @@ exports.paywall = async (req,res) => {
 	res.send(data);
 }
 
+exports.login = async (req, res) => {
+	const transaction_id = getTransactinId();
+	let postBody = req.body;
+	postBody.transaction_id = transaction_id;
+
+	//Sending request to logging system
+	sendReqBody(req, postBody, 'ccd_login', transaction_id);
+
+	let { data } = await axios.post(`${config.paymentService}/goonj/login`, postBody);
+
+	// Sending response to logging system
+	sendResBody(data);
+	res.send(data);
+}
+
+exports.ccd_unsub = async (req, res) => {
+	const transaction_id = getTransactinId();
+	let postBody = req.body;
+	postBody.transaction_id = transaction_id;
+
+	let tempPostBody = JSON.parse(JSON.stringify(postBody));
+
+	let token = req.headers.authorization;
+	let headers = {"Content-Type": "application/json"};
+	if(token){
+		headers = {"Content-Type": "application/json", "Authorization": `${token}`}
+	}
+
+	tempPostBody.headers = headers;
+
+	//Sending request to logging system
+	sendReqBody(req, tempPostBody, 'ccd_unsub', transaction_id);
+
+	try{
+		let {data} = await axios.post(`${config.paymentService}/goonj/unsubscribe`, postBody, {headers:headers});
+		
+		// Sending response to logging system
+		sendResBody(data);
+		res.send(data);
+	}catch(err){
+		data = err;
+
+		// Sending response to logging system
+		sendResBody(data);
+		res.send(data);
+	}
+}
+
+exports.details = async (req, res) => {
+	const transaction_id = getTransactinId();
+
+	let body = {};
+
+	let msisdn = req.query.msisdn;
+	body.msisdn = msisdn;
+	body.transaction_id = transaction_id;
+
+	let tempBody = JSON.parse(JSON.stringify(body));
+
+	let token = req.headers.authorization;
+	let headers = {"Content-Type": "application/json"};
+	if(token){
+		headers = {"Content-Type": "application/json", "Authorization": `${token}`}
+	}
+
+	tempBody.headers = headers;
+
+	//Sending request to logging system
+	sendReqBody(req, tempBody, 'ccd_details', transaction_id);
+
+	let { data } = await axios.get(`${config.paymentService}/ccd/details?msisdn=${msisdn}&transaction_id=${transaction_id}`, {headers:headers});
+
+	// Sending response to logging system
+	sendResBody(data);
+	res.send(data);
+}
+
 exports.getPackage = async (req,res) => {
 	
 	//const transaction_id = getTransactinId();
@@ -171,7 +247,6 @@ exports.getPackage = async (req,res) => {
 
 	res.send(data);
 }
-
 
 exports.update_package = async (req,res) => {
 	//const transaction_id = getTransactinId();
@@ -251,10 +326,14 @@ function sendReqBody(req, body, method, transaction_id){
 }
 
 function sendResBody(res){
-	const postObj = {};
-	postObj.transaction_id = res.gw_transaction_id;
-	postObj.res_body = res;
-	axios.post(`${config.loggingService}/logger/logres`, postObj);
+	if(res && res.gw_transaction_id){
+		const postObj = {};
+		postObj.transaction_id = res.gw_transaction_id;
+		postObj.res_body = res;
+		axios.post(`${config.loggingService}/logger/logres`, postObj);
+	}else{
+		console.log("No gw_transaction_id found in this object", res);
+	}
 }
 
 
