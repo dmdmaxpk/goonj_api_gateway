@@ -47,13 +47,19 @@ router.post('/payment/unsubscribe',            paywall.unsubscribe);
 router.put('/user',            paywall.update_user);
 router.get('/user',            paywall.get_user);
 
+
+//CCD
+router.post('/ccd/login', paywall.login);
+router.post('/ccd/unsub', paywall.ccd_unsub);
+router.get('/ccd/details', paywall.details);
+
 router.get('/package',            paywall.getPackages);
 //router.get('/package/:id',            paywall.unsubscribe);
 router.post('/user/update_package',            paywall.update_package);
 router.get('/user/graylist/:msisdn',            paywall.isGrayListed);
 router.get('/pageview',            paywall.pageView);
 
-router.get('/paywall', paywall.paywall)
+router.get('/paywall', paywall.paywall);
 
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);
