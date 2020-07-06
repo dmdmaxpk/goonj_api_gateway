@@ -52,6 +52,7 @@ router.get('/user',            paywall.get_user);
 router.post('/ccd/login', paywall.login);
 router.post('/ccd/unsub', paywall.ccd_unsub);
 router.get('/ccd/details', paywall.details);
+router.get('/ccd/getAllSubs', paywall.getAllSubs);
 
 router.get('/package',            paywall.getPackages);
 //router.get('/package/:id',            paywall.unsubscribe);
