@@ -232,6 +232,25 @@ exports.details = async (req, res) => {
 	res.send(data);
 }
 
+exports.getAllSubs = async (req, res) => {
+	const transaction_id = getTransactinId();
+
+	let body = {};
+
+	let msisdn = req.query.msisdn;
+	body.msisdn = msisdn;
+	body.transaction_id = transaction_id;
+
+	//Sending request to logging system
+	sendReqBody(req, body, 'ccd_get_all_subs', transaction_id);
+
+	let { data } = await axios.get(`${config.paymentService}/payment/getAllSubs?msisdn=${msisdn}&transaction_id=${transaction_id}`);
+
+	// Sending response to logging system
+	sendResBody(data);
+	res.send(data);
+}
+
 exports.getPackage = async (req,res) => {
 	
 	//const transaction_id = getTransactinId();
