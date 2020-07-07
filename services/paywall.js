@@ -341,7 +341,7 @@ function sendReqBody(req, body, method, transaction_id){
 	postObj.method = method;
 	//postObj.complete_body = req;
 
-	axios.post(`${config.loggingService}/logger/logreq`, postObj);
+	await axios.post(`${config.loggingService}/logger/logreq`, postObj);
 }
 
 function sendResBody(res){
@@ -349,7 +349,7 @@ function sendResBody(res){
 		const postObj = {};
 		postObj.transaction_id = res.gw_transaction_id;
 		postObj.res_body = res;
-		axios.post(`${config.loggingService}/logger/logres`, postObj);
+		await axios.post(`${config.loggingService}/logger/logres`, postObj);
 	}else{
 		console.log("No gw_transaction_id found in this object", res);
 	}
