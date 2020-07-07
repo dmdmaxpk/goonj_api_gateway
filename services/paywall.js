@@ -321,7 +321,7 @@ exports.pageView = async (req, res) => {
 	// Sending request to logging system
 	sendReqBody(req, obj, 'pageview', transaction_id);
 	console.log("=>", msisdn);
-	res.send({"message": "Done"});
+	res.send({"message": "Done", msisdn: msisdn});
 }
 
 
