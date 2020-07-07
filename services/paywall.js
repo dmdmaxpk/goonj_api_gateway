@@ -304,6 +304,7 @@ exports.isGrayListed = async (req,res) => {
 }
 
 exports.pageView = async (req, res) => {
+	console.log("[pageview]");
 	const transaction_id = getTransactinId();
 	let msisdn = req.query.msisdn;
 	let source = req.query.source;
@@ -320,7 +321,7 @@ exports.pageView = async (req, res) => {
 
 	// Sending request to logging system
 	sendReqBody(req, obj, 'pageview', transaction_id);
-	console.log("=>", msisdn);
+	console.log("[pageview][msisdn]=>", msisdn);
 	msisdn = msisdn ? msisdn : "no_msisdn";
 	res.send({"message": "Done", msisdn: msisdn});
 }
@@ -342,15 +343,15 @@ function sendReqBody(req, body, method, transaction_id){
 	postObj.method = method;
 	//postObj.complete_body = req;
 
-	await axios.post(`${config.loggingService}/logger/logreq`, postObj);
+	axios.post(`${config.loggingService}/logger/logreq`, postObj);
 }
 
-function sendResBody(res){
+function  sendResBody(res){
 	if(res && res.gw_transaction_id){
 		const postObj = {};
 		postObj.transaction_id = res.gw_transaction_id;
 		postObj.res_body = res;
-		await axios.post(`${config.loggingService}/logger/logres`, postObj);
+		axios.post(`${config.loggingService}/logger/logres`, postObj);
 	}else{
 		console.log("No gw_transaction_id found in this object", res);
 	}
