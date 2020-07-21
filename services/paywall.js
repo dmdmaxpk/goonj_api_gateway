@@ -342,8 +342,12 @@ function sendReqBody(req, body, method, transaction_id){
 	postObj.service = 'paywall';
 	postObj.method = method;
 	//postObj.complete_body = req;
-
-	axios.post(`${config.loggingService}/logger/logreq`, postObj);
+	try {
+		axios.post(`${config.loggingService}/logger/logreq`, postObj);
+		console.log("[Requestsent]");
+	} catch (err) {
+		console.log("Error",err);
+	}
 }
 
 function  sendResBody(res){
