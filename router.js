@@ -47,6 +47,9 @@ router.post('/payment/unsubscribe',            paywall.unsubscribe);
 router.put('/user',            paywall.update_user);
 router.get('/user',            paywall.get_user);
 
+// Paywall v2 Reports
+router.get('/reports/rev',            paywall.revenue);
+
 
 //CCD
 router.post('/ccd/login', paywall.login);

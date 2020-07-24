@@ -303,6 +303,11 @@ exports.isGrayListed = async (req,res) => {
 	res.send(data);
 }
 
+exports.revenue = async (req,res) => {
+	let { data } = await axios.get(`${config.paymentService}/report/rev`);
+	res.send(data);
+}
+
 exports.pageView = async (req, res) => {
 	const transaction_id = getTransactinId();
 	let msisdn = req.query.msisdn;
