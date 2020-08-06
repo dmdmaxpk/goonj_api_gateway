@@ -47,8 +47,6 @@ router.post('/payment/unsubscribe',            paywall.unsubscribe);
 router.put('/user',            paywall.update_user);
 router.get('/user',            paywall.get_user);
 
-// Paywall v2 Reports
-router.get('/reports/rev',            paywall.revenue);
 
 
 //CCD
@@ -62,8 +60,12 @@ router.get('/package',            paywall.getPackages);
 router.post('/user/update_package',            paywall.update_package);
 router.get('/user/graylist/:msisdn',            paywall.isGrayListed);
 router.get('/pageview',            paywall.pageView);
-
 router.get('/paywall', paywall.paywall);
+
+
+// Paywall v2 Reports
+router.get('/reports/rev',            paywall.revenue);
+router.get('/reports/req-count',            paywall.req_count);
 
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);

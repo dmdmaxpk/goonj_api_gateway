@@ -308,6 +308,11 @@ exports.revenue = async (req,res) => {
 	res.send(data);
 }
 
+exports.req_count = async (req,res) => {
+	let { data } = await axios.get(`${config.paymentService}/report/req-count`);
+	res.send(data);
+}
+
 exports.pageView = async (req, res) => {
 	console.log("[pageview]");
 	const transaction_id = getTransactinId();
