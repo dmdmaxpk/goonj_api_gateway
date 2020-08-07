@@ -62,6 +62,10 @@ router.get('/user/graylist/:msisdn',            paywall.isGrayListed);
 router.get('/pageview',            paywall.pageView);
 router.get('/paywall', paywall.paywall);
 
+// Feedback Service
+router.get('/questions', paywall.getQuestion)
+router.post('/answer', paywall.answer)
+
 
 // Paywall v2 Reports
 router.get('/reports/rev',            paywall.revenue);

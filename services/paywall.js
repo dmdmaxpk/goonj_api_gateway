@@ -336,8 +336,15 @@ exports.pageView = async (req, res) => {
 	res.send({"message": "Done", msisdn: msisdn});
 }
 
-
-
+exports.getQuestion = async (req,res) => {
+	let { data } = await axios.get(`${config.feedbackService}/question/all`);
+	res.send(data);
+}
+exports.answer = async (req,res) => {
+	let postData = req.body;
+	let { data } = await axios.post(`${config.feedbackService}/answer/post`, postData);
+	res.send(data);
+}
 
 function getTransactinId(){
 	let tId = uniqid('gw_logger-', '-'+getCurrentDate());

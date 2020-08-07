@@ -8,7 +8,8 @@ let config = {
         billingService: 'http://127.0.0.1:5000',
         paymentService: 'http://127.0.0.1:5000',
         loggingService: 'http://127.0.0.1:8000',
-        goonjService: 'http://127.0.0.1:3000'
+        goonjService: 'http://127.0.0.1:3000',
+        feedbackService: 'http://127.0.0.1:5006'
     },
     staging: {
         port: process.env.PORT,
@@ -17,7 +18,8 @@ let config = {
         billingService: process.env.BILLING_SERVICE,
         paymentService: process.env.PAYMENT_SERVICE,
         loggingService: process.env.PAYWALL_LOGGING_SERVICE,
-        goonjService: process.env.GOONJ_SERVICE
+        goonjService: process.env.GOONJ_SERVICE,
+        feedbackService: process.env.FEEDBACK_SERVICE
     },
     production: {
         port: process.env.PORT,
@@ -26,7 +28,8 @@ let config = {
         billingService: process.env.BILLING_SERVICE,
         paymentService: process.env.PAYMENT_SERVICE,
         loggingService: process.env.PAYWALL_LOGGING_SERVICE,
-        goonjService: process.env.GOONJ_SERVICE
+        goonjService: process.env.GOONJ_SERVICE,
+        feedbackService: process.env.FEEDBACK_SERVICE
     }
 };
 
