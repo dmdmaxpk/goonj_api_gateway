@@ -3,6 +3,7 @@ const router = express.Router();
 
 const videoService =    require('./services/video');
 const channelService =  require('./services/channel');
+const categoryService =  require('./services/category');
 const anchorService =   require('./services/anchor');
 const programService =  require('./services/program');
 const topicService =    require('./services/topic');
@@ -19,6 +20,9 @@ router.get('/video',    videoService.getVideo);
 router.post('/video/views',    videoService.postVideoViews);
 
 router.get('/live',     channelService.getChannel);
+router.get('/category',     categoryService.getCategory);
+router.get('/subcategory',     categoryService.getSubCategory);
+
 router.post('/live/views',     channelService.postChannelViews);
 
 router.get('/anchor',   anchorService.getAnchor);
