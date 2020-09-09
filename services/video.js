@@ -6,10 +6,11 @@ exports.getVideo = async (req, res) => {
     const { db } = req.app.locals;
     const collection = db.collection('videos');
 
-	const { _id, category, feed, anchor, topics, pinned, skip, limit, source, program, file_name,is_premium } = req.query;
+	const { _id, category, sub_category, feed, anchor, topics, pinned, skip, limit, source, program, file_name,is_premium } = req.query;
 	let query = {};
 
 	if (_id) 	  	query._id = _id;
+	if (sub_category)   	query.sub_category = sub_category;
 	if (source)   	query.source = source;
 	if (pinned)   	query.pinned = JSON.parse(pinned);		// Conversion of string to Boolean
 	if (feed) 	  	query.feed = feed;
