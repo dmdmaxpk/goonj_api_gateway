@@ -8,6 +8,7 @@ exports.getCategory = async (req,res) => {
 
 exports.getSubCategory = async (req,res) => {
 	let {_id, name, category_name} = req.query;
-	let { data } = await axios.get(`${config.goonjService}/subcat?_id=${_id}&name=${name}&category_name=${category_name}`);
+	// console.log(`${config.goonjService}/subcat?_id=${_id ? _id: ''}&name=${name ? name : ''}&category_name=${category_name ? category_name: ''}`);
+	let { data } = await axios.get(`${config.goonjService}/subcat?_id=${_id ? _id: ''}&name=${name ? name : ''}&category_name=${category_name ? category_name: ''}`);
 	res.send(data);
 }
