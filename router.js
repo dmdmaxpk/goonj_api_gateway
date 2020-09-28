@@ -74,6 +74,7 @@ router.post('/answer', paywall.answer)
 // Paywall v2 Reports
 router.get('/reports/rev',            paywall.revenue);
 router.get('/reports/req-count',            paywall.req_count);
+router.get('/reports/billing/stats',            paywall.billing_stats);
 
 // AdImpressions
 router.post('/vodAd',            adImpression.postVodAds);
