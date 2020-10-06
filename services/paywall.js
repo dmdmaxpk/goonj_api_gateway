@@ -41,10 +41,16 @@ exports.subcribe = async (req,res) => {
 	const post = req.body;
 	post.transaction_id = transaction_id;
 
+	let token = req.headers.authorization;
+	let headers = {"Content-Type": "application/json"};
+	if(token){
+		headers = {"Content-Type": "application/json", "Authorization": `${token}`}
+	}
+
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'subscribe', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/subscribe`, post);
+	let { data } = await axios.post(`${config.paymentService}/payment/subscribe`, post, {headers:headers});
 	
 	// Sending response to logging system
 	sendResBody(data);
