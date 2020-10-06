@@ -52,6 +52,23 @@ exports.subcribe = async (req,res) => {
 	res.send(data);
 }
 
+exports.refresh = async (req,res) => {
+	const transaction_id = getTransactinId();
+
+	const post = req.body;
+	post.transaction_id = transaction_id;
+
+	// Sending request to logging system
+	sendReqBody(req, req.body, 'refresh', transaction_id);
+
+	let { data } = await axios.post(`${config.paymentService}/auth/refresh`, post);
+	
+	// Sending response to logging system
+	sendResBody(data);
+
+	res.send(data);
+}
+
 exports.recharge = async (req,res) => {
 	const transaction_id = getTransactinId();
 
