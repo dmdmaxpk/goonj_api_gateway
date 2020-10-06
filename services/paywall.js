@@ -125,6 +125,22 @@ exports.unsubscribe = async (req,res) => {
 	res.send(data);
 }
 
+exports.ccd_unsubscribe = async (req,res) => {
+	const transaction_id = getTransactinId();
+	const post = req.body;
+	post.transaction_id = transaction_id;
+
+	// Sending request to logging system
+	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
+
+	let { data } = await axios.post(`${config.paymentService}/payment/ccd-unsubscribe`, post);
+	
+	// Sending response to logging system
+	sendResBody(data);
+
+	res.send(data);
+}
+
 exports.getPackages = async (req,res) => {
 	//const transaction_id = getTransactinId();
 	//let source = req.query.source;
