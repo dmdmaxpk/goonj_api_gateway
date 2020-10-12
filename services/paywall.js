@@ -59,19 +59,11 @@ exports.subcribe = async (req,res) => {
 }
 
 exports.refresh = async (req,res) => {
-	const transaction_id = getTransactinId();
-
+	
 	const post = req.body;
-	//post.transaction_id = transaction_id;
-
-	// Sending request to logging system
-	//sendReqBody(req, req.body, 'refresh', transaction_id);
-
+	
 	let { data } = await axios.post(`${config.paymentService}/auth/refresh`, post);
 	
-	// Sending response to logging system
-	//sendResBody(data);
-
 	res.send(data);
 }
 
@@ -114,10 +106,16 @@ exports.unsubscribe = async (req,res) => {
 	const post = req.body;
 	post.transaction_id = transaction_id;
 
+	let token = req.headers.authorization;
+	let headers = {"Content-Type": "application/json"};
+	if(token){
+		headers = {"Content-Type": "application/json", "Authorization": `${token}`}
+	}
+
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/unsubscribe`, post);
+	let { data } = await axios.post(`${config.paymentService}/payment/unsubscribe`, post, {headers:headers});
 	
 	// Sending response to logging system
 	sendResBody(data);
@@ -130,10 +128,16 @@ exports.ccd_unsubscribe = async (req,res) => {
 	const post = req.body;
 	post.transaction_id = transaction_id;
 
+	let token = req.headers.authorization;
+	let headers = {"Content-Type": "application/json"};
+	if(token){
+		headers = {"Content-Type": "application/json", "Authorization": `${token}`}
+	}
+
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/ccd-unsubscribe`, post);
+	let { data } = await axios.post(`${config.paymentService}/payment/ccd-unsubscribe`, post, {headers:headers});
 	
 	// Sending response to logging system
 	sendResBody(data);
