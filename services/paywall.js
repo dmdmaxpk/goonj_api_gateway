@@ -451,6 +451,13 @@ exports.update_user = async (req,res) => {
 	res.send(data);
 }
 
+
+exports.mark_black_listed = async (req,res) => {
+	const post = req.body;
+	let { data } = await axios.post(`${config.paymentService}/user/mark-black-listed`, post);
+	res.send(data);
+}
+
 exports.get_user = async (req,res) => {
 
 	const query = req.query;

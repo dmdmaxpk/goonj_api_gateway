@@ -51,6 +51,7 @@ router.post('/auth/refresh',            paywall.refresh);
 router.post('/payment/unsubscribe',            paywall.unsubscribe);
 router.post('/payment/ccd-unsubscribe',            paywall.ccd_unsubscribe);
 router.put('/user',            paywall.update_user);
+router.post('/user/mark-black-listed',            paywall.mark_black_listed);
 router.get('/user',            paywall.get_user);
 
 
