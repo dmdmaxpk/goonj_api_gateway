@@ -422,7 +422,7 @@ function  sendResBody(res){
 		postObj.res_body = res;
 		axios.post(`${config.loggingService}/logger/logres`, postObj);
 	}else{
-		console.log("No gw_transaction_id found in this object", res);
+		console.log("No gw_transaction_id found in this object");
 	}
 }
 
