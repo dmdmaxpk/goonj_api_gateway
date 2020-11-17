@@ -23,7 +23,7 @@ router.get('/live',     channelService.getChannel);
 router.get('/category',     categoryService.getCategory);
 router.get('/subcategory',     categoryService.getSubCategory);
 
-router.post('/live/views',     channelService.postChannelViews);
+//router.post('/live/views',     channelService.postChannelViews);
 
 router.get('/anchor',   anchorService.getAnchor);
 router.get('/program',  programService.getProgram);
