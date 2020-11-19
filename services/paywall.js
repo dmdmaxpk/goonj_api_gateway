@@ -36,26 +36,29 @@ exports.verifyOtp = async (req,res) => {
 }
 
 exports.subcribe = async (req,res) => {
-	const transaction_id = getTransactinId();
+	if(req && req.socket.destroyed){
+		res.send({code: -1, message: "Socket Destroyed"});
+	}else{
+		const transaction_id = getTransactinId();
+		const post = req.body;
+		post.transaction_id = transaction_id;
 
-	const post = req.body;
-	post.transaction_id = transaction_id;
+		let token = req.headers.authorization;
+		let headers = {"Content-Type": "application/json"};
+		if(token){
+			headers = {"Content-Type": "application/json", "Authorization": `${token}`}
+		}
 
-	let token = req.headers.authorization;
-	let headers = {"Content-Type": "application/json"};
-	if(token){
-		headers = {"Content-Type": "application/json", "Authorization": `${token}`}
+		// Sending request to logging system
+		sendReqBody(req, req.body, 'subscribe', transaction_id);
+
+		let { data } = await axios.post(`${config.paymentService}/payment/subscribe`, post, {headers:headers});
+		
+		// Sending response to logging system
+		sendResBody(data);
+
+		res.send(data);
 	}
-
-	// Sending request to logging system
-	sendReqBody(req, req.body, 'subscribe', transaction_id);
-
-	let { data } = await axios.post(`${config.paymentService}/payment/subscribe`, post, {headers:headers});
-	
-	// Sending response to logging system
-	sendResBody(data);
-
-	res.send(data);
 }
 
 exports.refresh = async (req,res) => {
