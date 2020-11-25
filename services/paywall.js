@@ -75,20 +75,24 @@ exports.refresh = async (req,res) => {
 }
 
 exports.recharge = async (req,res) => {
-	const transaction_id = getTransactinId();
+    if(!res || res === undefined || res.socket.destroyed || req && req.socket.destroyed){
+        res.send({code: -1, message: "Socket Destroyed"});
+    }else {
+        const transaction_id = getTransactinId();
 
-	const post = req.body;
-	post.transaction_id = transaction_id;
+        const post = req.body;
+        post.transaction_id = transaction_id;
 
-	// Sending request to logging system
-	sendReqBody(req, req.body, 'recharge', transaction_id);
+        // Sending request to logging system
+        sendReqBody(req, req.body, 'recharge', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/recharge`, post);
-	
-	// Sending response to logging system
-	sendResBody(data);
+        let {data} = await axios.post(`${config.paymentService}/payment/recharge`, post);
 
-	res.send(data);
+        // Sending response to logging system
+        sendResBody(data);
+
+        res.send(data);
+    }
 }
 
 exports.status = async (req,res) => {
