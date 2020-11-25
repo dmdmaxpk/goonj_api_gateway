@@ -7,6 +7,13 @@ exports.sendOtp = async (req,res) => {
     if(!res || res === undefined || res.socket.destroyed || req && req.socket.destroyed){
         res.send({code: -1, message: "Socket Destroyed"});
     }else {
+
+        req.on('error', (err) => {
+            // This prints the error message and stack trace to `stderr`.
+            console.error(err.stack);
+            res.send({code: -1, message: "Socket Destroyed"});
+        });
+
         const transaction_id = getTransactinId();
         const post = req.body;
         post.transaction_id = transaction_id;
@@ -43,6 +50,13 @@ exports.subcribe = async (req,res) => {
 	if(!res || res === undefined || res.socket.destroyed || req && req.socket.destroyed){
 		res.send({code: -1, message: "Socket Destroyed"});
 	}else{
+
+        req.on('error', (err) => {
+            // This prints the error message and stack trace to `stderr`.
+            console.error(err.stack);
+            res.send({code: -1, message: "Socket Destroyed"});
+        });
+
 		const transaction_id = getTransactinId();
 		const post = req.body;
 		post.transaction_id = transaction_id;
@@ -78,6 +92,13 @@ exports.recharge = async (req,res) => {
     if(!res || res === undefined || res.socket.destroyed || req && req.socket.destroyed){
         res.send({code: -1, message: "Socket Destroyed"});
     }else {
+
+        req.on('error', (err) => {
+            // This prints the error message and stack trace to `stderr`.
+            console.error(err.stack);
+            res.send({code: -1, message: "Socket Destroyed"});
+        });
+
         const transaction_id = getTransactinId();
 
         const post = req.body;
@@ -113,6 +134,13 @@ exports.status = async (req,res) => {
 }
 
 exports.unsubscribe = async (req,res) => {
+
+    req.on('error', (err) => {
+        // This prints the error message and stack trace to `stderr`.
+        console.error(err.stack);
+        res.send({code: -1, message: "Socket Destroyed"});
+    });
+
 	const transaction_id = getTransactinId();
 	const post = req.body;
 	post.transaction_id = transaction_id;
