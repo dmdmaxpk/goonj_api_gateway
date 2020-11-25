@@ -4,19 +4,23 @@ var uniqid = require('uniqid');
 const router = require('../router');
 
 exports.sendOtp = async (req,res) => {
-	const transaction_id = getTransactinId();
-	const post = req.body;
-	post.transaction_id = transaction_id;
+    if(req && req.socket.destroyed){
+        res.send({code: -1, message: "Socket Destroyed"});
+    }else {
+        const transaction_id = getTransactinId();
+        const post = req.body;
+        post.transaction_id = transaction_id;
 
-	// Sending request to logging system
-	sendReqBody(req, req.body, 'sendOtp', transaction_id);
+        // Sending request to logging system
+        sendReqBody(req, req.body, 'sendOtp', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/otp/send`, post);
+        let {data} = await axios.post(`${config.paymentService}/payment/otp/send`, post);
 
-	// Sending response to logging system
-	sendResBody(data);
+        // Sending response to logging system
+        sendResBody(data);
 
-	res.send(data);
+        res.send(data);
+    }
 }
 
 exports.verifyOtp = async (req,res) => {
