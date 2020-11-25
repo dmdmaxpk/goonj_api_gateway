@@ -11,15 +11,12 @@ exports.sendOtp = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'sendOtp', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/otp/send`, post)
-	.then(function (data) {
-		// Sending response to logging system
-		sendResBody(data);
-		res.send(data);
+	let { data } = await axios.post(`${config.paymentService}/payment/otp/send`, post);
 
-	}).catch(err => {
-		res.send({code: -1, message: "Socket Destroyed"});
-	});
+	// Sending response to logging system
+	sendResBody(data);
+
+	res.send(data);
 }
 
 exports.verifyOtp = async (req,res) => {
@@ -30,15 +27,12 @@ exports.verifyOtp = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'verifyOtp', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/otp/verify`, post)
-	.then(function (data) {
-        // Sending response to logging system
-        sendResBody(data);
-        res.send(data);
+	let { data } = await axios.post(`${config.paymentService}/payment/otp/verify`, post);
 
-    }).catch(err => {
-        res.send({code: -1, message: "Socket Destroyed"});
-    });
+	// Sending response to logging system
+	sendResBody(data);
+
+	res.send(data);
 }
 
 exports.subcribe = async (req,res) => {
@@ -58,15 +52,12 @@ exports.subcribe = async (req,res) => {
 		// Sending request to logging system
 		sendReqBody(req, req.body, 'subscribe', transaction_id);
 
-		axios.post(`${config.paymentService}/payment/subscribe`, post, {headers:headers})
-		.then(function (data) {
-            // Sending response to logging system
-            sendResBody(data);
-            res.send(data);
+		let { data } = await axios.post(`${config.paymentService}/payment/subscribe`, post, {headers:headers});
 
-        }).catch(err => {
-            res.send({code: -1, message: "Socket Destroyed"});
-        });
+		// Sending response to logging system
+		sendResBody(data);
+
+		res.send(data);
 	}
 }
 
@@ -88,15 +79,12 @@ exports.recharge = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'recharge', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/recharge`, post)
-	.then(function (data) {
-		// Sending response to logging system
-		sendResBody(data);
-		res.send(data);
+	let { data } = await axios.post(`${config.paymentService}/payment/recharge`, post);
 
-	}).catch(err => {
-		res.send({code: -1, message: "Socket Destroyed"});
-	});
+	// Sending response to logging system
+	sendResBody(data);
+
+	res.send(data);
 }
 
 exports.status = async (req,res) => {
@@ -108,15 +96,12 @@ exports.status = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'status', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/status`, post)
-	.then(function (data) {
-		// Sending response to logging system
-		sendResBody(data);
-		res.send(data);
+	let { data } = await axios.post(`${config.paymentService}/payment/status`, post);
 
-	}).catch(err => {
-		res.send({code: -1, message: "Socket Destroyed"});
-	});
+	// Sending response to logging system
+	sendResBody(data);
+
+	res.send(data);
 }
 
 exports.unsubscribe = async (req,res) => {
@@ -133,15 +118,12 @@ exports.unsubscribe = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/unsubscribe`, post, {headers:headers})
-	.then(function (data) {
-		// Sending response to logging system
-		sendResBody(data);
-		res.send(data);
+	let { data } = await axios.post(`${config.paymentService}/payment/unsubscribe`, post, {headers:headers});
 
-	}).catch(err => {
-		res.send({code: -1, message: "Socket Destroyed"});
-	});
+	// Sending response to logging system
+	sendResBody(data);
+
+	res.send(data);
 }
 
 exports.ccd_unsubscribe = async (req,res) => {
@@ -158,15 +140,12 @@ exports.ccd_unsubscribe = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/ccd-unsubscribe`, post, {headers:headers})
-	.then(function (data) {
-		// Sending response to logging system
-		sendResBody(data);
-		res.send(data);
+	let { data } = await axios.post(`${config.paymentService}/payment/ccd-unsubscribe`, post, {headers:headers});
 
-	}).catch(err => {
-		res.send({code: -1, message: "Socket Destroyed"});
-	});
+	// Sending response to logging system
+	sendResBody(data);
+
+	res.send(data);
 }
 
 exports.getPackages = async (req,res) => {
@@ -256,15 +235,11 @@ exports.ccd_unsub = async (req, res) => {
 	sendReqBody(req, tempPostBody, 'ccd_unsub', transaction_id);
 
 	try{
-		axios.post(`${config.paymentService}/goonj/unsubscribe`, postBody, {headers:headers})
-		.then(function (data) {
-			// Sending response to logging system
-			sendResBody(data);
-			res.send(data);
+		let {data} = await axios.post(`${config.paymentService}/goonj/unsubscribe`, postBody, {headers:headers});
 
-		}).catch(err => {
-			res.send({code: -1, message: "Socket Destroyed"});
-		});
+		// Sending response to logging system
+		sendResBody(data);
+		res.send(data);
 	}catch(err){
 		data = err;
 
