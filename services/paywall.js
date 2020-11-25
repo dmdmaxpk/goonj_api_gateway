@@ -4,7 +4,7 @@ var uniqid = require('uniqid');
 const router = require('../router');
 
 exports.sendOtp = async (req,res) => {
-    if(req && req.socket.destroyed){
+    if(!res || res === undefined || res.socket.destroyed || req && req.socket.destroyed){
         res.send({code: -1, message: "Socket Destroyed"});
     }else {
         const transaction_id = getTransactinId();
@@ -40,7 +40,7 @@ exports.verifyOtp = async (req,res) => {
 }
 
 exports.subcribe = async (req,res) => {
-	if(req && req.socket.destroyed){
+	if(!res || res === undefined || res.socket.destroyed || req && req.socket.destroyed){
 		res.send({code: -1, message: "Socket Destroyed"});
 	}else{
 		const transaction_id = getTransactinId();
