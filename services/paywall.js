@@ -369,6 +369,7 @@ exports.revenue_stats = async (req,res) => {
 	.then(function (data) {
 		res.send(data);
 	}).catch(err => {
+		console.log('revenue_stats - Error: ', err);
         res.send({'code': -1, 'message': 'Request timeout!'});
     });
 }
