@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82c4c048-0220-4954-8318-3a341e5898fe" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/paywall.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/paywall.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,24 +24,24 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitignore" value="1" />
-          <entry key="js" value="7" />
+          <entry key="js" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JavaScript" value="7" />
+          <entry key="JavaScript" value="8" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="12" />
-          <entry key="js" value="212" />
+          <entry key="js" value="221" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="212" />
+          <entry key="JavaScript" value="221" />
           <entry key="PLAIN_TEXT" value="12" />
         </counts>
       </usages-collector>
@@ -62,11 +63,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/paywall.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4097">
-              <caret line="241" column="21" lean-forward="true" selection-start-line="241" selection-start-column="21" selection-end-line="241" selection-end-column="21" />
+            <state relative-caret-position="228">
+              <caret line="367" column="15" selection-start-line="367" selection-start-column="15" selection-end-line="367" selection-end-column="15" />
               <folding>
                 <element signature="e#6385#7129#0" />
               </folding>
@@ -95,11 +96,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="71" column="19" lean-forward="true" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+            <state relative-caret-position="396">
+              <caret line="80" column="62" selection-start-line="80" selection-start-column="62" selection-end-line="80" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/video.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1596">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -112,6 +122,7 @@
       <find>paymentService</find>
       <find>revenue/stats</find>
       <find>package</find>
+      <find>video</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -120,9 +131,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/router.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/services/paywall.js" />
+        <option value="$PROJECT_DIR$/router.js" />
       </list>
     </option>
   </component>
@@ -208,7 +219,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9687000" />
+    <option name="totallyTimeSpent" value="11193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -279,20 +290,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/paywall.js">
+    <entry file="file://$PROJECT_DIR$/services/video.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4097">
-          <caret line="241" column="21" lean-forward="true" selection-start-line="241" selection-start-column="21" selection-end-line="241" selection-end-column="21" />
-          <folding>
-            <element signature="e#6385#7129#0" />
-          </folding>
+        <state relative-caret-position="-1596">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="71" column="19" lean-forward="true" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+        <state relative-caret-position="396">
+          <caret line="80" column="62" selection-start-line="80" selection-start-column="62" selection-end-line="80" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/paywall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="367" column="15" selection-start-line="367" selection-start-column="15" selection-end-line="367" selection-end-column="15" />
+          <folding>
+            <element signature="e#6385#7129#0" />
+          </folding>
         </state>
       </provider>
     </entry>
