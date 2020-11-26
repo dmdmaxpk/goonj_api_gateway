@@ -365,8 +365,12 @@ exports.billing_stats = async (req,res) => {
 }
 
 exports.revenue_stats = async (req,res) => {
-	let { data } = await axios.get(`${config.paymentService}/report/revenue/stats`);
-	res.send(data);
+	axios.get(`${config.paymentService}/report/revenue/stats`)
+	.then(function (data) {
+		res.send(data);
+	}).catch(err => {
+        res.send({'code': -1, 'message': 'Request timeout!'});
+    });
 }
 
 exports.pageView = async (req, res) => {
