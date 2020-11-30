@@ -367,7 +367,7 @@ exports.billing_stats = async (req,res) => {
 exports.revenue_stats = async (req,res) => {
     axios.get(`${config.paymentService}/report/revenue/stats`)
 	.then(function (data) {
-		res.send(data);
+		res.send(data.data);
 	}).catch(err => {
 		console.log('revenue_stats - Error: ', err);
         res.send({'code': -1, 'message': 'Request timeout!'});
