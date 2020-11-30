@@ -365,9 +365,7 @@ exports.billing_stats = async (req,res) => {
 }
 
 exports.revenue_stats = async (req,res) => {
-    console.log('revenue_stats - serviceType: ', req.query.serviceType);
-
-    axios.get(`${config.paymentService}/report/revenue/stats?serviceType=${req.query.serviceType}`)
+    axios.get(`${config.paymentService}/report/revenue/stats`)
 	.then(function (data) {
 		res.send(data);
 	}).catch(err => {
