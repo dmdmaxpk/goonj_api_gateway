@@ -365,7 +365,9 @@ exports.billing_stats = async (req,res) => {
 }
 
 exports.revenue_stats = async (req,res) => {
-    axios.get(`${config.paymentService}/report/revenue/stats`)
+    console.log('revenue_stats - day: ', req.query.day);
+
+    axios.get(`${config.paymentService}/report/revenue/stats?day=${req.query.day}`)
 	.then(function (data) {
 		res.send(data.data);
 	}).catch(err => {
