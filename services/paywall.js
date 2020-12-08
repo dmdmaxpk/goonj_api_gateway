@@ -127,18 +127,7 @@ exports.unsubscribe = async (req,res) => {
 }
 
 exports.sms_unsub = async (req,res) => {
-	const transaction_id = getTransactinId();
-	const post = req.body;
-	post.transaction_id = transaction_id;
-
-	// Sending request to logging system
-	sendReqBody(req, req.body, 'sms-unsub', transaction_id);
-
-	let { data } = await axios.post(`${config.paymentService}/payment/sms-unsub`, post, {headers:headers});
-
-	// Sending response to logging system
-	sendResBody(data);
-
+	let { data } = await axios.post(`${config.paymentService}/payment/sms-unsub`, req.body);
 	res.send(data);
 }
 
