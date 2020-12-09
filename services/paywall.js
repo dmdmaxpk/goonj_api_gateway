@@ -11,12 +11,19 @@ exports.sendOtp = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'sendOtp', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/otp/send`, post);
+	axios.post(`${config.paymentService}/payment/otp/send`, post)
+	.then(function (data) {
 
-	// Sending response to logging system
-	sendResBody(data);
+		// Sending response to logging system
+		sendResBody(data.data);
+		res.send(data.data);
+	}).catch(err => {
+		console.log('sendOtp - Error: ', err);
 
-	res.send(data);
+		// Sending response to logging system
+		sendResBody(err);
+		res.send({'code': -1, 'message': 'Send Otp Request error!', 'error': err});
+	});
 }
 
 exports.verifyOtp = async (req,res) => {
@@ -52,12 +59,19 @@ exports.subcribe = async (req,res) => {
 		// Sending request to logging system
 		sendReqBody(req, req.body, 'subscribe', transaction_id);
 
-		let { data } = await axios.post(`${config.paymentService}/payment/subscribe`, post, {headers:headers});
+		axios.post(`${config.paymentService}/payment/subscribe`, post, {headers:headers})
+		.then(function (data) {
 
-		// Sending response to logging system
-		sendResBody(data);
+			// Sending response to logging system
+			sendResBody(data.data);
+			res.send(data.data);
+		}).catch(err => {
+			console.log('subscribe - Error: ', err);
 
-		res.send(data);
+			// Sending response to logging system
+			sendResBody(err);
+			res.send({'code': -1, 'message': 'Subscribe Request error!', 'error': err});
+		});
 	}
 }
 
@@ -79,12 +93,19 @@ exports.recharge = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'recharge', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/recharge`, post);
+	axios.post(`${config.paymentService}/payment/recharge`, post)
+	.then(function (data) {
 
-	// Sending response to logging system
-	sendResBody(data);
+		// Sending response to logging system
+		sendResBody(data.data);
+		res.send(data.data);
+	}).catch(err => {
+		console.log('recharge - Error: ', err);
 
-	res.send(data);
+		// Sending response to logging system
+		sendResBody(err);
+		res.send({'code': -1, 'message': 'Recharge Request error!', 'error': err});
+	});
 }
 
 exports.status = async (req,res) => {
@@ -118,17 +139,29 @@ exports.unsubscribe = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/unsubscribe`, post, {headers:headers});
+	axios.post(`${config.paymentService}/payment/unsubscribe`, post, {headers:headers})
+	.then(function (data) {
 
-	// Sending response to logging system
-	sendResBody(data);
+		// Sending response to logging system
+		sendResBody(data.data);
+		res.send(data.data);
+	}).catch(err => {
+		console.log('unsubscribe - Error: ', err);
 
-	res.send(data);
+		// Sending response to logging system
+		sendResBody(err);
+		res.send({'code': -1, 'message': 'Unsubscribe Request error!', 'error': err});
+	});
 }
 
 exports.sms_unsub = async (req,res) => {
-	let { data } = await axios.post(`${config.paymentService}/payment/sms-unsub`, req.body);
-	res.send(data);
+	axios.post(`${config.paymentService}/payment/sms-unsub`, req.body)
+	.then(function (data) {
+		res.send(data.data);
+	}).catch(err => {
+		console.log('sms_unsub - Error: ', err);
+		res.send({'code': -1, 'message': 'SMS Unsub Request error!', 'error': err});
+	});
 }
 
 exports.ccd_unsubscribe = async (req,res) => {
@@ -145,12 +178,19 @@ exports.ccd_unsubscribe = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/ccd-unsubscribe`, post, {headers:headers});
+	axios.post(`${config.paymentService}/payment/ccd-unsubscribe`, post, {headers:headers})
+	.then(function (data) {
 
-	// Sending response to logging system
-	sendResBody(data);
+		// Sending response to logging system
+		sendResBody(data.data);
+		res.send(data.data);
+	}).catch(err => {
+		console.log('ccd_unsubscribe - Error: ', err);
 
-	res.send(data);
+		// Sending response to logging system
+		sendResBody(err);
+		res.send({'code': -1, 'message': 'CCD Unsubscribe Request error!', 'error': err});
+	});
 }
 
 exports.getPackages = async (req,res) => {
@@ -240,17 +280,24 @@ exports.ccd_unsub = async (req, res) => {
 	sendReqBody(req, tempPostBody, 'ccd_unsub', transaction_id);
 
 	try{
-		let {data} = await axios.post(`${config.paymentService}/goonj/unsubscribe`, postBody, {headers:headers});
+		axios.post(`${config.paymentService}/goonj/unsubscribe`, postBody, {headers:headers})
+		.then(function (data) {
+			// Sending response to logging system
+			sendResBody(data.data);
+			res.send(data.data);
+		}).catch(err => {
+			console.log('ccd_unsub - Error: ', err);
 
-		// Sending response to logging system
-		sendResBody(data);
-		res.send(data);
+			// Sending response to logging system
+			sendResBody(err);
+			res.send({'code': -1, 'message': 'CCD Unsub Request error!', 'error': err});
+		});
 	}catch(err){
-		data = err;
+		console.log('ccd_unsub - Error: ', err);
 
 		// Sending response to logging system
-		sendResBody(data);
-		res.send(data);
+		sendResBody(err);
+		res.send(err);
 	}
 }
 
@@ -355,18 +402,33 @@ exports.isGrayListed = async (req,res) => {
 }
 
 exports.revenue = async (req,res) => {
-	let { data } = await axios.get(`${config.paymentService}/report/rev`);
-	res.send(data);
+	axios.get(`${config.paymentService}/report/rev`)
+	.then(function (data) {
+		res.send(data.data);
+	}).catch(err => {
+		console.log('revenue - Error: ', err);
+		res.send({'code': -1, 'message': 'Revenue Request error!', 'error': err});
+	});
 }
 
 exports.req_count = async (req,res) => {
-	let { data } = await axios.get(`${config.paymentService}/report/req-count`);
-	res.send(data);
+	await axios.get(`${config.paymentService}/report/req-count`)
+	.then(function (data) {
+		res.send(data.data);
+	}).catch(err => {
+		console.log('req_count - Error: ', err);
+		res.send({'code': -1, 'message': 'Req Count Request error!', 'error': err});
+	});
 }
 
 exports.billing_stats = async (req,res) => {
-	let { data } = await axios.get(`${config.paymentService}/report/billing/stats`);
-	res.send(data);
+	axios.get(`${config.paymentService}/report/billing/stats`)
+	.then(function (data) {
+		res.send(data.data);
+	}).catch(err => {
+		console.log('billing_stats - Error: ', err);
+		res.send({'code': -1, 'message': 'Billing Stats Request error!', 'error': err});
+	});
 }
 
 exports.revenue_stats = async (req,res) => {
@@ -377,7 +439,7 @@ exports.revenue_stats = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('revenue_stats - Error: ', err);
-        res.send({'code': -1, 'message': 'Request timeout!'});
+        res.send({'code': -1, 'message': 'Revenue Stats Request error!', 'error': err});
     });
 }
 
