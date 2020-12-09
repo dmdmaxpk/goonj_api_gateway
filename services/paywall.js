@@ -19,10 +19,7 @@ exports.sendOtp = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('sendOtp - Error: ', err);
-
-		// Sending response to logging system
-		sendResBody(err);
-		res.send({'code': -1, 'message': 'Send Otp Request error!', 'error': err});
+		res.send({'code': -1, 'message': 'Send Otp Request error!'});
 	});
 }
 
@@ -67,10 +64,7 @@ exports.subcribe = async (req,res) => {
 			res.send(data.data);
 		}).catch(err => {
 			console.log('subscribe - Error: ', err);
-
-			// Sending response to logging system
-			sendResBody(err);
-			res.send({'code': -1, 'message': 'Subscribe Request error!', 'error': err});
+			res.send({'code': -1, 'message': 'Subscribe Request error!'});
 		});
 	}
 }
@@ -101,10 +95,7 @@ exports.recharge = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('recharge - Error: ', err);
-
-		// Sending response to logging system
-		sendResBody(err);
-		res.send({'code': -1, 'message': 'Recharge Request error!', 'error': err});
+		res.send({'code': -1, 'message': 'Recharge Request error!'});
 	});
 }
 
@@ -147,10 +138,7 @@ exports.unsubscribe = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('unsubscribe - Error: ', err);
-
-		// Sending response to logging system
-		sendResBody(err);
-		res.send({'code': -1, 'message': 'Unsubscribe Request error!', 'error': err});
+		res.send({'code': -1, 'message': 'Unsubscribe Request error!'});
 	});
 }
 
@@ -160,7 +148,7 @@ exports.sms_unsub = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('sms_unsub - Error: ', err);
-		res.send({'code': -1, 'message': 'SMS Unsub Request error!', 'error': err});
+		res.send({'code': -1, 'message': 'SMS Unsub Request error!'});
 	});
 }
 
@@ -186,10 +174,7 @@ exports.ccd_unsubscribe = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('ccd_unsubscribe - Error: ', err);
-
-		// Sending response to logging system
-		sendResBody(err);
-		res.send({'code': -1, 'message': 'CCD Unsubscribe Request error!', 'error': err});
+		res.send({'code': -1, 'message': 'CCD Unsubscribe Request error!'});
 	});
 }
 
@@ -287,17 +272,11 @@ exports.ccd_unsub = async (req, res) => {
 			res.send(data.data);
 		}).catch(err => {
 			console.log('ccd_unsub - Error: ', err);
-
-			// Sending response to logging system
-			sendResBody(err);
-			res.send({'code': -1, 'message': 'CCD Unsub Request error!', 'error': err});
+			res.send({'code': -1, 'message': 'CCD Unsub Request error!'});
 		});
 	}catch(err){
 		console.log('ccd_unsub - Error: ', err);
-
-		// Sending response to logging system
-		sendResBody(err);
-		res.send(err);
+		res.send({'code': -1, 'message': 'CCD Unsub Request error!'});
 	}
 }
 
@@ -407,7 +386,7 @@ exports.revenue = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('revenue - Error: ', err);
-		res.send({'code': -1, 'message': 'Revenue Request error!', 'error': err});
+		res.send({'code': -1, 'message': 'Revenue Request error!'});
 	});
 }
 
@@ -417,7 +396,7 @@ exports.req_count = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('req_count - Error: ', err);
-		res.send({'code': -1, 'message': 'Req Count Request error!', 'error': err});
+		res.send({'code': -1, 'message': 'Req Count Request error!'});
 	});
 }
 
@@ -427,7 +406,7 @@ exports.billing_stats = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('billing_stats - Error: ', err);
-		res.send({'code': -1, 'message': 'Billing Stats Request error!', 'error': err});
+		res.send({'code': -1, 'message': 'Billing Stats Request error!'});
 	});
 }
 
@@ -439,7 +418,7 @@ exports.revenue_stats = async (req,res) => {
 		res.send(data.data);
 	}).catch(err => {
 		console.log('revenue_stats - Error: ', err);
-        res.send({'code': -1, 'message': 'Revenue Stats Request error!', 'error': err});
+        res.send({'code': -1, 'message': 'Revenue Stats Request error!'});
     });
 }
 
