@@ -25,6 +25,10 @@ router.get('/subcategory',     categoryService.getSubCategory);
 
 router.post('/live/views',     channelService.postChannelViews);
 
+router.get('/channel/category-wise',     channelService.channelCategoryWise);
+
+router.get('/banner/list',     bannerService.getBanners);
+
 router.get('/anchor',   anchorService.getAnchor);
 router.get('/program',  programService.getProgram);
 router.get('/topic',    topicService.getTopic);
