@@ -4,6 +4,7 @@ const router = express.Router();
 const videoService =    require('./services/video');
 const channelService =  require('./services/channel');
 const categoryService =  require('./services/category');
+const bannerService =  require('./services/bannerService');
 const anchorService =   require('./services/anchor');
 const programService =  require('./services/program');
 const topicService =    require('./services/topic');
