@@ -10,7 +10,7 @@
 /build
 
 # misc
-.1dea
+/.1dea
 .DS_Store
 .env.local
 .env.development.local
