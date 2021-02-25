@@ -6,7 +6,7 @@ exports.getChannel = async (req, res) => {
     const { db } = req.app.locals;
     const collection = db.collection('channels');
 
-	let { _id, slug, package_id } = req.query;
+	let { _id, slug, package_id, category } = req.query;
 	const query = {};
 	const country = req.headers['http_country_code'];
 	if(country){
@@ -17,6 +17,7 @@ exports.getChannel = async (req, res) => {
 
 	if (_id) query._id = _id;
 	if (slug) query.slug = slug;
+	if (category) query.category = category;
 	if (!package_id) package_id = undefined;
 	
 	query.active = req.query.active === 'false' ? false : true; // returning inactive channels if req.query.active is false
