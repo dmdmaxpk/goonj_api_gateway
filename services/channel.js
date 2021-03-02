@@ -37,7 +37,8 @@ exports.getChannel = async (req, res) => {
 						thumbnail : { $first : "$thumbnail" },
 						package_id : { $addToSet: "$package_id" },
 						seq: {$first : "$seq"},
-						is_streamable : { $max : { $eq : [ "$package_id", package_id ] }}
+						is_streamable : { $max : { $eq : [ "$package_id", package_id ] }},
+						category: {$first : "$category"}
 					}
 				}
 	let sort = { $sort: {seq: 1	}};
