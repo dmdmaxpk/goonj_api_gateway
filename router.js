@@ -13,6 +13,7 @@ const configService =   require('./services/config');
 const searchService =   require('./services/search');
 const adImpression =    require('./services/ad_impression');
 const paywall =    require('./services/paywall');
+const cityService =   require('./services/city');
 
 // Service Label
 router.get('/', (req, res) => res.send("API Gateway"));
@@ -34,6 +35,8 @@ router.get('/program',  programService.getProgram);
 router.get('/topic',    topicService.getTopic);
 router.get('/config',   configService.settings);    // All configs are shifted to Firebase
 router.get('/search',   searchService.getSearch);
+
+router.get('/city',   cityService.getCities);
 
 // Paywall billing
 router.post('/user/sendOtp',            userService.sendOtp);
