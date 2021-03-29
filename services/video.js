@@ -124,6 +124,6 @@ exports.getVideo = async (req, res) => {
 }
 
 exports.postVideoViews = async (req, res) => {
-    let {data} = await axios.post(`${config.goonjService}/videoViews`, req.body);
-    res.send(data);
+    //let {data} = await axios.post(`${config.goonjService}/videoViews`, req.body);
+    res.send('Empty result send');
 }
