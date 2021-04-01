@@ -179,22 +179,21 @@ exports.ccd_unsubscribe = async (req,res) => {
 }
 
 exports.getPackages = async (req,res) => {
-	//const transaction_id = getTransactinId();
-	//let source = req.query.source;
-
-	// Sending request to logging system
-	//sendReqBody(req, {source:source}, 'packages', transaction_id);
-
-
 	let route = "package";
 	
+	let query_slug = "";
 	let query_is_default = "";
 	let query_id = "";
 
+	let slug = req.query.slug;
 	let is_default = req.query.is_default;
 	let id = req.query.id;
 
-	querySlug = "?slug=live";
+	if(slug){
+		query_slug = "?slug="+slug;
+	}else{
+		query_slug = "?slug=live";
+	}
 
 	if(is_default){ 
 		query_is_default = "&is_default="+req.query.is_default;
@@ -204,7 +203,7 @@ exports.getPackages = async (req,res) => {
 		query_id = "&id="+req.query.id;
 	};
 
-	let final = `${config.paymentService}/${route}${querySlug}${query_is_default}${query_id}`;
+	let final = `${config.paymentService}/${route}${query_slug}${query_is_default}${query_id}`;
 	console.log(final);
 
 	let { data } = await axios.get(final);
