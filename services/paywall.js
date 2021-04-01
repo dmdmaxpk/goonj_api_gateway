@@ -187,17 +187,14 @@ exports.getPackages = async (req,res) => {
 
 
 	let route = "package";
-	let querySlug = "";
+	
 	let query_is_default = "";
 	let query_id = "";
 
-	let slug = req.query.slug;
 	let is_default = req.query.is_default;
 	let id = req.query.id;
 
-	if(slug){ 
-		querySlug = "?slug=live";
-	};
+	querySlug = "?slug=live";
 
 	if(is_default){ 
 		query_is_default = "&is_default="+req.query.is_default;
