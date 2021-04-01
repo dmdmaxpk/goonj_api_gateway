@@ -196,7 +196,7 @@ exports.getPackages = async (req,res) => {
 	let id = req.query.id;
 
 	if(slug){ 
-		querySlug = "?slug="+req.query.slug;
+		querySlug = "?slug=live";
 	};
 
 	if(is_default){ 
