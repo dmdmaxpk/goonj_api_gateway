@@ -189,9 +189,11 @@ exports.getPackages = async (req,res) => {
 	let route = "package";
 	let querySlug = "";
 	let query_is_default = "";
+	let query_id = "";
 
 	let slug = req.query.slug;
 	let is_default = req.query.is_default;
+	let id = req.query.id;
 
 	if(slug){ 
 		querySlug = "?slug="+req.query.slug;
@@ -201,7 +203,11 @@ exports.getPackages = async (req,res) => {
 		query_is_default = "&is_default="+req.query.is_default;
 	};
 
-	let final = `${config.paymentService}/${route}${querySlug}${query_is_default}`;
+	if(id){ 
+		query_id = "&id="+req.query.id;
+	};
+
+	let final = `${config.paymentService}/${route}${querySlug}${query_is_default}${query_id}`;
 	console.log(final);
 
 	let { data } = await axios.get(final);
