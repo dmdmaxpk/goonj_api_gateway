@@ -19,6 +19,7 @@ const cityService =   require('./services/city');
 router.get('/', (req, res) => res.send("API Gateway"));
 
 router.get('/video',    videoService.getVideo);
+router.get('/video/dummy',    videoService.dummy);
 router.post('/video/views',    videoService.postVideoViews);
 
 router.get('/live',     channelService.getChannel);

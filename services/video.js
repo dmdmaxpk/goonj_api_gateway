@@ -123,7 +123,7 @@ exports.getVideo = async (req, res) => {
 	res.send(result);
 }
 
-exports.dummy(req, res){
+exports.dummy = async(req, res) => {
 	console.log(req);
 	res.send("Dummy Response Sent");
 }
