@@ -132,3 +132,8 @@ exports.postVideoViews = async (req, res) => {
     let {data} = await axios.post(`${config.goonjService}/videoViews`, req.body);
     res.send(data);
 }
+
+exports.recommendations = async (req, res) => {
+    let {data} = await axios.get(`${config.goonjService}/video/recommended?_id=${req.query._id}`);
+    res.send(data);
+}

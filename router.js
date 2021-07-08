@@ -21,6 +21,7 @@ router.get('/', (req, res) => res.send("API Gateway"));
 router.get('/video',    videoService.getVideo);
 router.get('/video/dummy',    videoService.dummy);
 router.post('/video/views',    videoService.postVideoViews);
+router.post('/video/recommendations',    videoService.recommendation);
 
 router.get('/live',     channelService.getChannel);
 router.get('/category',     categoryService.getCategory);
