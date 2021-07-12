@@ -54,10 +54,10 @@ exports.getChannel = async (req, res) => {
 }
 
 exports.postChannelViews = async (req, res) => {
-	res.send("Done");
+	// res.send("Done");
 	
-	//let {data} = await axios.post(`${config.goonjService}/channelViews`, req.body);
-    //res.send(data);
+	let {data} = await axios.post(`${config.goonjService}/channelViews`, req.body);
+    res.send(data);
 }
 
 exports.channelCategoryWise = async (req,res) => {
