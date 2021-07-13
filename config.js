@@ -9,7 +9,8 @@ let config = {
         paymentService: 'http://127.0.0.1:5000',
         loggingService: 'http://127.0.0.1:8000',
         goonjService: 'http://127.0.0.1:3000',
-        feedbackService: 'http://127.0.0.1:5006'
+        feedbackService: 'http://127.0.0.1:5006',
+        recommenderService: 'http://210.56.27.69:3456'
     },
     staging: {
         port: process.env.PORT,
@@ -19,7 +20,8 @@ let config = {
         paymentService: process.env.PAYMENT_SERVICE,
         loggingService: process.env.PAYWALL_LOGGING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE,
-        feedbackService: process.env.FEEDBACK_SERVICE
+        feedbackService: process.env.FEEDBACK_SERVICE,
+        recommenderService: process.env.RECOMMENDER_SERVICE
     },
     production: {
         port: process.env.PORT,
@@ -29,7 +31,8 @@ let config = {
         paymentService: process.env.PAYMENT_SERVICE,
         loggingService: process.env.PAYWALL_LOGGING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE,
-        feedbackService: process.env.FEEDBACK_SERVICE
+        feedbackService: process.env.FEEDBACK_SERVICE,
+        recommenderService: process.env.RECOMMENDER_SERVICE
     }
 };
 

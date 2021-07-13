@@ -128,12 +128,31 @@ exports.dummy = async(req, res) => {
 	res.send("Dummy Response Sent");
 }
 
-exports.postVideoViews = async (req, res) => {
-    let {data} = await axios.post(`${config.goonjService}/videoViews`, req.body);
-    res.send(data);
+exports.recommendations = async (req, res) => {
+	if(req.query._id){
+		axios.post(`${config.goonjService}/video/recommended?_id=${req.query._id}`)
+			.then(function (response) {
+				res.send(response.data);
+			}).catch(err => {
+			console.log('recommendations - Error: ', err);
+			res.send({'code': -1, 'message': 'Error while computing recommendations!', details: err.message});
+		});
+	}
+	else if (req.query._id && req.query.msisdn){
+		axios.post(`${config.recommenderService}/user_history_wise_recommendations?video_id=${req.query._id}&msisdn=${req.query.msisdn}`)
+			.then(function (response) {
+				res.send(response.data);
+			}).catch(err => {
+			console.log('recommendations - Error: ', err);
+			res.send({'code': -1, 'message': 'Error while computing recommendations!', details: err.message});
+		});
+	}
+	else{
+		res.send({'code': -1, 'message': 'Invalid query string params'});
+	}
 }
 
-exports.recommendations = async (req, res) => {
-    let {data} = await axios.get(`${config.goonjService}/video/recommended?_id=${req.query._id}`);
+exports.postVideoViews = async (req, res) => {
+    let {data} = await axios.post(`${config.goonjService}/videoViews`, req.body);
     res.send(data);
 }
