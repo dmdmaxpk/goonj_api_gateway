@@ -130,7 +130,7 @@ exports.dummy = async(req, res) => {
 
 exports.recommendations = async (req, res) => {
 	if (req.query.id && req.query.msisdn){
-		axios.post(`${config.recommenderService}/user_history_wise_recommendations?video_id=${req.query.id}&msisdn=${req.query.msisdn}`)
+		axios.get(`${config.recommenderService}/user_history_wise_recommendations?video_id=${req.query.id}&msisdn=${req.query.msisdn}`)
 			.then(function (response) {
 				res.send(response.data);
 			}).catch(err => {
@@ -139,7 +139,7 @@ exports.recommendations = async (req, res) => {
 		});
 	}
 	else if(req.query.id){
-		axios.post(`${config.goonjService}/video/recommended?_id=${req.query.id}`)
+		axios.get(`${config.goonjService}/video/recommended?_id=${req.query.id}`)
 			.then(function (response) {
 				res.send(response.data);
 			}).catch(err => {
