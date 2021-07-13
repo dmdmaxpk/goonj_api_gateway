@@ -129,8 +129,8 @@ exports.dummy = async(req, res) => {
 }
 
 exports.recommendations = async (req, res) => {
-	if(req.query._id){
-		axios.post(`${config.goonjService}/video/recommended?_id=${req.query._id}`)
+	if (req.query._id && req.query.msisdn){
+		axios.post(`${config.recommenderService}/user_history_wise_recommendations?video_id=${req.query._id}&msisdn=${req.query.msisdn}`)
 			.then(function (response) {
 				res.send(response.data);
 			}).catch(err => {
@@ -138,8 +138,8 @@ exports.recommendations = async (req, res) => {
 			res.send({'code': -1, 'message': 'Error while computing recommendations!', details: err.message});
 		});
 	}
-	else if (req.query._id && req.query.msisdn){
-		axios.post(`${config.recommenderService}/user_history_wise_recommendations?video_id=${req.query._id}&msisdn=${req.query.msisdn}`)
+	else if(req.query._id){
+		axios.post(`${config.goonjService}/video/recommended?_id=${req.query._id}`)
 			.then(function (response) {
 				res.send(response.data);
 			}).catch(err => {
