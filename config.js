@@ -21,7 +21,7 @@ let config = {
         loggingService: process.env.PAYWALL_LOGGING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE,
         feedbackService: process.env.FEEDBACK_SERVICE,
-        recommenderService: process.env.RECOMMENDER_SERVICE
+        recommenderService: 'http://210.56.27.69:3456'
     },
     production: {
         port: process.env.PORT,
@@ -32,7 +32,7 @@ let config = {
         loggingService: process.env.PAYWALL_LOGGING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE,
         feedbackService: process.env.FEEDBACK_SERVICE,
-        recommenderService: process.env.RECOMMENDER_SERVICE
+        recommenderService: 'http://210.56.27.69:3456'
     }
 };
 

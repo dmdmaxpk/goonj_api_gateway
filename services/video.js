@@ -137,8 +137,7 @@ exports.recommendations = async (req, res) => {
 			console.log('recommendations - Error: ', err);
 			res.send({'code': -1, 'message': 'Error while computing recommendations!', details: err.message});
 		});
-	}
-	else if(req.query.id){
+	}else if(req.query.id){
 		axios.get(`${config.goonjService}/video/recommended?_id=${req.query.id}`)
 			.then(function (response) {
 				res.send(response.data);
