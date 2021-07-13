@@ -150,6 +150,7 @@ exports.recommendations = async (req, res) => {
 	else{
 		res.send({'code': -1, 'message': 'Invalid query string params'});
 	}
+
 }
 
 exports.postVideoViews = async (req, res) => {
