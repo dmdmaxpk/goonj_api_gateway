@@ -129,7 +129,15 @@ exports.dummy = async(req, res) => {
 }
 
 exports.recommendations = async (req, res) => {
-	if (req.query.id && req.query.msisdn){
+	if (req.query.id && req.query.mode === 'collaborative'){
+		axios.get(`${config.recommenderService}/user_collaborative_recommendations?user_id=${req.query.id}&mode=${req.query.mode}`)
+			.then(function (response) {
+				res.send(response.data);
+			}).catch(err => {
+			console.log('recommendations - Error: ', err);
+			res.send({'code': -1, 'message': 'Error while computing recommendations!', details: err.message});
+		});
+	}else if (req.query.id && req.query.msisdn){
 		axios.get(`${config.recommenderService}/user_history_wise_recommendations?video_id=${req.query.id}&msisdn=${req.query.msisdn}`)
 			.then(function (response) {
 				res.send(response.data);
