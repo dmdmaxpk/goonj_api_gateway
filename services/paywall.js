@@ -199,9 +199,10 @@ exports.getPackages = async (req,res) => {
 		query_id = "&id="+req.query.id;
 	};
 
-	let final = `${config.microservices.core_service}/package${query_slug}${query_is_default}${query_id}`;
+	let final = `${config.microservices.core_service}/package/all${query_slug}${query_is_default}${query_id}`;
 
 	let { data } = await axios.get(final);
+	console.log(data);
 
 	res.send(data);
 }
