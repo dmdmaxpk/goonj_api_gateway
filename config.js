@@ -1,10 +1,10 @@
 const env = process.env.NODE_ENV || 'development';
 
 let microservices = {
-    core_service: 'http://127.0.0.1:3000/',
-    user_or_otp_service: 'http://127.0.0.1:3007/',
-    subscription_service: 'http://127.0.0.1:3004/',
-    billing_history_service: 'http://127.0.0.1:3008/',
+    core_service: 'http://127.0.0.1:3000',
+    user_or_otp_service: 'http://127.0.0.1:3007',
+    subscription_service: 'http://127.0.0.1:3004',
+    billing_history_service: 'http://127.0.0.1:3008',
 }
 
 
