@@ -14,7 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', router);
 
 app.use(cors({
-    origin: '*'
+    origin: '*',
+    allowedHeaders: "*",
+    methods: "*"
 }));
 
 let db;
