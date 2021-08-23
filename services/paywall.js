@@ -6,12 +6,12 @@ const router = require('../router');
 exports.sendOtp = async (req,res) => {
 	const transaction_id = getTransactinId();
 	const post = req.body;
-	post.transaction_id = transaction_id;
+	post.gw_transaction_id = transaction_id;
 
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'sendOtp', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/otp/send`, post)
+	axios.post(`${config.microservices.user_or_otp_service}/otp/send`, post)
 	.then(function (data) {
 
 		// Sending response to logging system
@@ -26,12 +26,12 @@ exports.sendOtp = async (req,res) => {
 exports.verifyOtp = async (req,res) => {
 	const transaction_id = getTransactinId();
 	const post = req.body;
-	post.transaction_id = transaction_id;
+	post.gw_transaction_id = transaction_id;
 
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'verifyOtp', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/otp/verify`, post);
+	let { data } = await axios.post(`${config.microservices.user_or_otp_service}/otp/verify`, post);
 
 	// Sending response to logging system
 	sendResBody(data);
@@ -39,13 +39,13 @@ exports.verifyOtp = async (req,res) => {
 	res.send(data);
 }
 
-exports.subcribe = async (req,res) => {
+exports.subscribe = async (req,res) => {
 	if(req && req.socket.destroyed){
 		res.send({code: -1, message: "Socket Destroyed"});
 	}else{
 		const transaction_id = getTransactinId();
 		const post = req.body;
-		post.transaction_id = transaction_id;
+		post.gw_transaction_id = transaction_id;
 
 		let token = req.headers.authorization;
 		let headers = {"Content-Type": "application/json"};
@@ -56,7 +56,7 @@ exports.subcribe = async (req,res) => {
 		// Sending request to logging system
 		sendReqBody(req, req.body, 'subscribe', transaction_id);
 
-		axios.post(`${config.paymentService}/payment/subscribe`, post, {headers:headers})
+		axios.post(`${config.microservices.subscription_service}/subscription/subscribe`, post, {headers:headers})
 		.then(function (data) {
 
 			// Sending response to logging system
@@ -70,11 +70,8 @@ exports.subcribe = async (req,res) => {
 }
 
 exports.refresh = async (req,res) => {
-	
 	const post = req.body;
-	
-	let { data } = await axios.post(`${config.paymentService}/auth/refresh`, post);
-	
+	let { data } = await axios.post(`${config.microservices.core_service}/auth/refresh`, post);
 	res.send(data);
 }
 
@@ -82,12 +79,12 @@ exports.recharge = async (req,res) => {
 	const transaction_id = getTransactinId();
 
 	const post = req.body;
-	post.transaction_id = transaction_id;
+	post.gw_transaction_id = transaction_id;
 
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'recharge', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/recharge`, post)
+	axios.post(`${config.microservices.subscription_service}/subscription/recharge`, post)
 	.then(function (data) {
 
 		// Sending response to logging system
@@ -103,12 +100,12 @@ exports.status = async (req,res) => {
 	const transaction_id = getTransactinId();
 
 	const post = req.body;
-	post.transaction_id = transaction_id;
+	post.gw_transaction_id = transaction_id;
 
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'status', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/payment/status`, post);
+	let { data } = await axios.post(`${config.microservices.subscription_service}/subscription/status`, post);
 
 	// Sending response to logging system
 	sendResBody(data);
@@ -119,7 +116,7 @@ exports.status = async (req,res) => {
 exports.unsubscribe = async (req,res) => {
 	const transaction_id = getTransactinId();
 	const post = req.body;
-	post.transaction_id = transaction_id;
+	post.gw_transaction_id = transaction_id;
 
 	let token = req.headers.authorization;
 	let headers = {"Content-Type": "application/json"};
@@ -130,7 +127,7 @@ exports.unsubscribe = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/unsubscribe`, post, {headers:headers})
+	axios.post(`${config.microservices.subscription_service}/subscription/unsubscribe`, post, {headers:headers})
 	.then(function (data) {
 
 		// Sending response to logging system
@@ -143,7 +140,7 @@ exports.unsubscribe = async (req,res) => {
 }
 
 exports.sms_unsub = async (req,res) => {
-	axios.post(`${config.paymentService}/payment/sms-unsub`, req.body)
+	axios.post(`${config.microservices.subscription_service}/subscription/sms-unsub`, req.body)
 	.then(function (data) {
 		res.send(data.data);
 	}).catch(err => {
@@ -155,7 +152,7 @@ exports.sms_unsub = async (req,res) => {
 exports.ccd_unsubscribe = async (req,res) => {
 	const transaction_id = getTransactinId();
 	const post = req.body;
-	post.transaction_id = transaction_id;
+	post.gw_transaction_id = transaction_id;
 
 	let token = req.headers.authorization;
 	let headers = {"Content-Type": "application/json"};
@@ -166,7 +163,7 @@ exports.ccd_unsubscribe = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, req.body, 'unsubscribe', transaction_id);
 
-	axios.post(`${config.paymentService}/payment/ccd-unsubscribe`, post, {headers:headers})
+	axios.post(`${config.microservices.subscription_service}/subscription/ccd-unsubscribe`, post, {headers:headers})
 	.then(function (data) {
 
 		// Sending response to logging system
@@ -179,7 +176,6 @@ exports.ccd_unsubscribe = async (req,res) => {
 }
 
 exports.getPackages = async (req,res) => {
-	let route = "package";
 	
 	let query_slug = "";
 	let query_is_default = "";
@@ -203,33 +199,14 @@ exports.getPackages = async (req,res) => {
 		query_id = "&id="+req.query.id;
 	};
 
-	let final = `${config.paymentService}/${route}${query_slug}${query_is_default}${query_id}`;
-	console.log(final);
-
+	let final = `${config.microservices.core_service}/package${query_slug}${query_is_default}${query_id}`;
 	let { data } = await axios.get(final);
-
-	// Sending response to logging system
-	//sendResBody(data);
 
 	res.send(data);
 }
 
 exports.paywall = async (req,res) => {
-	// const transaction_id = getTransactinId();
-	// let source = req.query.source;
-
-	// if(!source){
-	// 	source = 'na';
-	// }
-
-	//Sending request to logging system
-	//sendReqBody(req, {source:source}, 'paywall', transaction_id);
-
-	let { data } = await axios.get(`${config.paymentService}/paywall`);
-
-	// Sending response to logging system
-	//sendResBody(data);
-
+	let { data } = await axios.get(`${config.microservices.core_service}/paywall`);
 	res.send(data);
 }
 
@@ -241,7 +218,7 @@ exports.login = async (req, res) => {
 	//Sending request to logging system
 	sendReqBody(req, postBody, 'ccd_login', transaction_id);
 
-	let { data } = await axios.post(`${config.paymentService}/goonj/login`, postBody);
+	let { data } = await axios.post(`${config.microservices.core_service}/goonj/login`, postBody);
 
 	// Sending response to logging system
 	sendResBody(data);
@@ -267,7 +244,7 @@ exports.ccd_unsub = async (req, res) => {
 	sendReqBody(req, tempPostBody, 'ccd_unsub', transaction_id);
 
 	try{
-		axios.post(`${config.paymentService}/goonj/unsubscribe`, postBody, {headers:headers})
+		axios.post(`${config.microservices.subscription_service}/subscription/unsubscribe`, postBody, {headers:headers})
 		.then(function (data) {
 			// Sending response to logging system
 			sendResBody(data.data);
@@ -304,7 +281,7 @@ exports.details = async (req, res) => {
 	//Sending request to logging system
 	sendReqBody(req, tempBody, 'ccd_details', transaction_id);
 
-	let { data } = await axios.get(`${config.paymentService}/ccd/details?msisdn=${msisdn}&transaction_id=${transaction_id}`, {headers:headers});
+	let { data } = await axios.get(`${config.microservices.subscription_service}/ccd/details?msisdn=${msisdn}&transaction_id=${transaction_id}`, {headers:headers});
 
 	// Sending response to logging system
 	sendResBody(data);
@@ -323,42 +300,16 @@ exports.getAllSubs = async (req, res) => {
 	//Sending request to logging system
 	sendReqBody(req, body, 'ccd_get_all_subs', transaction_id);
 
-	let { data } = await axios.get(`${config.paymentService}/payment/getAllSubs?msisdn=${msisdn}&transaction_id=${transaction_id}`);
+	let { data } = await axios.get(`${config.microservices.subscription_service}/subscription/getAllSubs?msisdn=${msisdn}&transaction_id=${transaction_id}`);
 
 	// Sending response to logging system
 	sendResBody(data);
 	res.send(data);
 }
 
-exports.getPackage = async (req,res) => {
-	
-	//const transaction_id = getTransactinId();
-	//let id = req.query.id;
-
-	// Sending request to logging system
-	//sendReqBody(req, req.query, 'package', transaction_id);
-
-	let { data } = await axios.get(`${config.paymentService}/package/${id}`);
-
-	// Sending response to logging system
-	//sendResBody(data);
-
-	res.send(data);
-}
-
 exports.update_package = async (req,res) => {
-	//const transaction_id = getTransactinId();
-
 	const post = req.body;
-
-	// Sending request to logging system
-	//sendReqBody(req, req.body, 'update_package', transaction_id);
-
-	let { data } = await axios.post(`${config.paymentService}/user/update_package`, post);
-	
-	// Sending response to logging system
-	//sendResBody(data);
-
+	let { data } = await axios.post(`${config.microservices.core_service}/package/update_package`, post);
 	res.send(data);
 }
 
@@ -374,7 +325,7 @@ exports.isGrayListed = async (req,res) => {
 	// Sending request to logging system
 	sendReqBody(req, obj, 'graylist', transaction_id);
 
-	let { data } = await axios.get(`${config.paymentService}/user/graylist/${msisdn}?transaction_id=${obj.transaction_id}&source=${obj.source}&package_id=${obj.package_id}`);
+	let { data } = await axios.get(`${config.microservices.user_or_otp_service}/user/graylist/${msisdn}?transaction_id=${obj.transaction_id}&source=${obj.source}&package_id=${obj.package_id}`);
 	
 	// Sending response to logging system
 	sendResBody(data);
@@ -383,7 +334,7 @@ exports.isGrayListed = async (req,res) => {
 }
 
 exports.revenue = async (req,res) => {
-	axios.get(`${config.paymentService}/report/rev`)
+	axios.get(`${config.microservices.billing_history_service}/report/rev`)
 	.then(function (data) {
 		res.send(data.data);
 	}).catch(err => {
@@ -393,7 +344,7 @@ exports.revenue = async (req,res) => {
 }
 
 exports.req_count = async (req,res) => {
-	await axios.get(`${config.paymentService}/report/req-count`)
+	await axios.get(`${config.microservices.billing_history_service}/report/req-count`)
 	.then(function (data) {
 		res.send(data.data);
 	}).catch(err => {
@@ -403,7 +354,7 @@ exports.req_count = async (req,res) => {
 }
 
 exports.billing_stats = async (req,res) => {
-	axios.get(`${config.paymentService}/report/billing/stats`)
+	axios.get(`${config.microservices.billing_history_service}/report/billing/stats`)
 	.then(function (data) {
 		res.send(data.data);
 	}).catch(err => {
@@ -415,7 +366,7 @@ exports.billing_stats = async (req,res) => {
 exports.revenue_stats = async (req,res) => {
     console.log('revenue_stats - day: ', req.query.day);
 
-    axios.get(`${config.paymentService}/report/revenue/stats?day=${req.query.day}`)
+    axios.get(`${config.microservices.billing_history_service}/report/revenue/stats?day=${req.query.day}`)
 	.then(function (data) {
 		res.send(data.data);
 	}).catch(err => {
@@ -507,23 +458,21 @@ function AddZero(num) {
 }
 
 exports.update_user = async (req,res) => {
-
 	const post = req.body;
 	const query = req.query;
-	let { data } = await axios.put(`${config.paymentService}/user`, post,{params: query});
+	let { data } = await axios.put(`${config.microservices.user_or_otp_service}/user`, post,{params: query});
 	res.send(data);
 }
 
 
 exports.mark_black_listed = async (req,res) => {
 	const post = req.body;
-	let { data } = await axios.post(`${config.paymentService}/user/mark-black-listed`, post);
+	let { data } = await axios.post(`${config.microservices.user_or_otp_service}/user/mark-black-listed`, post);
 	res.send(data);
 }
 
 exports.get_user = async (req,res) => {
-
 	const query = req.query;
-	let { data } = await axios.get(`${config.paymentService}/user`,{params: query});
+	let { data } = await axios.get(`${config.microservices.user_or_otp_service}/user`,{params: query});
 	res.send(data);
 }

@@ -8,7 +8,6 @@ const bannerService =  require('./services/banner');
 const anchorService =   require('./services/anchor');
 const programService =  require('./services/program');
 const topicService =    require('./services/topic');
-const userService =     require('./services/user');
 const configService =   require('./services/config');
 const searchService =   require('./services/search');
 const adImpression =    require('./services/ad_impression');
@@ -40,29 +39,25 @@ router.get('/search',   searchService.getSearch);
 
 router.get('/city',   cityService.getCities);
 
-// Paywall billing
-router.post('/user/sendOtp',            userService.sendOtp);
-router.get('/user/validateOtp',         userService.validateOtp);
-router.post('/user/subscribe',          userService.subscribe);
-router.get('/user/unsubscribe',         userService.unSubscribe);
-router.get('/user/unsub',         userService.unSub);
-router.get('/user/subscriptionStatus',  userService.subscriptionStatus);
-router.get('/user/packages',  			userService.packages);
-
 
 // Paywall version 2
+router.get('/package',            paywall.getPackages);
+router.get('/user/graylist/:msisdn', paywall.isGrayListed);
+router.get('/pageview',            paywall.pageView);
+router.get('/paywall', paywall.paywall);
+
 router.post('/payment/otp/send',            paywall.sendOtp);
 router.post('/payment/otp/verify',            paywall.verifyOtp);
-router.post('/payment/subscribe',            paywall.subcribe);
+router.post('/payment/subscribe',            paywall.subscribe);
 router.post('/payment/recharge',            paywall.recharge);
 router.post('/payment/status',            paywall.status);
 router.post('/auth/refresh',            paywall.refresh);
 router.post('/payment/unsubscribe',            paywall.unsubscribe);
 router.post('/payment/sms-unsub',            paywall.sms_unsub);
 router.post('/payment/ccd-unsubscribe',            paywall.ccd_unsubscribe);
-router.put('/user',            paywall.update_user);
-router.post('/user/mark-black-listed',            paywall.mark_black_listed);
-router.get('/user',            paywall.get_user);
+router.put('/user', paywall.update_user);
+router.post('/user/mark-black-listed', paywall.mark_black_listed);
+router.get('/user', paywall.get_user);
 
 
 
@@ -71,13 +66,6 @@ router.post('/ccd/login', paywall.login);
 router.post('/ccd/unsub', paywall.ccd_unsub);
 router.get('/ccd/details', paywall.details);
 router.get('/ccd/getAllSubs', paywall.getAllSubs);
-
-router.get('/package',            paywall.getPackages);
-//router.get('/package/:id',            paywall.unsubscribe);
-router.post('/user/update_package',            paywall.update_package);
-router.get('/user/graylist/:msisdn',            paywall.isGrayListed);
-router.get('/pageview',            paywall.pageView);
-router.get('/paywall', paywall.paywall);
 
 // Feedback Service
 router.get('/questions', paywall.getQuestion)
