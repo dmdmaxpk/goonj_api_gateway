@@ -10,7 +10,7 @@ let microservices = {
 
 let config = {
     development: {
-        port: '3000',
+        port: '5000',
         mongoDbUrl: 'mongodb://127.0.0.1:27017/telenor',
         dbName: 'telenor',
         billingService: 'http://127.0.0.1:5000',
@@ -24,7 +24,7 @@ let config = {
     },
 
     staging: {
-        port: process.env.PORT,
+        port: '5000',
         mongoDbUrl: process.env.MONGODB_URL,     // CMS
         dbName: process.env.MONGODB_NAME,
         billingService: process.env.BILLING_SERVICE,
@@ -38,7 +38,7 @@ let config = {
     },
     
     production: {
-        port: process.env.PORT,
+        port: '5000',
         mongoDbUrl: process.env.MONGODB_URL,     // CMS
         dbName: process.env.MONGODB_NAME,
         billingService: process.env.BILLING_SERVICE,
