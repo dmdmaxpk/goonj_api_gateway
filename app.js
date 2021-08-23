@@ -11,12 +11,13 @@ const app = express();
 app.use(swStats.getMiddleware({}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', router);
 
 app.use(cors({
     origin: '*',
     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH', 'OPTIONS']
 }));
+
+app.use('/', router);
 
 let db;
 
