@@ -422,13 +422,13 @@ function sendReqBody(req, body, method, transaction_id){
 	postObj.transaction_id = transaction_id;
 	postObj.service = 'paywall';
 	postObj.method = method;
-	//postObj.complete_body = req;
-	try {
-		axios.post(`${config.loggingService}/logger/logreq`, postObj);
-		console.log("[Requestsent]");
-	} catch (err) {
-		console.log("Error while sending logger request: ", err.message);
-	}
+
+	axios.post(`${config.loggingService}/logger/logreq`, postObj)
+	.then(function (data) {
+		console.log(data.data);
+	}).catch(err => {
+		console.log("Error while sending logger request: ",err.message);
+    });
 }
 
 function  sendResBody(res){
@@ -436,11 +436,13 @@ function  sendResBody(res){
 		const postObj = {};
 		postObj.transaction_id = res.gw_transaction_id;
 		postObj.res_body = res;
-		try{
-			axios.post(`${config.loggingService}/logger/logres`, postObj);
-		}catch(err){
-			console.log("Error while sending logger response: ", err.message);
-		}
+
+		axios.post(`${config.loggingService}/logger/logres`, postObj)
+		.then(function (data) {
+			console.log(data.data);
+		}).catch(err => {
+			console.log("Error while sending logger response: ",err.message);
+		});
 	}else{
 		console.log("No gw_transaction_id found in this object");
 	}
