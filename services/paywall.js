@@ -427,7 +427,7 @@ function sendReqBody(req, body, method, transaction_id){
 		axios.post(`${config.loggingService}/logger/logreq`, postObj);
 		console.log("[Requestsent]");
 	} catch (err) {
-		console.log("Error",err);
+		console.log("Error while sending logger request: ", err.message);
 	}
 }
 
@@ -436,7 +436,11 @@ function  sendResBody(res){
 		const postObj = {};
 		postObj.transaction_id = res.gw_transaction_id;
 		postObj.res_body = res;
-		axios.post(`${config.loggingService}/logger/logres`, postObj);
+		try{
+			axios.post(`${config.loggingService}/logger/logres`, postObj);
+		}catch(err){
+			console.log("Error while sending logger response: ", err.message);
+		}
 	}else{
 		console.log("No gw_transaction_id found in this object");
 	}
