@@ -5,17 +5,17 @@ const router = require('./router');
 const config = require('./config');
 const swStats = require('swagger-stats');
 
-const cors = require('cors');
+//const cors = require('cors');
 
 const app = express();
 app.use(swStats.getMiddleware({}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cors({
-    origin: '*',
-    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH', 'OPTIONS']
-}));
+// app.use(cors({
+//     origin: '*',
+//     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH', 'OPTIONS']
+// }));
 
 app.use('/', router);
 
