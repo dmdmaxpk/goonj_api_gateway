@@ -4,7 +4,7 @@ let microservices = {
     core_service: 'http://10.0.1.76:3000',
     user_or_otp_service: 'http://10.0.1.76:3007',
     subscription_service: 'http://10.0.1.76:3004',
-    billing_history_service: 'http://10.0.1.76:3008',
+    billing_history_service: 'http://10.0.1.88:3008',
 }
 
 let config = {
@@ -12,11 +12,10 @@ let config = {
         port: '3000',
         mongoDbUrl: 'mongodb://127.0.0.1:27017/telenor',     // CMS
         dbName: 'telenor',
-        billingService: 'http://127.0.0.1:5000',
-        paymentService: 'http://127.0.0.1:5000',
-        loggingService: 'http://127.0.0.1:8000',
-        goonjService: 'http://127.0.0.1:3000',
-        feedbackService: 'http://127.0.0.1:5006',
+
+        loggingService: 'http://10.0.1.76:8000',
+        goonjService: 'http://10.0.1.90:9090',
+        feedbackService: 'http://10.0.1.76:5006',
         recommenderService: 'http://210.56.27.69:3456',
         microservices: microservices
     },
@@ -24,11 +23,9 @@ let config = {
         port: '3000',
         mongoDbUrl: 'mongodb://127.0.0.1:27017/telenor',     // CMS
         dbName: 'telenor',
-        billingService: 'http://127.0.0.1:5000',
-        paymentService: 'http://127.0.0.1:5000',
-        loggingService: 'http://127.0.0.1:8000',
-        goonjService: 'http://127.0.0.1:3000',
-        feedbackService: 'http://127.0.0.1:5006',
+        loggingService: 'http://10.0.1.76:8000',
+        goonjService: 'http://10.0.1.90:9090',
+        feedbackService: 'http://10.0.1.76:5006',
         recommenderService: 'http://210.56.27.69:3456',
         microservices: microservices
     },
@@ -36,11 +33,9 @@ let config = {
         port: process.env.PORT,
         mongoDbUrl: process.env.MONGODB_URL,     // CMS
         dbName: process.env.MONGODB_NAME,
-        billingService: process.env.BILLING_SERVICE,
-        paymentService: process.env.PAYMENT_SERVICE,
-        loggingService: process.env.PAYWALL_LOGGING_SERVICE,
-        goonjService: process.env.GOONJ_SERVICE,
-        feedbackService: process.env.FEEDBACK_SERVICE,
+        loggingService: 'http://10.0.1.76:8000',
+        goonjService: 'http://10.0.1.90:9090',
+        feedbackService: 'http://10.0.1.76:5006',
         recommenderService: 'http://210.56.27.69:3456',
         microservices: microservices
     }
