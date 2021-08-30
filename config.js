@@ -1,5 +1,12 @@
 const env = process.env.NODE_ENV || 'development';
 
+let microservices = {
+    core_service: 'http://10.0.1.76:3000',
+    user_or_otp_service: 'http://10.0.1.76:3007',
+    subscription_service: 'http://10.0.1.76:3004',
+    billing_history_service: 'http://10.0.1.76:3008',
+}
+
 let config = {
     development: {
         port: '3000',
@@ -10,7 +17,8 @@ let config = {
         loggingService: 'http://127.0.0.1:8000',
         goonjService: 'http://127.0.0.1:3000',
         feedbackService: 'http://127.0.0.1:5006',
-        recommenderService: 'http://210.56.27.69:3456'
+        recommenderService: 'http://210.56.27.69:3456',
+        microservices: microservices
     },
     staging: {
         port: '3000',
@@ -21,7 +29,8 @@ let config = {
         loggingService: 'http://127.0.0.1:8000',
         goonjService: 'http://127.0.0.1:3000',
         feedbackService: 'http://127.0.0.1:5006',
-        recommenderService: 'http://210.56.27.69:3456'
+        recommenderService: 'http://210.56.27.69:3456',
+        microservices: microservices
     },
     production: {
         port: process.env.PORT,
@@ -32,7 +41,8 @@ let config = {
         loggingService: process.env.PAYWALL_LOGGING_SERVICE,
         goonjService: process.env.GOONJ_SERVICE,
         feedbackService: process.env.FEEDBACK_SERVICE,
-        recommenderService: 'http://210.56.27.69:3456'
+        recommenderService: 'http://210.56.27.69:3456',
+        microservices: microservices
     }
 };
 
