@@ -418,11 +418,12 @@ exports.isGrayListed = async (req,res) => {
 		obj.source = req.query.source;
 		obj.msisdn = req.params.msisdn;
 		obj.package_id = req.query.package_id;
+		obj.transaction_id = transaction_id;
 
 		// Sending request to logging system
 		sendReqBody(req, obj, 'graylist', transaction_id);
 
-		let { data } = await axios.get(`${config.microservices.user_or_otp_service}/user/graylist/${msisdn}?transaction_id=${obj.transaction_id}&source=${obj.source}&package_id=${obj.package_id}`);
+		let { data } = await axios.get(`${config.microservices.user_or_otp_service}/user/graylist/${msisdn}?transaction_id=${transaction_id}&source=${obj.source}&package_id=${obj.package_id}`);
 		
 		// Sending response to logging system
 		sendResBody(data);
