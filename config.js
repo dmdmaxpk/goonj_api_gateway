@@ -20,9 +20,10 @@ let config = {
         microservices: microservices
     },
     staging: {
-        port: '3000',
-        mongoDbUrl: 'mongodb://127.0.0.1:27017/telenor',     // CMS
-        dbName: 'telenor',
+        port: process.env.PORT,
+        mongoDbUrl: process.env.MONGODB_URL,     // CMS
+        dbName: process.env.MONGODB_NAME,
+
         loggingService: 'http://10.0.1.76:8000',
         goonjService: 'http://10.0.1.90:9090',
         feedbackService: 'http://10.0.1.76:5006',
@@ -33,6 +34,7 @@ let config = {
         port: process.env.PORT,
         mongoDbUrl: process.env.MONGODB_URL,     // CMS
         dbName: process.env.MONGODB_NAME,
+
         loggingService: 'http://10.0.1.76:8000',
         goonjService: 'http://10.0.1.90:9090',
         feedbackService: 'http://10.0.1.76:5006',
