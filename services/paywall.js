@@ -349,13 +349,13 @@ exports.details = async (req, res) => {
 
 		let tempBody = JSON.parse(JSON.stringify(body));
 
-		let token = req.headers.authorization;
+		//let token = req.headers.authorization;
 		let headers = {"Content-Type": "application/json"};
 		if(token){
 			headers = {"Content-Type": "application/json", "Authorization": `${token}`}
 		}
 
-		tempBody.headers = headers;
+		//tempBody.headers = headers;
 
 		//Sending request to logging system
 		sendReqBody(req, tempBody, 'ccd_details', transaction_id);
