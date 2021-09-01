@@ -5,6 +5,7 @@ let microservices = {
     user_or_otp_service: 'http://10.0.1.76:3007',
     subscription_service: 'http://10.0.1.76:3004',
     billing_history_service: 'http://10.0.1.88:3008',
+    sync_retrieval_service: 'http://10.0.1.88:3009',
 }
 
 let config = {
