@@ -318,7 +318,7 @@ exports.ccd_unsub = async (req, res) => {
 		sendReqBody(req, tempPostBody, 'ccd_unsub', transaction_id);
 
 		try{
-			axios.post(`${config.microservices.subscription_service}/subscription/unsubscribe`, postBody, {headers:headers})
+			axios.post(`${config.microservices.subscription_service}/subscription/ccd-unsubscribe`, postBody, {headers:headers})
 			.then(function (data) {
 				// Sending response to logging system
 				sendResBody(data.data);
