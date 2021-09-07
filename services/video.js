@@ -50,7 +50,7 @@ exports.getVideo = async (req, res) => {
 					]
 				})
 				.project({ 'active': 0, 'transcoding_status': 0, 'last_modified': 0, '__v': 0, 'pinned': 0 })		// Removing these fields from API
-				.sort({ publish_dtm: -1 })		// Sorting by publish_dtm desc
+				.sort({ pinned: -1, publish_dtm: -1 })		// Sorting by publish_dtm desc
 				.skip( Number(skip) || 0 )		// if provided in query param otherwise 0
 				.limit( Number(limit) || 16 )	// if provided in query param otherwise 16
 				.toArray();
@@ -72,7 +72,7 @@ exports.getVideo = async (req, res) => {
 					]
 				})
 				.project({ 'active': 0, 'transcoding_status': 0, 'last_modified': 0, '__v': 0, 'pinned': 0 })		// Removing these fields from API
-				.sort({ publish_dtm: -1 })		// Sorting by publish_dtm desc
+				.sort({ pinned: -1, publish_dtm: -1 })		// Sorting by publish_dtm desc
 				.skip( Number(skip) || 0 )		// if provided in query param otherwise 0
 				.limit( Number(limit) || 16 )	// if provided in query param otherwise 16
 				.toArray();
@@ -103,7 +103,7 @@ exports.getVideo = async (req, res) => {
 			result = await collection
 				.find({ active: true, category: 'premium' })	// Find all videos with category 'premium'
 				.project({ 'active': 0, 'transcoding_status': 0, 'last_modified': 0, '__v': 0, 'pinned': 0 })		// Removing these fields from API
-				.sort({ publish_dtm: -1 })		// Sorting by publish_dtm desc
+				.sort({ pinned: -1, publish_dtm: -1 })		// Sorting by publish_dtm desc
 				.skip( Number(skip) || 0 )		// if provided in query param otherwise 0
 				.limit( Number(limit) || 16 )	// if provided in query param otherwise 16
 				.toArray();
@@ -114,7 +114,7 @@ exports.getVideo = async (req, res) => {
 			result = await collection
 				.find(query)
 				.project({ 'active': 0, 'transcoding_status': 0, 'last_modified': 0, '__v': 0, 'pinned': 0 })		// Removing these fields from API
-				.sort({ publish_dtm: -1 })		// Sorting by publish_dtm desc
+				.sort({ pinned: -1, publish_dtm: -1 })		// Sorting by publish_dtm desc
 				.skip( Number(skip) || 0 )		// if provided in query param otherwise 0
 				.limit( Number(limit) || 16 )	// if provided in query param otherwise 16
 				.toArray();
