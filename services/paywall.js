@@ -663,3 +663,15 @@ exports.get_user = async (req,res) => {
 		res.send(err);
 	}
 }
+
+exports.midTodaySubs = async (req,res) => {
+	try{
+		const query = req.query;
+		let { data } = await axios.get(`${config.microservices.subscription_service}/subscription/affiliate-subscriptions-count?mid=${query.mid}`);
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}

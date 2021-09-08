@@ -59,6 +59,8 @@ router.put('/user', paywall.update_user);
 router.post('/user/mark-black-listed', paywall.mark_black_listed);
 router.get('/user', paywall.get_user);
 
+// Affiliate stats
+router.post('/affiliate/subscriptions-count',            paywall.midTodaySubs);
 
 
 //CCD
