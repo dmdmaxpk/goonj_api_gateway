@@ -59,6 +59,11 @@ router.put('/user', paywall.update_user);
 router.post('/user/mark-black-listed', paywall.mark_black_listed);
 router.get('/user', paywall.get_user);
 
+router.post('/user/create_user', paywall.createUser);
+router.put('/user/update_fcm_token', paywall.updateFcmToken);
+
+router.post('/preference/save', paywall.savePreference);
+
 // Affiliate stats
 router.get('/affiliate/subscriptions-count',            paywall.midTodaySubs);
 
