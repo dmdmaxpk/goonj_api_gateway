@@ -712,3 +712,15 @@ exports.savePreference = async (req,res) => {
 		res.send(err);
 	}
 }
+
+exports.updateNotificationOpenedCount = async (req,res) => {
+	try{
+		const query = req.query;
+		let { data } = await axios.put(`${config.microservices.user_or_otp_service}/notification/update?${query.id}`);
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}

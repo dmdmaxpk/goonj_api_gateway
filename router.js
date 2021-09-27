@@ -63,6 +63,7 @@ router.post('/user/create_user', paywall.createUser);
 router.put('/user/update_fcm_token', paywall.updateFcmToken);
 
 router.post('/preference/save', paywall.savePreference);
+router.post('/notification/update', paywall.updateNotificationOpenedCount);
 
 // Affiliate stats
 router.get('/affiliate/subscriptions-count',            paywall.midTodaySubs);
