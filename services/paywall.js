@@ -128,7 +128,7 @@ exports.recharge = async (req,res) => {
 
 exports.status = async (req,res) => {
 	try{
-		console.log("status header", req)
+		console.log("status header", req.headers)
 		console.log("----------------------------------- status header end -----------------------------------")
 		const transaction_id = getTransactinId();
 
