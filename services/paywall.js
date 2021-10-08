@@ -138,7 +138,7 @@ exports.status = async (req,res) => {
 		// Sending request to logging system
 		sendReqBody(req, req.body, 'status', transaction_id);
 
-		let { data } = await axios.post(`${config.microservices.subscription_service}/subscription/status`, post, {headers: {'x-forwarded-for': req._remoteAddress ? req._remoteAddress : 'custom-remoteAddress', 'user-agent': req.headers['user-agent'] ? req.headers['user-agent'] : 'custom-agent'}});
+		let { data } = await axios.post(`${config.microservices.subscription_service}/subscription/status`, post, {headers: {'x-forwarded-for': req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] : 'custom-remoteAddress', 'user-agent': req.headers['user-agent'] ? req.headers['user-agent'] : 'custom-agent'}});
 
 		// Sending response to logging system
 		sendResBody(data);
