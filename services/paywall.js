@@ -128,6 +128,8 @@ exports.recharge = async (req,res) => {
 
 exports.status = async (req,res) => {
 	try{
+		console.log("status header", req.headers)
+		console.log("status socket", req.socket)
 		const transaction_id = getTransactinId();
 
 		const post = req.body;
