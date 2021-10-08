@@ -63,7 +63,7 @@ exports.subscribe = async (req,res) => {
 			let token = req.headers.authorization;
 			let headers = {"Content-Type": "application/json"};
 			if(token){
-				headers = {"Content-Type": "application/json", "Authorization": `${token}`}
+				headers = {"Content-Type": "application/json", "Authorization": `${token}`, 'x-forwarded-for': req.headers['x-forwarded-for'], 'user-agent': req.headers['user-agent']}
 			}
 
 			// Sending request to logging system
