@@ -727,3 +727,15 @@ exports.updateNotificationOpenedCount = async (req,res) => {
 		res.send(err);
 	}
 }
+
+exports.activeUserLogs = async (req,res) => {
+	try{
+		const body = req.body;
+		let { data } = await axios.post(`${config.microservices.user_or_otp_service}/active-user-log`, body);
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}

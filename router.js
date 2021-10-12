@@ -65,6 +65,9 @@ router.put('/user/update_fcm_token', paywall.updateFcmToken);
 router.post('/preference/save', paywall.savePreference);
 router.put('/notification/update', paywall.updateNotificationOpenedCount);
 
+router.post('/user/activity', paywall.activeUserLogs);
+
+
 // Affiliate stats
 router.get('/affiliate/subscriptions-count',            paywall.midTodaySubs);
 
