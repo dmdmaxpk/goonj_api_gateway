@@ -441,7 +441,7 @@ exports.isGrayListed = async (req,res) => {
 
 exports.revenue = async (req,res) => {
 	try{
-		axios.get(`${config.microservices.report_service}/report/rev`, {timeout: 10000 * 15})
+		axios.get(`${config.microservices.production_billing_history_service}/report/rev`, {timeout: 10000 * 15})
 		.then(data => {
 			res.send(data.data);
 		}).catch(err => {
@@ -457,7 +457,7 @@ exports.revenue = async (req,res) => {
 
 exports.req_count = async (req,res) => {
 	try{
-		await axios.get(`${config.microservices.report_service}/report/req-count`)
+		await axios.get(`${config.microservices.production_billing_history_service}/report/req-count`)
 		.then(function (data) {
 			res.send(data.data);
 		}).catch(err => {
@@ -473,7 +473,7 @@ exports.req_count = async (req,res) => {
 
 exports.billing_stats = async (req,res) => {
 	try{
-		axios.get(`${config.microservices.report_service}/report/billing/stats`)
+		axios.get(`${config.microservices.production_billing_history_service}/report/billing/stats`)
 		.then(function (data) {
 			res.send(data.data);
 		}).catch(err => {
