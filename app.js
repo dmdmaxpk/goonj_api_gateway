@@ -21,6 +21,7 @@ app.use('/', router);
 
 let db;
 
+
 // Initialize MongoDB connection
 MongoClient.connect(config.mongoDbUrl, { useNewUrlParser: true, poolSize: 10 }, function(err, client) {
     if(err) throw err;
