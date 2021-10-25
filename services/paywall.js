@@ -681,10 +681,10 @@ exports.midTodaySubs = async (req,res) => {
 
 exports.createUser = async (req,res) => {
 	try{
-		//const body = req.body;
-		//let { data } = await axios.post(`${config.microservices.user_or_otp_service}/user/create_user`, body);
-		//console.log(data)
-		let data = {_id: "null", user_id: "null"}
+		const body = req.body;
+		let { data } = await axios.post(`${config.microservices.user_or_otp_service}/user/create_user`, body);
+		console.log(data)
+		//let data = {_id: "null", user_id: "null"}
 		res.send(data);
 	}
 	catch(err){
@@ -732,9 +732,9 @@ exports.updateNotificationOpenedCount = async (req,res) => {
 
 exports.activeUserLogs = async (req,res) => {
 	try{
-		//const body = req.body;
-		//let { data } = await axios.post(`${config.microservices.user_or_otp_service}/active-user-log`, body);
-		let data = {code: 0, message: "Record inserted successfully!"};
+		const body = req.body;
+		let { data } = await axios.post(`${config.microservices.user_or_otp_service}/active-user-log`, body);
+		//let data = {code: 0, message: "Record inserted successfully!"};
 		res.send(data);
 	}
 	catch(err){
