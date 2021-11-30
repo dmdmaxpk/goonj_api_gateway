@@ -6,6 +6,7 @@ const config = require('./config');
 const swStats = require('swagger-stats');
 
 //const cors = require('cors');
+// added a comment
 
 const app = express();
 app.use(swStats.getMiddleware({}));
