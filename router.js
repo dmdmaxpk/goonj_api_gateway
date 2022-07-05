@@ -67,6 +67,10 @@ router.put('/notification/update', paywall.updateNotificationOpenedCount);
 
 router.post('/user/activity', paywall.activeUserLogs);
 
+router.get('/walee/link-click', paywall.linkClickWalee);
+router.get('/walee/pageview', paywall.pageviewWalee);
+router.post('/walee/subscription-success', paywall.successfulSubscriptionWalee);
+
 
 // Affiliate stats
 router.get('/affiliate/subscriptions-count',            paywall.midTodaySubs);

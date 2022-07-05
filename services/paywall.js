@@ -742,3 +742,40 @@ exports.activeUserLogs = async (req,res) => {
 		res.send(err);
 	}
 }
+
+exports.linkClickWalee = async (req,res) => {
+	try{
+		const query = req.query;
+		let { data } = await axios.get(`${config.microservices.subscription_service}/walee/link-click?utm_source=${query.utm_source}`);
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
+exports.pageviewWalee = async (req,res) => {
+	try{
+		const query = req.query;
+		let { data } = await axios.get(`${config.microservices.subscription_service}/walee/pageview?utm_source=${query.utm_source}`);
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
+exports.successfulSubscriptionWalee = async (req,res) => {
+	try{
+		const query = req.query;
+		const body = req.body;
+		let { data } = await axios.post(`${config.microservices.subscription_service}/walee/subscription-success?utm_source=${query.utm_source}`, body);
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
