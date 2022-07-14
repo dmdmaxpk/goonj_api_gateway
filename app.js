@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const router = require('./router');
 const config = require('./config');
 const swStats = require('swagger-stats');
-const cors = require('cors');
+// const cors = require('cors');
 
 // added a comment
 
@@ -13,7 +13,7 @@ app.use(swStats.getMiddleware({}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cors({ origin: "*" }));
+// app.use(cors({ origin: "*" }));
 // app.use(cors({
 //     origin: '*',
 //     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH', 'OPTIONS']
