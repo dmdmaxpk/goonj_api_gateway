@@ -746,7 +746,7 @@ exports.activeUserLogs = async (req,res) => {
 exports.linkClickWalee = async (req,res) => {
 	try{
 		const query = req.query;
-		let { data } = await axios.get(`${config.microservices.subscription_service}/walee/link-click?utm_source=${query.utm_source}`);
+		let { data } = axios.get(`${config.microservices.subscription_service}/walee/link-click?utm_source=${query.utm_source}`);
 		// res.send(data);
 		res.send({message: 'success'})
 	}
