@@ -13,7 +13,7 @@ app.use(swStats.getMiddleware({}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 // app.use(cors({
 //     origin: '*',
 //     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH', 'OPTIONS']
