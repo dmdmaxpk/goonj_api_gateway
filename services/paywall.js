@@ -739,7 +739,7 @@ exports.createUser = async (req,res) => {
 		const body = req.body;
 		let { data } = await axios.post(`${config.microservices.user_or_otp_service}/user/create_user`, body);
 		console.log(data)
-		//let data = {_id: "null", user_id: "null"}
+		// let data = {_id: "null", user_id: "null"}
 		res.send(data);
 	}
 	catch(err){
@@ -764,7 +764,7 @@ exports.savePreference = async (req,res) => {
 	try{
 		const body = req.body;
 		let { data } = await axios.post(`${config.microservices.user_or_otp_service}/preference/save`, body);
-		//let data = {code: 0, message: "Record inserted successfully!"};
+		// let data = {code: 0, message: "Record inserted successfully!"};
 		res.send(data);
 	}
 	catch(err){
@@ -789,7 +789,45 @@ exports.activeUserLogs = async (req,res) => {
 	try{
 		const body = req.body;
 		let { data } = await axios.post(`${config.microservices.user_or_otp_service}/active-user-log`, body);
-		//let data = {code: 0, message: "Record inserted successfully!"};
+		// let data = {code: 0, message: "Record inserted successfully!"};
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
+exports.linkClickWalee = async (req,res) => {
+	try{
+		const query = req.query;
+		let { data } = axios.get(`${config.microservices.subscription_service}/walee/link-click?utm_source=${query.utm_source}`);
+		// res.send(data);
+		res.send({message: 'success'})
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
+exports.pageviewWalee = async (req,res) => {
+	try{
+		const query = req.query;
+		let { data } = await axios.get(`${config.microservices.subscription_service}/walee/pageview?utm_source=${query.utm_source}`);
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
+exports.successfulSubscriptionWalee = async (req,res) => {
+	try{
+		const query = req.query;
+		const body = req.body;
+		let { data } = await axios.post(`${config.microservices.subscription_service}/walee/subscription-success?utm_source=${query.utm_source}`, body);
 		res.send(data);
 	}
 	catch(err){
