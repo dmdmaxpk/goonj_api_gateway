@@ -88,6 +88,39 @@ exports.subscribe = async (req,res) => {
 	}
 }
 
+exports.subscribeNow = async (req,res) => {
+	try{
+		const transaction_id = getTransactinId();
+		const post = req.body;
+		post.gw_transaction_id = transaction_id;
+
+		let token = req.headers.authorization;
+		let headers = {"Content-Type": "application/json"};
+		if(token){
+			headers = {"Content-Type": "application/json", "Authorization": `${token}`, 'x-forwarded-for': req.headers['x-forwarded-for'], 'user-agent': req.headers['user-agent']}
+			console.log("headers", headers);
+		}
+
+		// Sending request to logging system
+		sendReqBody(req, req.body, 'subscribeNow', transaction_id);
+
+		axios.post(`${config.microservices.subscription_service}/subscription/subscribeNow`, post, {headers:headers})
+		.then(function (data) {
+
+			// Sending response to logging system
+			sendResBody(data.data);
+			res.send(data.data);
+		}).catch(err => {
+			console.log('subscribe - Error: ', err);
+			res.send({'code': -1, 'message': 'SubscribeNow Request error!'});
+		});
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
 exports.refresh = async (req,res) => {
 	try{
 		const post = req.body;
@@ -144,6 +177,28 @@ exports.status = async (req,res) => {
 		// Sending response to logging system
 		sendResBody(data);
 
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
+exports.checkStatus = async (req,res) => {
+	try{
+		const transaction_id = getTransactinId();
+
+		const post = req.body;
+		post.gw_transaction_id = transaction_id;
+
+		// Sending request to logging system
+		sendReqBody(req, req.body, 'checkStatus', transaction_id);
+
+		let { data } = await axios.post(`${config.microservices.subscription_service}/subscription/checkStatus`, post, {headers: {'x-forwarded-for': req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] : 'custom-remoteAddress', 'user-agent': req.headers['user-agent'] ? req.headers['user-agent'] : 'custom-agent'}});
+
+		// Sending response to logging system
+		sendResBody(data);
 		res.send(data);
 	}
 	catch(err){
