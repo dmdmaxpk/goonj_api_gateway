@@ -180,6 +180,7 @@ exports.postVideoViews = async (req, res) => {
 
 exports.addAsNext = async (req, res) => {
 	try {
+		const { db } = req.app.locals;
 		const {_id, subCategory} = req.body;
 		const Video = db.collection('videos');
 	
