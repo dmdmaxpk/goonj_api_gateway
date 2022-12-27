@@ -182,22 +182,23 @@ exports.addAsNext = async (req, res) => {
 	try {
 		const { db } = req.app.locals;
 		const {_id, subCategory} = req.body;
-		const Video = db.collection('videos');
+		const collection = db.collection('videos');
 	
-		let lastEpisode = await Video.find({sub_category: subCategory}).sort({episode: -1});
+		let lastEpisode = await collection.find({sub_category: subCategory}).sort({episode: -1});
+		console.log('lastEpisode', lastEpisode);
 		lastEpisode = lastEpisode.length > 0 ? lastEpisode[0] : undefined;
 		
 		let episodeNumber
 		if (lastEpisode && lastEpisode.episode) episodeNumber = Number(lastEpisode.episode) + 1;
 		else episodeNumber = 1;
 	
-		const result = await Video.findOneAndUpdate({_id}, {$set: {episode: episodeNumber, last_episode: lastEpisode ? lastEpisode._id : undefined} });
-	
+		const result = await collection.findOneAndUpdate({_id}, {$set: {episode: episodeNumber, last_episode: lastEpisode ? lastEpisode._id : undefined} });
+		console.log('result', result);
 		let updateLastEpisode;
 		if (lastEpisode._id !== _id) {
-			updateLastEpisode = await Video.findOneAndUpdate({_id: lastEpisode._id}, {$set: {next_video: _id}});
+			updateLastEpisode = await collection.findOneAndUpdate({_id: lastEpisode._id}, {$set: {next_video: _id}});
+			console.log('updateLastEpisode', updateLastEpisode);
 		}
-	
 		res.send({lastVideo: updateLastEpisode, currentVideo: result});
 	} catch (err) {
 		console.log('err', err);
