@@ -21,6 +21,7 @@ router.get('/video',    videoService.getVideo);
 router.get('/video/dummy',    videoService.dummy);
 router.post('/video/views',    videoService.postVideoViews);
 router.get('/video/recommendations',    videoService.recommendations);
+router.post('/video/link',    videoService.addAsNext);
 
 router.get('/live',     channelService.getChannel);
 router.get('/category',     categoryService.getCategory);
