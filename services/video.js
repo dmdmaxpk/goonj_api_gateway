@@ -179,22 +179,27 @@ exports.postVideoViews = async (req, res) => {
 }
 
 exports.addAsNext = async (req, res) => {
-	const {_id, subCategory} = req.body;
-	const Video = db.collection('videos');
-
-	let lastEpisode = await Video.find({sub_category: subCategory}).sort({episode: -1});
-	lastEpisode = lastEpisode.length > 0 ? lastEpisode[0] : undefined;
+	try {
+		const {_id, subCategory} = req.body;
+		const Video = db.collection('videos');
 	
-	let episodeNumber
-	if (lastEpisode && lastEpisode.episode) episodeNumber = Number(lastEpisode.episode) + 1;
-	else episodeNumber = 1;
-
-	const result = await Video.updateOne({_id}, {episode: episodeNumber, last_episode: lastEpisode ? lastEpisode._id : undefined});
-
-	let updateLastEpisode;
-	if (lastEpisode._id !== _id) {
-		updateLastEpisode = await Video.updateOne({_id: lastEpisode._id}, {next_video: _id});
+		let lastEpisode = await Video.find({sub_category: subCategory}).sort({episode: -1});
+		lastEpisode = lastEpisode.length > 0 ? lastEpisode[0] : undefined;
+		
+		let episodeNumber
+		if (lastEpisode && lastEpisode.episode) episodeNumber = Number(lastEpisode.episode) + 1;
+		else episodeNumber = 1;
+	
+		const result = await Video.findOneAndUpdate({_id}, {$set: {episode: episodeNumber, last_episode: lastEpisode ? lastEpisode._id : undefined} });
+	
+		let updateLastEpisode;
+		if (lastEpisode._id !== _id) {
+			updateLastEpisode = await Video.findOneAndUpdate({_id: lastEpisode._id}, {$set: {next_video: _id}});
+		}
+	
+		res.send({lastVideo: updateLastEpisode, currentVideo: result});
+	} catch (err) {
+		console.log('err', err);
+		res.send(err)
 	}
-
-	res.send({lastVideo: updateLastEpisode, currentVideo: result});
 }
