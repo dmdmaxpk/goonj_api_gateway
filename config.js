@@ -4,6 +4,7 @@ let microservices = {
     core_service: 'http://10.0.1.76:3000',
     user_or_otp_service: 'http://10.0.1.76:3007',
     subscription_service: 'http://10.0.1.76:3004',
+    subscription_renewal_service: 'http://10.0.1.76:3005',
     billing_history_service: 'http://10.0.1.88:3008',
     sync_retrieval_service: 'http://10.0.1.88:3009',
     report_service: 'http://10.0.1.88:3011',

@@ -1,7 +1,44 @@
 const axios = require('axios');
 const config = require('../config');
 var uniqid = require('uniqid');
-const router = require('../router');
+
+exports.chargingCallback = async (req,res) => {
+	try{
+		// check for basic auth header
+		if (!req.headers.authorization || req.headers.authorization.indexOf('Basic ') === -1) {
+			return res.status(401).json({ message: 'Missing authorization header' });
+		}
+
+		// verify auth credentials
+		const base64Credentials =  req.headers.authorization.split(' ')[1];
+		const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+		const [username, password] = credentials.split(':');
+		const user = username === '24cwKGP23!' && password === 'YzY+Ef3g6B{PHT}B8Fvz' ? true : false;
+		if (!user) {
+			return res.status(401).json({ message: 'Invalid authentication credentials' });
+		}
+
+		const transaction_id = getTransactinId();
+		const post = req.body;
+		post.gw_transaction_id = transaction_id;
+
+		// Sending request to logging system
+		sendReqBody(req, req.body, 'charging-callback', transaction_id);
+
+		axios.post(`${config.microservices.subscription_renewal_service}/callback/charging-callback`, post).then(function (data) {
+			// Sending response to logging system
+			sendResBody(data.data);
+			res.send(data.data);
+		}).catch(err => {
+			console.log('sendOtp - Error: ', err);
+			res.status(err.statusCode ? err.statusCode : 500).send(err.message ? err.message : 'Internal server error');
+		});
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
 
 exports.sendOtp = async (req,res) => {
 	try{
@@ -90,6 +127,7 @@ exports.subscribe = async (req,res) => {
 
 exports.subscribeNow = async (req,res) => {
 	try{
+		
 		const transaction_id = getTransactinId();
 		const post = req.body;
 		post.gw_transaction_id = transaction_id;

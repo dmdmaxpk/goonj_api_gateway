@@ -47,6 +47,7 @@ router.get('/user/graylist/:msisdn', paywall.isGrayListed);
 router.get('/pageview',            paywall.pageView);
 router.get('/paywall', paywall.paywall);
 
+router.post('/callback/charging-callback', paywall.chargingCallback);
 router.post('/payment/otp/send',            paywall.sendOtp);
 router.post('/payment/otp/verify',            paywall.verifyOtp);
 router.post('/payment/subscribe',            paywall.subscribe);
