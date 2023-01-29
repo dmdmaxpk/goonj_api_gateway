@@ -2,6 +2,9 @@ const axios = require('axios');
 const config = require('../config');
 var uniqid = require('uniqid');
 
+/**
+ * '{"msisdn":"3468590478","serviceId":25,"status":"ACTIVE","channel":"SMS","subscriptionTime":"2022-04-22T13:23:40.297Z","renewalTime":"2022-04-28T19:00:00.000Z"}'
+ */
 exports.chargingCallback = async (req,res) => {
 	try{
 		// check for basic auth header
@@ -30,8 +33,8 @@ exports.chargingCallback = async (req,res) => {
 			sendResBody(data.data);
 			res.send(data.data);
 		}).catch(err => {
-			console.log('sendOtp - Error: ', err);
-			res.status(err.statusCode ? err.statusCode : 500).send(err.message ? err.message : 'Internal server error');
+			console.log('Callback - Error: ', err);
+			res.status(err.statusCode ? err.statusCode : 500).send(err.response.data ? err.response.data : 'Internal server error');
 		});
 	}
 	catch(err){
