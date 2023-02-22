@@ -92,6 +92,10 @@ exports.verifyOtp = async (req,res) => {
 }
 
 exports.subscribe = async (req,res) => {
+	const transaction_id = getTransactinId();
+	res.send({code: config.codes.code_trial_activated, message: 'Trial period activated!', gw_transaction_id: transaction_id});
+	
+	/*
 	try{
 		if(req && req.socket.destroyed){
 		res.send({code: -1, message: "Socket Destroyed"});
@@ -125,7 +129,7 @@ exports.subscribe = async (req,res) => {
 	catch(err){
 		console.log(err);
 		res.send(err);
-	}
+	}*/
 }
 
 exports.subscribeNow = async (req,res) => {
@@ -145,14 +149,14 @@ exports.subscribeNow = async (req,res) => {
 		// Sending request to logging system
 		sendReqBody(req, req.body, 'subscribeNow', transaction_id);
 
-		axios.post(`${config.microservices.subscription_service}/subscription/subscribeNow`, post, {headers:headers})
+		axios.post(`${config.microservices.subscription_service}/subscription/subscribe`, post, {headers:headers})
 		.then(function (data) {
 
 			// Sending response to logging system
 			sendResBody(data.data);
 			res.send(data.data);
 		}).catch(err => {
-			console.log('subscribe - Error: ', err);
+			console.log('subscribeNow - Error: ', err);
 			res.send({'code': -1, 'message': 'SubscribeNow Request error!'});
 		});
 	}
