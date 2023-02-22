@@ -93,7 +93,7 @@ exports.verifyOtp = async (req,res) => {
 
 exports.subscribe = async (req,res) => {
 	const transaction_id = getTransactinId();
-	res.send({code: config.codes.code_trial_activated, message: 'Trial period activated!', gw_transaction_id: transaction_id});
+	res.send({code: 11, message: 'Trial period activated!', gw_transaction_id: transaction_id});
 	
 	/*
 	try{
