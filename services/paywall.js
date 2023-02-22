@@ -92,10 +92,10 @@ exports.verifyOtp = async (req,res) => {
 }
 
 exports.subscribe = async (req,res) => {
-	const transaction_id = getTransactinId();
-	res.send({code: 11, message: 'Trial period activated!', gw_transaction_id: transaction_id});
+	// const transaction_id = getTransactinId();
+	// res.send({code: 11, message: 'Trial period activated!', gw_transaction_id: transaction_id});
 	
-	/*
+	
 	try{
 		if(req && req.socket.destroyed){
 		res.send({code: -1, message: "Socket Destroyed"});
@@ -129,7 +129,7 @@ exports.subscribe = async (req,res) => {
 	catch(err){
 		console.log(err);
 		res.send(err);
-	}*/
+	}
 }
 
 exports.subscribeNow = async (req,res) => {
