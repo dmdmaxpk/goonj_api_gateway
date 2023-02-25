@@ -149,7 +149,7 @@ exports.subscribeNow = async (req,res) => {
 		// Sending request to logging system
 		sendReqBody(req, req.body, 'subscribeNow', transaction_id);
 
-		axios.post(`${config.microservices.subscription_service}/subscription/subscribe`, post, {headers:headers})
+		axios.post(`${config.microservices.subscription_service}/subscription/subscribeNow`, post, {headers:headers})
 		.then(function (data) {
 
 			// Sending response to logging system
