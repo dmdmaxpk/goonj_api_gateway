@@ -51,6 +51,7 @@ router.post('/callback/charging-callback', paywall.chargingCallback);
 router.post('/payment/otp/send',            paywall.sendOtp);
 router.post('/payment/otp/verify',            paywall.verifyOtp);
 router.post('/payment/subscribe',            paywall.subscribeNow);
+router.post('/payment/cms-token',            paywall.cmsToken);
 router.post('/payment/subscribeNow',            paywall.subscribeNow);
 router.post('/payment/recharge',            paywall.recharge);
 router.post('/payment/status',            paywall.status);

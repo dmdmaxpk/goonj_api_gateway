@@ -132,6 +132,29 @@ exports.subscribe = async (req,res) => {
 	}
 }
 
+exports.cmsToken = async (req,res) => {
+	try{
+		const transaction_id = getTransactinId();
+		const post = req.body;
+		post.gw_transaction_id = transaction_id;
+
+		// Sending request to logging system
+		sendReqBody(req, req.body, 'cmsToken', transaction_id);
+
+		axios.post(`${config.microservices.core_service}/core/cms-token`, post)
+		.then(function (data) {
+			sendResBody(data.data);
+			res.send(data.data);
+		}).catch(err => {
+			console.log('cmsToken - error: ', err);
+			res.send({'code': -1, 'message': 'Failed to generate token'});
+		});
+	} catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
 exports.subscribeNow = async (req,res) => {
 	try{
 		
