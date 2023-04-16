@@ -2,6 +2,7 @@ const env = process.env.NODE_ENV || 'development';
 
 let microservices = {
     core_service: 'http://10.0.1.76:3000',
+    tp_ep_core_service: 'http://10.0.1.76:3001',
     user_or_otp_service: 'http://10.0.1.76:3007',
     subscription_service: 'http://10.0.1.76:3004',
     subscription_renewal_service: 'http://10.0.1.76:3005',

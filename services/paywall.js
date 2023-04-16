@@ -141,7 +141,7 @@ exports.cmsToken = async (req,res) => {
 		// Sending request to logging system
 		sendReqBody(req, req.body, 'cmsToken', transaction_id);
 
-		axios.post(`${config.microservices.core_service}/core/cms-token`, post)
+		axios.post(`${config.microservices.tp_ep_core_service}/core/cms-token`, post)
 		.then(function (data) {
 			sendResBody(data.data);
 			res.send(data.data);
