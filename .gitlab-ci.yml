@@ -9,17 +9,17 @@ variables:
 
 build:
   stage: build
-  image: docker:24.0.5
+  image: docker:19.03.1
   variables:
     DOCKER_DRIVER: overlay
     DOCKER_HOST: tcp://localhost:2375
     DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:24.0.5-dind
+    - docker:19.03.1-dind
   before_script:
     - docker info
-    - apk add --no-cache curl jq python py-pip
-    - pip install awscli
+    - apk add --no-cache curl jq python3 py-pip3
+    - pip3 install awscli
   script:
     - $(aws ecr get-login --no-include-email --region eu-central-1)
     - docker build -t $DOCKER_REGISTRY:$CI_COMMIT_TAG .
