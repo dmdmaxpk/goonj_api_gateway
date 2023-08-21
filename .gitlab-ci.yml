@@ -18,7 +18,7 @@ build:
     - docker:19.03.1-dind
   before_script:
     - docker info
-    - apk add --no-cache curl jq python3 py-pip3
+    - apk add --no-cache curl jq python3 py3-pip
     - pip3 install awscli
   script:
     - $(aws ecr get-login --no-include-email --region eu-central-1)
