@@ -9,13 +9,13 @@ variables:
 
 build:
   stage: build
-  image: docker:19.03.1
+  image: docker:24.0.5
   variables:
     DOCKER_DRIVER: overlay
     DOCKER_HOST: tcp://localhost:2375
     DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:19.03.1-dind
+    - docker:24.0.5-dind
   before_script:
     - docker info
     - apk add --no-cache curl jq python py-pip
