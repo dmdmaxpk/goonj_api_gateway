@@ -132,6 +132,24 @@ exports.subscribe = async (req,res) => {
 	}
 }
 
+exports.campaigns = async (req,res) => {
+	
+	const transaction_id = getTransactinId();
+	const post = req.body;
+	post.gw_transaction_id = transaction_id;
+	
+	sendReqBody(req, req.body, 'campaigns', transaction_id);
+
+	axios.post(`${config.microservices.subscription_service}/subscription/campaigns`, post)
+	.then(function (data) {
+		sendResBody(data.data);
+		res.send(data.data);
+	}).catch(err => {
+		console.log('campaigns - error: ', err);
+		res.send({'code': -1, 'message': 'Failed to save campaigns data'});
+	});
+}
+
 exports.cmsToken = async (req,res) => {
 	try{
 		const transaction_id = getTransactinId();
