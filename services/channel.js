@@ -20,7 +20,7 @@ exports.getChannel = async (req, res) => {
 		if (category) query.category = category;
 		if (!package_id) package_id = undefined;
 		
-		query.active = req.query.active === 'false' ? false : true; // returning inactive channels if req.query.active is false
+		// query.active = req.query.active === 'false' ? false : true; // returning inactive channels if req.query.active is false
 
 		let aggregationPipeline =  [];
 		// we need to unwind the package_id array and perform matching then regroup its
