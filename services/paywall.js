@@ -921,3 +921,15 @@ exports.successfulSubscriptionWalee = async (req,res) => {
 		res.send(err);
 	}
 }
+
+exports.consent = async (req, res) => {
+	try{
+		const body = req.body;
+		let { data } = await axios.post(`${config.microservices.tp_ep_core_service}/core/consent`, body);
+		res.send(data);
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
