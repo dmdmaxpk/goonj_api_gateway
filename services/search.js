@@ -7,9 +7,10 @@ exports.getSearch = async (req, res) => {
 		const query = {};
 		query.is_premium = is_premium;
 		if (term) query.term = term;
-
+		
 		let result;
 		let andArr = [];
+		if (req.query.category) andArr.push({ category:  {$in: req.query.category.split(',')} });
 		andArr.push({ active: true }) // Videos should be active
 		andArr.push({ $text: { $search: `\"${query.term}\"` }}) // Text search on Phrase. More info: https://docs.mongodb.com/manual/reference/operator/query/text/
 		if (is_premium) {
