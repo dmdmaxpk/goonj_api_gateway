@@ -12,7 +12,9 @@ exports.getSearch = async (req, res) => {
 		let andArr = [];
 		if (req.query.category) andArr.push({ category:  {$in: req.query.category.split(',')} });
 		andArr.push({ active: true }) // Videos should be active
-		andArr.push({ $text: { $search: `\"${query.term}\"` }}) // Text search on Phrase. More info: https://docs.mongodb.com/manual/reference/operator/query/text/
+		// andArr.push({ $text: { $search: `\"${query.term}\"` }}) // Text search on Phrase. More info: https://docs.mongodb.com/manual/reference/operator/query/text/
+		andArr.push({ title: { $regex: query.term, $options: 'i' } });
+
 		if (is_premium) {
 		} else {
 			andArr.push({ is_premium:{ $ne: true} })
